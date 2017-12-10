@@ -1,22 +1,21 @@
 package controller;
 
-import java.util.Arrays;
-
-import com.mongodb.*;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
-
 
 
 public class DBManager {
 
     /* Connect to the DB */
-    public static MongoDatabase dbConnect () {
+    public static MongoDatabase dbConnect() {
 
-        MongoCredential credential = MongoCredential.createCredential("mikesh", "tests", "test".toCharArray());
-        MongoClient mongoClient = new MongoClient(new ServerAddress("localhost", 27017), Arrays.asList(credential));
-        MongoDatabase db = mongoClient.getDatabase( "tests" );
+        MongoClientURI uri = new MongoClientURI("mongodb://valendrino:sonoscemo@80.183.230.129/?authSource=unnamedb");
+        MongoClient mongoClient = new MongoClient(uri);
+        MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
         return db;
+
     }
 
     public static void main(String[] args) {
