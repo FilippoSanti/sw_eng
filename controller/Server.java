@@ -1,13 +1,16 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import model.Robot;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
 
@@ -34,9 +37,10 @@ public class Server {
                 // Read the object - 100% illegal
                 robotList = (ArrayList<Robot>) ois.readObject();
 
-                for (int i = 0; i < robotList.size(); i++) {
-                    System.out.println(robotList.get(i).getSignal2());
-                }
+                // Write the results in the DB
+                DBManager.addObjectToDB(DBManager.dbConnect(), robotList);
+
+
             }
 
         } catch (Exception e) {

@@ -6,10 +6,15 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class inputSimulation {
+import static java.sql.Types.NULL;
+
+public class inputSimulation extends TimerTask {
 
     private static Socket socket;
 
@@ -18,6 +23,7 @@ public class inputSimulation {
         // Send the robots to conquer the world
         spawnRobots(100);
     }
+
 
     public static void spawnRobots(int nCluster) throws IOException {
 
@@ -34,6 +40,7 @@ public class inputSimulation {
 
         // Variables to identify a robot and its cluster
         int robot, cluster, signal, value, nRobots;
+        Timestamp timestamp = new Timestamp(NULL);
         nRobots = robot = cluster = signal = value = 0;
 
         InetAddress address = InetAddress.getByName(host);
@@ -72,33 +79,36 @@ public class inputSimulation {
 
                     // Generate signal S3
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    if (randomNum > 98) signals[1] = 0;
+                    if (randomNum > 98) signals[2] = 0;
                     else signals[2] = 1;
 
                     // Generate signal S4
                     randomNum = ThreadLocalRandom.current().nextInt(0, 200);
-                    if (randomNum > 198) signals[1] = 0;
+                    if (randomNum > 198) signals[3] = 0;
                     else signals[3] = 1;
 
                     // Generate signal S5
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    if (randomNum > 98) signals[1] = 0;
+                    if (randomNum > 98) signals[4] = 0;
                     else signals[4] = 1;
 
                     // Generate signal S6
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    if (randomNum > 98) signals[1] = 0;
+                    if (randomNum > 98) signals[5] = 0;
                     else signals[5] = 1;
 
                     // Generate signal S7
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    if (randomNum > 98) signals[1] = 0;
+                    if (randomNum > 98) signals[6] = 0;
                     else signals[6] = 1;
+
+                    //generate Timestamp
+                    timestamp = new Timestamp(System.currentTimeMillis());
                 }
 
                 // Create the robot object
                 Robot robotObj = new Robot(nRobots, cluster, signals[0], signals[1], signals[2], signals[3],
-                        signals[4], signals[5], signals[6]);
+                        signals[4], signals[5], signals[6], timestamp);
 
                 // Add the robot to a list
                 robotList.add(robotObj);
@@ -113,5 +123,14 @@ public class inputSimulation {
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
         System.out.println(elapsedTime + "ms");
+    }
+
+    @Override
+    public void run() {
+        try {
+            spawnRobots(100);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

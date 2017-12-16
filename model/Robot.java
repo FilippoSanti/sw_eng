@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Robot implements Serializable {
 
@@ -13,8 +15,9 @@ public class Robot implements Serializable {
     private int signal5;
     private int signal6;
     private int signal7;
+    private Timestamp tempo;
 
-    public Robot(int id, int c, int s1, int s2, int s3, int s4, int s5, int s6, int s7)
+    public Robot(int id, int c, int s1, int s2, int s3, int s4, int s5, int s6, int s7, Timestamp t)
     {
         this.id      = id;
         this.cluster = c;
@@ -25,6 +28,7 @@ public class Robot implements Serializable {
         this.signal5 = s5;
         this.signal6 = s6;
         this.signal7 = s7;
+        this.tempo = t;
     }
 
     public void setCluster(int cluster) {
@@ -63,6 +67,8 @@ public class Robot implements Serializable {
         this.signal7 = signal7;
     }
 
+    public void setTempo(Timestamp tempo) { this.tempo = tempo; }
+
     public int getCluster() {
         return cluster;
     }
@@ -97,5 +103,10 @@ public class Robot implements Serializable {
 
     public int getSignal7() {
         return signal7;
+    }
+
+    public Timestamp getTempo()
+    {
+        return tempo;
     }
 }
