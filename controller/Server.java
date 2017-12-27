@@ -1,16 +1,12 @@
 package controller;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.mongodb.DBObject;
-import com.mongodb.util.JSON;
+import com.mongodb.client.MongoDatabase;
 import model.Robot;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Server {
 
@@ -24,8 +20,11 @@ public class Server {
 
             // Create the server socket and accept new connections
             ServerSocket serverSocket = new ServerSocket(25000);
-            System.out.println("Server Started and listening to the port 25000 - Objects are welcome :)");
+            System.out.println("Server Started and listening to the port 25000");
             ObjectInputStream ois = null;
+
+            // Create a single connection for every request
+            MongoDatabase db = DBManager.dbConnect();
 
             while (true) {
 
@@ -37,9 +36,15 @@ public class Server {
                 // Read the object - 100% illegal
                 robotList = (ArrayList<Robot>) ois.readObject();
 
-                // Write the results in the DB
-                DBManager.addObjectToDB(DBManager.dbConnect(), robotList);
+                // Measure execution time
+                long startTime = System.currentTimeMillis();
 
+                // Write the results in the DB
+                DBManager.addObjectToDB(db, robotList);
+
+                long stopTime = System.currentTimeMillis();
+                long elapsedTime = stopTime - startTime;
+                System.out.println("Saved " + robotList.size() + " robots in " +elapsedTime + "ms");
 
             }
 

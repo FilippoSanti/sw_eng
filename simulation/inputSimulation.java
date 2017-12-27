@@ -18,13 +18,6 @@ public class inputSimulation extends TimerTask {
 
     private static Socket socket;
 
-    public static void main(String args[]) throws IOException {
-
-        // Send the robots to conquer the world
-        spawnRobots(100);
-    }
-
-
     public static void spawnRobots(int nCluster) throws IOException {
 
         // Array of robots
@@ -40,8 +33,13 @@ public class inputSimulation extends TimerTask {
 
         // Variables to identify a robot and its cluster
         int robot, cluster, signal, value, nRobots;
-        Timestamp timestamp = new Timestamp(NULL);
+
         nRobots = robot = cluster = signal = value = 0;
+
+        // Timestamp for each signal
+        Timestamp signal1Time, signal2Time, signal3Time, signal4Time, signal5Time, signal6Time, signal7Time;
+
+        signal1Time = signal2Time = signal3Time = signal4Time = signal5Time = signal6Time = signal7Time = null;
 
         InetAddress address = InetAddress.getByName(host);
         socket = new Socket(address, port);
@@ -56,7 +54,7 @@ public class inputSimulation extends TimerTask {
         for (cluster = 1; cluster <= nCluster; cluster++) {
 
             // Generate the robots for each cluster in a specified range (500-1000)
-            randomRobots = ThreadLocalRandom.current().nextInt(500, 1000);
+            randomRobots = ThreadLocalRandom.current().nextInt(600, 1200);
 
             // Spawn 900 robots for each cluster
             for (robot = 1; robot <= randomRobots; robot++) {
@@ -67,62 +65,74 @@ public class inputSimulation extends TimerTask {
                 // Every robot can send up to 7 signals
                 for (signal = 0; signal < 7; signal++) {
 
-                    // Generate signal S1
+                    // Generate signal S1 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 1000);
                     if (randomNum > 998) signals[0] = 0;
                     else signals[0] = 1;
 
-                    // Generate signal S2
+                    signal1Time = new Timestamp(System.currentTimeMillis());
+
+                    // Generate signal S2 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 200);
                     if (randomNum > 198) signals[1] = 0;
                     else signals[1] = 1;
 
-                    // Generate signal S3
+                    signal2Time = new Timestamp(System.currentTimeMillis());
+
+                    // Generate signal S3 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     if (randomNum > 98) signals[2] = 0;
                     else signals[2] = 1;
 
-                    // Generate signal S4
+                    signal3Time = new Timestamp(System.currentTimeMillis());
+
+                    // Generate signal S4 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 200);
                     if (randomNum > 198) signals[3] = 0;
                     else signals[3] = 1;
 
-                    // Generate signal S5
+                    signal4Time = new Timestamp(System.currentTimeMillis());
+
+                    // Generate signal S5 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     if (randomNum > 98) signals[4] = 0;
                     else signals[4] = 1;
 
-                    // Generate signal S6
+                    signal5Time = new Timestamp(System.currentTimeMillis());
+
+                    // Generate signal S6 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     if (randomNum > 98) signals[5] = 0;
                     else signals[5] = 1;
 
-                    // Generate signal S7
+                    signal6Time = new Timestamp(System.currentTimeMillis());
+
+                    // Generate signal S7 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     if (randomNum > 98) signals[6] = 0;
                     else signals[6] = 1;
 
-                    //generate Timestamp
-                    timestamp = new Timestamp(System.currentTimeMillis());
+                    signal7Time = new Timestamp(System.currentTimeMillis());
+
                 }
 
                 // Create the robot object
                 Robot robotObj = new Robot(nRobots, cluster, signals[0], signals[1], signals[2], signals[3],
-                        signals[4], signals[5], signals[6], timestamp);
+                        signals[4], signals[5], signals[6], signal1Time, signal2Time, signal3Time, signal4Time, signal5Time, signal6Time, signal7Time);
 
                 // Add the robot to a list
                 robotList.add(robotObj);
             }
         }
 
-        // Write the entire robot list trought sockets
+        // Write the entire robot list thought sockets
         oos.writeObject(robotList);
         oos.close();
 
         // Record the execution time and display it on screen
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
-        System.out.println(elapsedTime + "ms");
+        System.out.println("Generated " + robotList.size() + " robots in " +elapsedTime + "ms");
     }
 
     @Override
