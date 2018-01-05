@@ -69,7 +69,6 @@ public class DBManager {
                 new ArrayList<Document>());
 
         ArrayList<Robot> robotList = new ArrayList<Robot>();
-        Timestamp test = null;
 
         for (Document robot : robots) {
 

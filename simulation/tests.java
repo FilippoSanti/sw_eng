@@ -16,14 +16,12 @@ import static com.mongodb.client.model.Updates.set;
 public class tests {
 
     public static void main(String[] args) {
-        runUpdateTests(DBManager.dbConnect(), 100);
+        //runUpdateTests(DBManager.dbConnect(), 100);
 
         // Get data into a list
         ArrayList<Robot> robotList = DBManager.getDataFromDB(DBManager.dbConnect());
 
-        System.out.println(robotList.get(robotList.size()-1).getSignal1());
-
-
+        System.out.println(robotList.get(1).getSignal1Time());
 
     }
 
@@ -37,20 +35,6 @@ public class tests {
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
         System.out.println("Got " + robotList.size() + " robots in " + elapsedTime + "ms");
-    }
-
-    public static void runInsertTests(MongoDatabase db) {
-
-        MongoCollection<Document> collection = db.getCollection("restaurants");
-
-        Document document = new Document("name", "Café Con Leche")
-                .append("contact", new Document("phone", "228-555-0149")
-                        .append("email", "cafeconleche@example.com")
-                        .append("location", Arrays.asList(-73.92502, 40.8279556)))
-                .append("stars", 3)
-                .append("categories", Arrays.asList("Bakery", "Coffee", "Pastries"));
-
-        collection.insertOne(document);
     }
 
 
@@ -76,9 +60,5 @@ public class tests {
         long elapsedTime = stopTime - startTime;
         System.out.println("Updated " + nClusters + " containing " +robotCount +" robot entries in " + elapsedTime + "ms");
 
-
-
     }
-
-
 }
