@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.sql.Timestamp;
 
 public class Robot implements Serializable {
@@ -14,16 +15,16 @@ public class Robot implements Serializable {
     private int signal5;
     private int signal6;
     private int signal7;
-    private Timestamp signal1Time;
-    private Timestamp signal2Time;
-    private Timestamp signal3Time;
-    private Timestamp signal4Time;
-    private Timestamp signal5Time;
-    private Timestamp signal6Time;
-    private Timestamp signal7Time;
+    private Date signal1Time;
+    private Date signal2Time;
+    private Date signal3Time;
+    private Date signal4Time;
+    private Date signal5Time;
+    private Date signal6Time;
+    private Date signal7Time;
 
-    public Robot(int id, int c, int s1, int s2, int s3, int s4, int s5, int s6, int s7, Timestamp s1t, Timestamp s2t,
-                 Timestamp s3t, Timestamp s4t, Timestamp s5t, Timestamp s6t, Timestamp s7t) {
+    public Robot(int id, int c, int s1, int s2, int s3, int s4, int s5, int s6, int s7, Date s1t, Date s2t,
+                 Date s3t, Date s4t, Date s5t, Date s6t, Date s7t) {
         this.id = id;
         this.cluster = c;
         this.signal1 = s1;
@@ -114,59 +115,59 @@ public class Robot implements Serializable {
         this.signal7 = signal7;
     }
 
-    public Timestamp getSignal1Time() {
+    public Date getSignal1Time() {
         return signal1Time;
     }
 
-    public void setSignal1Time(Timestamp signal1Time) {
+    public void setSignal1Time(Date signal1Time) {
         this.signal1Time = signal1Time;
     }
 
-    public Timestamp getSignal2Time() {
+    public Date getSignal2Time() {
         return signal2Time;
     }
 
-    public void setSignal2Time(Timestamp signal2Time) {
+    public void setSignal2Time(Date signal2Time) {
         this.signal2Time = signal2Time;
     }
 
-    public Timestamp getSignal3Time() {
+    public Date getSignal3Time() {
         return signal3Time;
     }
 
-    public void setSignal3Time(Timestamp signal3Time) {
+    public void setSignal3Time(Date signal3Time) {
         this.signal3Time = signal3Time;
     }
 
-    public Timestamp getSignal4Time() {
+    public Date getSignal4Time() {
         return signal4Time;
     }
 
-    public void setSignal4Time(Timestamp signal4Time) {
+    public void setSignal4Time(Date signal4Time) {
         this.signal4Time = signal4Time;
     }
 
-    public Timestamp getSignal5Time() {
+    public Date getSignal5Time() {
         return signal5Time;
     }
 
-    public void setSignal5Time(Timestamp signal5Time) {
+    public void setSignal5Time(Date signal5Time) {
         this.signal5Time = signal5Time;
     }
 
-    public Timestamp getSignal6Time() {
+    public Date getSignal6Time() {
         return signal6Time;
     }
 
-    public void setSignal6Time(Timestamp signal6Time) {
+    public void setSignal6Time(Date signal6Time) {
         this.signal6Time = signal6Time;
     }
 
-    public Timestamp getSignal7Time() {
+    public Date getSignal7Time() {
         return signal7Time;
     }
 
-    public void setSignal7Time(Timestamp signal7Time) {
+    public void setSignal7Time(Date signal7Time) {
         this.signal7Time = signal7Time;
     }
 }

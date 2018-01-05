@@ -23,6 +23,8 @@ public class tests {
 
         System.out.println(robotList.get(robotList.size()-1).getSignal1());
 
+
+
     }
 
     public static void runGetTests() {
@@ -74,5 +76,9 @@ public class tests {
         long elapsedTime = stopTime - startTime;
         System.out.println("Updated " + nClusters + " containing " +robotCount +" robot entries in " + elapsedTime + "ms");
 
+
+
     }
+
+
 }

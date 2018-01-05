@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Timer;
@@ -37,7 +38,7 @@ public class inputSimulation extends TimerTask {
         nRobots = robot = cluster = signal = value = 0;
 
         // Timestamp for each signal
-        Timestamp signal1Time, signal2Time, signal3Time, signal4Time, signal5Time, signal6Time, signal7Time;
+        Date signal1Time, signal2Time, signal3Time, signal4Time, signal5Time, signal6Time, signal7Time;
 
         signal1Time = signal2Time = signal3Time = signal4Time = signal5Time = signal6Time = signal7Time = null;
 
@@ -70,49 +71,49 @@ public class inputSimulation extends TimerTask {
                     if (randomNum > 998) signals[0] = 0;
                     else signals[0] = 1;
 
-                    signal1Time = new Timestamp(System.currentTimeMillis());
+                    signal1Time = new Date(System.currentTimeMillis());
 
                     // Generate signal S2 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 200);
                     if (randomNum > 198) signals[1] = 0;
                     else signals[1] = 1;
 
-                    signal2Time = new Timestamp(System.currentTimeMillis());
+                    signal2Time = new Date(System.currentTimeMillis());
 
                     // Generate signal S3 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     if (randomNum > 98) signals[2] = 0;
                     else signals[2] = 1;
 
-                    signal3Time = new Timestamp(System.currentTimeMillis());
+                    signal3Time = new Date(System.currentTimeMillis());
 
                     // Generate signal S4 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 200);
                     if (randomNum > 198) signals[3] = 0;
                     else signals[3] = 1;
 
-                    signal4Time = new Timestamp(System.currentTimeMillis());
+                    signal4Time = new Date(System.currentTimeMillis());
 
                     // Generate signal S5 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     if (randomNum > 98) signals[4] = 0;
                     else signals[4] = 1;
 
-                    signal5Time = new Timestamp(System.currentTimeMillis());
+                    signal5Time = new Date(System.currentTimeMillis());
 
                     // Generate signal S6 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     if (randomNum > 98) signals[5] = 0;
                     else signals[5] = 1;
 
-                    signal6Time = new Timestamp(System.currentTimeMillis());
+                    signal6Time = new Date(System.currentTimeMillis());
 
                     // Generate signal S7 and get its timestamp
                     randomNum = ThreadLocalRandom.current().nextInt(0, 100);
                     if (randomNum > 98) signals[6] = 0;
                     else signals[6] = 1;
 
-                    signal7Time = new Timestamp(System.currentTimeMillis());
+                    signal7Time = new Date(System.currentTimeMillis());
 
                 }
 

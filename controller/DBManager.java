@@ -19,7 +19,7 @@ public class DBManager {
 
     public static MongoDatabase dbConnect() {
 
-        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@192.168.1.202/?authSource=unnamedb");
+        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@87.18.236.85/?authSource=unnamedb");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
@@ -75,7 +75,8 @@ public class DBManager {
 
             Robot roboTemp = new Robot(robot.getInteger("id"),robot.getInteger("cluster"), robot.getInteger("signal1"), robot.getInteger("signal2"),
                     robot.getInteger("signal3"), robot.getInteger("signal4"), robot.getInteger("signal5"), robot.getInteger("signal6"),
-                    robot.getInteger("signal7"), test, test, test, test, test, test, test);
+                    robot.getInteger("signal7"), robot.getDate("signal1Time"),robot.getDate("signal2Time") ,robot.getDate("signal3Time"),
+                    robot.getDate("signal4Time"), robot.getDate("signal5Time"), robot.getDate("signal6Time"), robot.getDate("signal7Time"));
 
             robotList.add(roboTemp);
 
