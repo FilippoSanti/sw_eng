@@ -1,22 +1,24 @@
 package controller;
 
-import com.mongodb.*;
-import com.mongodb.client.FindIterable;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import model.Robot;
 import org.bson.Document;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.set;
 
 
 public class DBManager {
 
+    /* Conenct to the DB */
     public static MongoDatabase dbConnect() {
 
         MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@87.18.236.85/?authSource=unnamedb");
@@ -27,7 +29,8 @@ public class DBManager {
 
     }
 
-    public static void addObjectToDB(MongoDatabase database, ArrayList<Robot> robotList) throws IOException {
+    /* Insert robots in the DB */
+    public static void saveDataToDB(MongoDatabase database, ArrayList<Robot> robotList) throws IOException {
 
         MongoCollection<Document> collection = database.getCollection("robot");
         List<Document> documents = new ArrayList<Document>();
@@ -60,8 +63,8 @@ public class DBManager {
 
     }
 
-    /* Get a list of documents from the database */
-    public static ArrayList<Robot> getDataFromDB (MongoDatabase database) {
+    /* Get the list of robots from the database */
+    public static ArrayList<Robot> getDataFromDB(MongoDatabase database) {
 
         MongoCollection<Document> collection = database.getCollection("robot");
 
@@ -72,9 +75,9 @@ public class DBManager {
 
         for (Document robot : robots) {
 
-            Robot roboTemp = new Robot(robot.getInteger("id"),robot.getInteger("cluster"), robot.getInteger("signal1"), robot.getInteger("signal2"),
+            Robot roboTemp = new Robot(robot.getInteger("id"), robot.getInteger("cluster"), robot.getInteger("signal1"), robot.getInteger("signal2"),
                     robot.getInteger("signal3"), robot.getInteger("signal4"), robot.getInteger("signal5"), robot.getInteger("signal6"),
-                    robot.getInteger("signal7"), robot.getDate("signal1Time"),robot.getDate("signal2Time") ,robot.getDate("signal3Time"),
+                    robot.getInteger("signal7"), robot.getDate("signal1Time"), robot.getDate("signal2Time"), robot.getDate("signal3Time"),
                     robot.getDate("signal4Time"), robot.getDate("signal5Time"), robot.getDate("signal6Time"), robot.getDate("signal7Time"));
 
             robotList.add(roboTemp);
@@ -83,4 +86,32 @@ public class DBManager {
 
         return robotList;
     }
+
+    // TODO: Use threads
+    /* Update elements in the DB*/
+    public static void runUpdateTests(MongoDatabase db, int nClusters) {
+
+        // Get count of the documents stored in the db
+        long robotCount = db.getCollection("robot").count();
+
+        MongoCollection<Document> collection = db.getCollection("robot");
+
+        long startTime = System.currentTimeMillis();
+
+        // Update every robot in the collection
+        // The procedure is done by cluster to improve speed
+        for (int i = 1; i <= nClusters; i++) {
+            collection.updateMany(
+
+                    // Update every document that matches the fieldName 'id'
+                    eq("cluster", i),
+                    combine(set("signal1", 7), set("signal2", 0)));
+        }
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("Updated " + nClusters + " containing " + robotCount + " robot entries in " + elapsedTime + "ms");
+
+    }
+
 }

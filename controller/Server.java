@@ -19,7 +19,7 @@ public class Server {
         try {
 
             // Create the server socket and accept new connections
-            ServerSocket serverSocket = new ServerSocket(25000);
+            ServerSocket serverSocket = new ServerSocket(25001);
             System.out.println("Server Started and listening to the port 25000");
             ObjectInputStream ois = null;
 
@@ -37,7 +37,7 @@ public class Server {
                 long startTime = System.currentTimeMillis();
 
                 // Write the results in the DB
-                DBManager.addObjectToDB(DBManager.dbConnect(), robotList);
+                DBManager.saveDataToDB(DBManager.dbConnect(), robotList);
 
                 long stopTime = System.currentTimeMillis();
                 long elapsedTime = stopTime - startTime;
