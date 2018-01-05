@@ -11,6 +11,6 @@ public class start {
 
         // Schedule the timer to execute the simulator every 'x' ms
         Timer timer = new Timer();
-        timer.schedule(new inputSimulation(), 0, 10000);
+        timer.schedule(new inputSimulation(), 0, 100000);
     }
 }

@@ -23,9 +23,6 @@ public class Server {
             System.out.println("Server Started and listening to the port 25000");
             ObjectInputStream ois = null;
 
-            // Create a single connection for every request
-            MongoDatabase db = DBManager.dbConnect();
-
             while (true) {
 
                 //Reading the message from the client
@@ -40,7 +37,7 @@ public class Server {
                 long startTime = System.currentTimeMillis();
 
                 // Write the results in the DB
-                DBManager.addObjectToDB(db, robotList);
+                DBManager.addObjectToDB(DBManager.dbConnect(), robotList);
 
                 long stopTime = System.currentTimeMillis();
                 long elapsedTime = stopTime - startTime;
