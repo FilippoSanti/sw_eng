@@ -6,8 +6,7 @@ import controller.DBManager;
 import model.Robot;
 import org.bson.Document;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.*;
@@ -15,15 +14,25 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class inputSimulation {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        // Create the robots and return the dimension of each cluster
-        // TODO: the list should be written to a file and the function should be executed only once
-        List<Integer> robotsCount = createRobots(DBManager.dbConnect(), 100);
+        // If the config file doesn't exist, we create it
+        // Otherwise we proceed to the signal generation
+        // The createRobots() function is used only for the first run
+        File f = new File("params.tmp");
 
-        for (int i = 0; i < robotsCount.size(); i++) {
-            System.out.println(robotsCount.get(i));
+        if(!f.exists()) {
+
+            System.out.println("O_O There are no robots in the system O_O - STARTING SIMULATION NOW");
+            // Create the robots and return the dimension of each cluster to generate signals
+            List<Integer> robotsCount = createRobots(DBManager.dbConnect(), 100);
+            saveDataToList(robotsCount);
+            System.out.println("All done, ready to generate signals...");
         }
+
+        List<Integer> robotsCount = getDataFromList();
+
+        System.out.println(robotsCount.get(1));
 
         Timer t = new Timer();
         t.schedule(new TimerTask() {
@@ -37,7 +46,7 @@ public class inputSimulation {
     // Generate random signals for the robots previously created
     public static void generateSignals (MongoDatabase db) {
 
-        //TODO: everything
+        // Read cluster data from the file and generate signals
     }
 
     private static Socket socket;
@@ -179,5 +188,25 @@ public class inputSimulation {
         System.out.println("TCP transfer time: " +elapsedTime);
 
         return robotsCount;
+    }
+
+    // Save the parameters to a tmp file
+    public static void saveDataToList(List<Integer> robotParams) throws IOException {
+
+        FileOutputStream fos = new FileOutputStream("params.tmp");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(robotParams);
+        oos.close();
+    }
+
+    // Get the parameters from the tmp file
+    public static List<Integer> getDataFromList() throws IOException, ClassNotFoundException {
+
+        FileInputStream fis = new FileInputStream("params.tmp");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        List<Integer> robotParams = (List<Integer>) ois.readObject();
+        ois.close();
+
+        return robotParams;
     }
 }
