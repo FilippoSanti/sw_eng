@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import controller.DBManager;
 import model.Robot;
+import model.Signals;
 import org.bson.Document;
 
 import java.io.*;
@@ -28,11 +29,10 @@ public class inputSimulation {
             List<Integer> robotsCount = createRobots(DBManager.dbConnect(), 100);
             saveDataToList(robotsCount);
             System.out.println("All done, ready to generate signals...");
-        }
 
-        List<Integer> robotsCount = getDataFromList();
+        } else System.out.println("Robots already created...starting the generation process");
 
-        System.out.println(robotsCount.get(1));
+
 
         Timer t = new Timer();
         t.schedule(new TimerTask() {
@@ -43,10 +43,26 @@ public class inputSimulation {
         }, 0, 5000);
     }
 
-    // Generate random signals for the robots previously created
-    public static void generateSignals (MongoDatabase db) {
+    // Generate random signals for the robots given the cluster parameters
+    public static void generateSignals (List<Integer> paramList) throws IOException, ClassNotFoundException {
 
-        // Read cluster data from the file and generate signals
+
+        // Iterate for every cluster of robots
+        for (int i = 0; i < paramList.size(); i++) {
+
+            // Go trough each robot
+            for (int j = 0; j < paramList.get(i); j++) {
+
+                // Send 7 signals for each robot
+                for (int x = 0; x < 7; x++) {
+
+                    
+
+                }
+
+            }
+        }
+
     }
 
     private static Socket socket;
@@ -68,19 +84,10 @@ public class inputSimulation {
         String host = "localhost";
         int port = 25001;
 
-        // Array of signals for each robot
-        int signals[] = new int[7];
-        int randomNum, randomRobots;
-
         // Variables to identify a robot and its cluster
-        int robot, cluster, signal, value, nRobots;
+        int robot, cluster, signal, value, nRobots, randomRobots;
 
         nRobots = robot = cluster = signal = value = 0;
-
-        // Timestamp for each signal
-        Date signal1Time, signal2Time, signal3Time, signal4Time, signal5Time, signal6Time, signal7Time;
-
-        signal1Time = signal2Time = signal3Time = signal4Time = signal5Time = signal6Time = signal7Time = null;
 
         InetAddress address = InetAddress.getByName(host);
         socket = new Socket(address, port);
@@ -106,62 +113,14 @@ public class inputSimulation {
                 // Increment the counter to keep track of the robots
                 nRobots++;
 
-                // Every robot can send up to 7 signals
-                for (signal = 0; signal < 7; signal++) {
-
-                    // Generate signal S1 and get its timestamp
-                    randomNum = ThreadLocalRandom.current().nextInt(0, 1000);
-                    if (randomNum > 998) signals[0] = 0;
-                    else signals[0] = 1;
-
-                    signal1Time = new Date(System.currentTimeMillis());
-
-                    // Generate signal S2 and get its timestamp
-                    randomNum = ThreadLocalRandom.current().nextInt(0, 200);
-                    if (randomNum > 198) signals[1] = 0;
-                    else signals[1] = 1;
-
-                    signal2Time = new Date(System.currentTimeMillis());
-
-                    // Generate signal S3 and get its timestamp
-                    randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    if (randomNum > 98) signals[2] = 0;
-                    else signals[2] = 1;
-
-                    signal3Time = new Date(System.currentTimeMillis());
-
-                    // Generate signal S4 and get its timestamp
-                    randomNum = ThreadLocalRandom.current().nextInt(0, 200);
-                    if (randomNum > 198) signals[3] = 0;
-                    else signals[3] = 1;
-
-                    signal4Time = new Date(System.currentTimeMillis());
-
-                    // Generate signal S5 and get its timestamp
-                    randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    if (randomNum > 98) signals[4] = 0;
-                    else signals[4] = 1;
-
-                    signal5Time = new Date(System.currentTimeMillis());
-
-                    // Generate signal S6 and get its timestamp
-                    randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    if (randomNum > 98) signals[5] = 0;
-                    else signals[5] = 1;
-
-                    signal6Time = new Date(System.currentTimeMillis());
-
-                    // Generate signal S7 and get its timestamp
-                    randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-                    if (randomNum > 98) signals[6] = 0;
-                    else signals[6] = 1;
-
-                    signal7Time = new Date(System.currentTimeMillis());
-                }
+                // Read values from sensors
+                Signals sig = readSensors();
+                int signals[] = sig.getSignalValues();
+                Date dates [] = sig.getDateValues();
 
                 // Create the robot object
                 Robot robotObj = new Robot(nRobots, cluster, signals[0], signals[1], signals[2], signals[3],
-                        signals[4], signals[5], signals[6], signal1Time, signal2Time, signal3Time, signal4Time, signal5Time, signal6Time, signal7Time);
+                        signals[4], signals[5], signals[6], dates[0], dates[1], dates[2], dates[3], dates[4], dates[5], dates[6]);
 
                 // Add the robot to a list
                 robotList.add(robotObj);
@@ -208,5 +167,78 @@ public class inputSimulation {
         ois.close();
 
         return robotParams;
+    }
+
+    // Read values from the 'sensors'
+    public static Signals readSensors() {
+
+        Signals sigArray       = null;
+        Date    signalTime     = null;
+        Date    dates []       = new Date[7];
+        int     signalsArray[] = new int[7];
+
+        int randomNum;
+
+        // Every robot can send up to 7 signals
+        for (int s = 0; s < 7; s++) {
+
+            // Generate signal S1 and get its timestamp
+            randomNum = ThreadLocalRandom.current().nextInt(0, 1000);
+            if (randomNum > 998) signalsArray[0] = 0;
+            else signalsArray[0] = 1;
+
+            signalTime = new Date(System.currentTimeMillis());
+            dates[0] = signalTime;
+
+            // Generate signal S2 and get its timestamp
+            randomNum = ThreadLocalRandom.current().nextInt(0, 200);
+            if (randomNum > 198) signalsArray[1] = 0;
+            else signalsArray[1] = 1;
+
+            signalTime = new Date(System.currentTimeMillis());
+            dates[1] = signalTime;
+
+            // Generate signal S3 and get its timestamp
+            randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+            if (randomNum > 98) signalsArray[2] = 0;
+            else signalsArray[2] = 1;
+
+            signalTime = new Date(System.currentTimeMillis());
+            dates[2] = signalTime;
+
+            // Generate signal S4 and get its timestamp
+            randomNum = ThreadLocalRandom.current().nextInt(0, 200);
+            if (randomNum > 198) signalsArray[3] = 0;
+            else signalsArray[3] = 1;
+
+            signalTime = new Date(System.currentTimeMillis());
+            dates[3] = signalTime;
+
+            // Generate signal S5 and get its timestamp
+            randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+            if (randomNum > 98) signalsArray[4] = 0;
+            else signalsArray[4] = 1;
+
+            signalTime = new Date(System.currentTimeMillis());
+            dates[4] = signalTime;
+
+            // Generate signal S6 and get its timestamp
+            randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+            if (randomNum > 98) signalsArray[5] = 0;
+            else signalsArray[5] = 1;
+
+            signalTime = new Date(System.currentTimeMillis());
+            dates[5] = signalTime;
+
+            // Generate signal S7 and get its timestamp
+            randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+            if (randomNum > 98) signalsArray[6] = 0;
+            else signalsArray[6] = 1;
+
+            signalTime = new Date(System.currentTimeMillis());
+            dates[6] = signalTime;
+        }
+
+        return new Signals(signalsArray, dates);
     }
 }
