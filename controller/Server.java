@@ -36,8 +36,19 @@ public class Server {
                 // Measure execution time
                 long startTime = System.currentTimeMillis();
 
-                // Write the results in the DB
-                DBManager.saveDataToDB(DBManager.dbConnect(), robotList);
+
+                File f = new File("params.tmp");
+
+                // Server-side check, if we find that the params.tmp is missing
+                // It means we have to save some robots to the db before generating signals for them...
+                if (!f.exists()) {
+
+                    // Save robots in the db
+                    DBManager.saveDataToDB(DBManager.dbConnect(), robotList);
+                } else {
+                    //update existing robots signals
+                    DBManager.runUpdateTests(DBManager.dbConnect(), robotList);
+                }
 
                 long stopTime = System.currentTimeMillis();
                 long elapsedTime = stopTime - startTime;

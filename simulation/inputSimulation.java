@@ -15,6 +15,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class inputSimulation {
 
+    private static Socket socket;
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         // If the config file doesn't exist, we create it
@@ -22,7 +24,7 @@ public class inputSimulation {
         // The createRobots() function is used only for the first run
         File f = new File("params.tmp");
 
-        if(!f.exists()) {
+        if (!f.exists()) {
 
             System.out.println("O_O There are no robots in the system O_O - STARTING SIMULATION NOW");
             // Create the robots and return the dimension of each cluster to generate signals
@@ -33,39 +35,68 @@ public class inputSimulation {
         } else System.out.println("Robots already created...starting the generation process");
 
 
-
         Timer t = new Timer();
         t.schedule(new TimerTask() {
             @Override
             public void run() {
-                //generateSignals(DBManager.dbConnect());
+
+                List<Integer> paramList = null;
+                try {
+                    paramList = getDataFromList();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                try {
+
+                    // Start generating signals
+                    generateSignals(paramList);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }, 0, 5000);
     }
 
     // Generate random signals for the robots given the cluster parameters
-    public static void generateSignals (List<Integer> paramList) throws IOException, ClassNotFoundException {
+    // TODO: (maybe) send signals using threads to optimize speed
+    public static void generateSignals(List<Integer> paramList) throws IOException, ClassNotFoundException {
 
+        int cluster, nRobots;
+        cluster = nRobots = 0;
+        ArrayList<Robot> robotList = new ArrayList<Robot>();
 
         // Iterate for every cluster of robots
         for (int i = 0; i < paramList.size(); i++) {
 
+            // Keep track of the clusters
+            cluster++;
+
             // Go trough each robot
             for (int j = 0; j < paramList.get(i); j++) {
 
-                // Send 7 signals for each robot
-                for (int x = 0; x < 7; x++) {
+                // Read values from sensors
+                Signals sig = readSensors();
+                int signals[] = sig.getSignalValues();
+                Date dates[] = sig.getDateValues();
 
-                    
+                nRobots++;
 
-                }
+                // Create the robot object
+                Robot robotObj = new Robot(nRobots, cluster, signals[0], signals[1], signals[2], signals[3],
+                        signals[4], signals[5], signals[6], dates[0], dates[1], dates[2], dates[3], dates[4], dates[5], dates[6]);
+
+                // Add the robot to a list
+                robotList.add(robotObj);
 
             }
         }
 
+        sendDataToServer(robotList);
     }
-
-    private static Socket socket;
 
     // Generate the first set of Robots
     public static List<Integer> createRobots(MongoDatabase db, int nCluster) throws IOException {
@@ -80,20 +111,10 @@ public class inputSimulation {
         // Array with the robots for each cluster
         List<Integer> robotsCount = new ArrayList<Integer>();
 
-        // Hostname and port configuration
-        String host = "localhost";
-        int port = 25001;
-
         // Variables to identify a robot and its cluster
         int robot, cluster, signal, value, nRobots, randomRobots;
 
         nRobots = robot = cluster = signal = value = 0;
-
-        InetAddress address = InetAddress.getByName(host);
-        socket = new Socket(address, port);
-
-        // Open the stream
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 
         // Measure execution time
         long startTime = System.currentTimeMillis();
@@ -116,7 +137,7 @@ public class inputSimulation {
                 // Read values from sensors
                 Signals sig = readSensors();
                 int signals[] = sig.getSignalValues();
-                Date dates [] = sig.getDateValues();
+                Date dates[] = sig.getDateValues();
 
                 // Create the robot object
                 Robot robotObj = new Robot(nRobots, cluster, signals[0], signals[1], signals[2], signals[3],
@@ -125,6 +146,7 @@ public class inputSimulation {
                 // Add the robot to a list
                 robotList.add(robotObj);
             }
+
         }
 
         // Record the execution time and display it on screen
@@ -133,18 +155,7 @@ public class inputSimulation {
         System.out.println("");
         System.out.println("Generated " + robotList.size() + " robots in " + elapsedTime + "ms");
 
-        System.out.println("Sending robots trough TCP");
-
-        // Measure execution time
-        startTime = System.currentTimeMillis();
-
-        // Write the entire robot list thought sockets
-        oos.writeObject(robotList);
-        oos.close();
-
-        stopTime = System.currentTimeMillis();
-        elapsedTime = stopTime - startTime;
-        System.out.println("TCP transfer time: " +elapsedTime);
+        sendDataToServer(robotList);
 
         return robotsCount;
     }
@@ -172,10 +183,10 @@ public class inputSimulation {
     // Read values from the 'sensors'
     public static Signals readSensors() {
 
-        Signals sigArray       = null;
-        Date    signalTime     = null;
-        Date    dates []       = new Date[7];
-        int     signalsArray[] = new int[7];
+        Signals sigArray = null;
+        Date signalTime = null;
+        Date dates[] = new Date[7];
+        int signalsArray[] = new int[7];
 
         int randomNum;
 
@@ -240,5 +251,39 @@ public class inputSimulation {
         }
 
         return new Signals(signalsArray, dates);
+    }
+
+    // Send the list to the server via sockets
+    // TODO: use threads to send and recieve data faster
+    public static void sendDataToServer(ArrayList<Robot> robotList) throws IOException {
+
+        // Hostname and port configuration
+        String host = "localhost";
+        int port = 25001;
+
+        InetAddress address = InetAddress.getByName(host);
+        socket = new Socket(address, port);
+
+        // Open the stream
+        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+
+        // Measure execution time
+        long startTime = System.currentTimeMillis();
+
+        System.out.println("Sending robots trough TCP");
+
+        // Measure execution time
+        startTime = System.currentTimeMillis();
+
+        // Write the entire robot list thought sockets
+        oos.writeObject(robotList);
+        oos.close();
+
+        // Record the execution time and display it on screen
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("");
+        System.out.println("TCP transfer time: " + elapsedTime + "ms");
+
     }
 }

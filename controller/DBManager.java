@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import model.Robot;
 import org.bson.Document;
+import simulation.inputSimulation;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class DBManager {
     /* Conenct to the DB */
     public static MongoDatabase dbConnect() {
 
-        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@87.18.236.85/?authSource=unnamedb");
+        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@localhost/?authSource=unnamedb");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
@@ -89,8 +90,9 @@ public class DBManager {
 
     // TODO: Use threads
     /* Update elements in the DB*/
-    public static void runUpdateTests(MongoDatabase db, int nClusters) {
+    public static void runUpdateTests(MongoDatabase db, ArrayList<Robot> robotList) throws IOException, ClassNotFoundException {
 
+        int robot = 0;
         // Get count of the documents stored in the db
         long robotCount = db.getCollection("robot").count();
 
@@ -98,19 +100,39 @@ public class DBManager {
 
         long startTime = System.currentTimeMillis();
 
-        // Update every robot in the collection
-        // The procedure is done by cluster to improve speed
-        for (int i = 1; i <= nClusters; i++) {
-            collection.updateMany(
+        List<Integer> robotParams = inputSimulation.getDataFromList();
 
-                    // Update every document that matches the fieldName 'id'
-                    eq("cluster", i),
-                    combine(set("signal1", 7), set("signal2", 0)));
+        // Update every robot in the collection
+        for (int i = 1; i <= robotParams.size(); i++) {
+
+            for (int j = 1; j <= robotParams.get(i); j++) {
+
+                collection.updateOne(
+
+                        eq("id", j),
+                        combine(set("signal1", robotList.get(j).getSignal1()),
+                                set("signal2", robotList.get(j).getSignal2()),
+                                set("signal3", robotList.get(j).getSignal3()),
+                                set("signal4", robotList.get(j).getSignal4()),
+                                set("signal5", robotList.get(j).getSignal5()),
+                                set("signal6", robotList.get(j).getSignal6()),
+                                set("signal7", robotList.get(j).getSignal7()),
+
+                                set("signal1Time", robotList.get(j).getSignal1Time()),
+                                set("signal2Time", robotList.get(j).getSignal2Time()),
+                                set("signal3Time", robotList.get(j).getSignal3Time()),
+                                set("signal4Time", robotList.get(j).getSignal4Time()),
+                                set("signal5Time", robotList.get(j).getSignal5Time()),
+                                set("signal6Time", robotList.get(j).getSignal6Time()),
+                                set("signal7Time", robotList.get(j).getSignal7Time())
+                        ));
+
+            }
         }
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
-        System.out.println("Updated " + nClusters + " containing " + robotCount + " robot entries in " + elapsedTime + "ms");
+        System.out.println("Updated " + robotParams.size() + " clusters containing " + robotCount + " robot entries in " + elapsedTime + "ms");
 
     }
 
