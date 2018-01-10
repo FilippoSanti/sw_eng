@@ -10,7 +10,9 @@ import simulation.inputSimulation;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.combine;
@@ -41,20 +43,22 @@ public class DBManager {
             // Save every robot into a temporary variable and add it to a list
             Document roboTemp = new Document("id", robotList.get(i).getId())
                     .append("cluster", robotList.get(i).getCluster())
-                    .append("signal1", robotList.get(i).getSignal1())
-                    .append("signal2", robotList.get(i).getSignal2())
-                    .append("signal3", robotList.get(i).getSignal3())
-                    .append("signal4", robotList.get(i).getSignal4())
-                    .append("signal5", robotList.get(i).getSignal5())
-                    .append("signal6", robotList.get(i).getSignal6())
-                    .append("signal7", robotList.get(i).getSignal7())
-                    .append("signal1Time", robotList.get(i).getSignal1Time())
-                    .append("signal2Time", robotList.get(i).getSignal2Time())
-                    .append("signal3Time", robotList.get(i).getSignal3Time())
-                    .append("signal4Time", robotList.get(i).getSignal4Time())
-                    .append("signal5Time", robotList.get(i).getSignal5Time())
-                    .append("signal6Time", robotList.get(i).getSignal6Time())
-                    .append("signal7Time", robotList.get(i).getSignal7Time());
+
+                    .append("signal1", Arrays.asList(robotList.get(i).getSignal1()))
+                    .append("signal2", Arrays.asList(robotList.get(i).getSignal2()))
+                    .append("signal3", Arrays.asList(robotList.get(i).getSignal3()))
+                    .append("signal4", Arrays.asList(robotList.get(i).getSignal4()))
+                    .append("signal5", Arrays.asList(robotList.get(i).getSignal5()))
+                    .append("signal6", Arrays.asList(robotList.get(i).getSignal6()))
+                    .append("signal7", Arrays.asList(robotList.get(i).getSignal7()))
+
+                    .append("signal1Time", Arrays.asList(robotList.get(i).getSignal1Time()))
+                    .append("signal2Time", Arrays.asList(robotList.get(i).getSignal2Time()))
+                    .append("signal3Time", Arrays.asList(robotList.get(i).getSignal3Time()))
+                    .append("signal4Time", Arrays.asList(robotList.get(i).getSignal4Time()))
+                    .append("signal5Time", Arrays.asList(robotList.get(i).getSignal5Time()))
+                    .append("signal6Time", Arrays.asList(robotList.get(i).getSignal6Time()))
+                    .append("signal7Time", Arrays.asList(robotList.get(i).getSignal7Time()));
 
             documents.add(roboTemp);
         }
@@ -135,5 +139,22 @@ public class DBManager {
         System.out.println("Updated " + robotParams.size() + " clusters containing " + robotCount + " robot entries in " + elapsedTime + "ms");
 
     }
+
+    /* Return the size of a collection */
+    public static long getCollectionSize(MongoDatabase db, String collName) {
+        long collection = db.getCollection(collName).count();
+
+        return collection;
+    }
+
+    /* Check if a collection exists */
+    public static boolean collectionExists(MongoDatabase db) {
+        boolean collectionExists = db.listCollectionNames()
+                .into(new ArrayList<String>()).contains("robot");
+
+        return collectionExists;
+    }
+
+
 
 }

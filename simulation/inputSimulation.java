@@ -3,6 +3,7 @@ package simulation;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import controller.DBManager;
+import controller.dataAnalyzer;
 import model.Robot;
 import model.Signals;
 import org.bson.Document;
@@ -95,13 +96,19 @@ public class inputSimulation {
             }
         }
 
+        System.out.println("Generated " +robotList.size()*7 + " signals for " + robotList.size() + "robots");
+
+        // Analyze the generated list to find out
+        // Which signals have changed
+        // dataAnalyzer.detectSignalChanges(robotList);
         sendDataToServer(robotList);
     }
 
     // Generate the first set of Robots
     public static List<Integer> createRobots(MongoDatabase db, int nCluster) throws IOException {
 
-        // Drop the previous collection to make execution easier
+        // Drop the previous collection to make
+        // execution easier
         MongoCollection<Document> collection = db.getCollection("robot");
         collection.drop();
 
@@ -269,8 +276,8 @@ public class inputSimulation {
 
         // Measure execution time
         long startTime = System.currentTimeMillis();
-
-        System.out.println("Sending robots trough TCP");
+        System.out.println("");
+        System.out.println("Sending robots trough TCP...");
 
         // Measure execution time
         startTime = System.currentTimeMillis();
@@ -282,7 +289,6 @@ public class inputSimulation {
         // Record the execution time and display it on screen
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
-        System.out.println("");
         System.out.println("TCP transfer time: " + elapsedTime + "ms");
 
     }

@@ -41,18 +41,24 @@ public class Server {
 
                 // Server-side check, if we find that the params.tmp is missing
                 // It means we have to save some robots to the db before generating signals for them...
-                if (!f.exists()) {
+
+                boolean dbEmpty = DBManager.collectionExists(DBManager.dbConnect());
+
+                if (!dbEmpty) {
 
                     // Save robots in the db
                     DBManager.saveDataToDB(DBManager.dbConnect(), robotList);
+
+                    long stopTime = System.currentTimeMillis();
+                    long elapsedTime = stopTime - startTime;
+                    System.out.println("Saved " + robotList.size() + " robots in " +elapsedTime + "ms");
                 } else {
+
+
                     //update existing robots signals
+                    System.out.println("Updating robot entries in the db...");
                     DBManager.runUpdateTests(DBManager.dbConnect(), robotList);
                 }
-
-                long stopTime = System.currentTimeMillis();
-                long elapsedTime = stopTime - startTime;
-                System.out.println("Saved " + robotList.size() + " robots in " +elapsedTime + "ms");
 
             }
 
@@ -67,6 +73,8 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
+
+        // Set the initial state to false
         getOOStream();
     }
 }
