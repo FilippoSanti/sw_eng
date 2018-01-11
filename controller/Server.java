@@ -56,8 +56,10 @@ public class Server {
 
 
                     //update existing robots signals
+                    System.out.println("");
                     System.out.println("Updating robot entries in the db...");
-                    DBManager.runUpdateTests(DBManager.dbConnect(), robotList);
+
+                    dataAnalyzer.detectSignalChanges(DBManager.dbConnect(), robotList);
                 }
 
             }

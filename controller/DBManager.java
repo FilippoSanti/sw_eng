@@ -4,8 +4,10 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Updates;
 import model.Robot;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import simulation.inputSimulation;
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.util.Set;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.push;
 import static com.mongodb.client.model.Updates.set;
 
 
@@ -97,6 +100,7 @@ public class DBManager {
     public static void runUpdateTests(MongoDatabase db, ArrayList<Robot> robotList) throws IOException, ClassNotFoundException {
 
         int robot = 0;
+
         // Get count of the documents stored in the db
         long robotCount = db.getCollection("robot").count();
 
@@ -106,32 +110,20 @@ public class DBManager {
 
         List<Integer> robotParams = inputSimulation.getDataFromList();
 
-        // Update every robot in the collection
-        for (int i = 1; i <= robotParams.size(); i++) {
+        System.out.println("Robotparams.size = " +robotParams.get(1));
+        long count = 0;
 
-            for (int j = 1; j <= robotParams.get(i); j++) {
+        for (int q = 0; q < robotParams.size(); q++) {
 
-                collection.updateOne(
+            count += robotParams.get(q);
 
-                        eq("id", j),
-                        combine(set("signal1", robotList.get(j).getSignal1()),
-                                set("signal2", robotList.get(j).getSignal2()),
-                                set("signal3", robotList.get(j).getSignal3()),
-                                set("signal4", robotList.get(j).getSignal4()),
-                                set("signal5", robotList.get(j).getSignal5()),
-                                set("signal6", robotList.get(j).getSignal6()),
-                                set("signal7", robotList.get(j).getSignal7()),
+        }
 
-                                set("signal1Time", robotList.get(j).getSignal1Time()),
-                                set("signal2Time", robotList.get(j).getSignal2Time()),
-                                set("signal3Time", robotList.get(j).getSignal3Time()),
-                                set("signal4Time", robotList.get(j).getSignal4Time()),
-                                set("signal5Time", robotList.get(j).getSignal5Time()),
-                                set("signal6Time", robotList.get(j).getSignal6Time()),
-                                set("signal7Time", robotList.get(j).getSignal7Time())
-                        ));
+        for (int j = 0; j < count; j++) {
 
-            }
+            collection.updateOne(eq("id", j), push("signal1", robotList.get(j).getSignal1()));
+            System.out.println(j);
+
         }
 
         long stopTime = System.currentTimeMillis();
@@ -154,7 +146,4 @@ public class DBManager {
 
         return collectionExists;
     }
-
-
-
 }

@@ -1,8 +1,10 @@
 package simulation;
 
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import controller.DBManager;
+import controller.dataAnalyzer;
 import model.Robot;
 import org.bson.Document;
 
@@ -11,6 +13,7 @@ import java.util.Arrays;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.push;
 import static com.mongodb.client.model.Updates.set;
 
 public class tests {
@@ -20,8 +23,6 @@ public class tests {
 
         // Get data into a list
         ArrayList<Robot> robotList = DBManager.getDataFromDB(DBManager.dbConnect());
-
-        System.out.println(robotList.get(1).getSignal1Time());
 
     }
 
@@ -36,4 +37,11 @@ public class tests {
         long elapsedTime = stopTime - startTime;
         System.out.println("Got " + robotList.size() + " robots in " + elapsedTime + "ms");
     }
+
+    public static void runUpdate (MongoCollection collection) {
+
+
+    }
+
+
 }
