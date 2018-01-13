@@ -11,10 +11,7 @@ import org.bson.conversions.Bson;
 import simulation.inputSimulation;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.combine;
@@ -27,7 +24,7 @@ public class DBManager {
     /* Conenct to the DB */
     public static MongoDatabase dbConnect() {
 
-        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@localhost/?authSource=unnamedb");
+        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@192.168.1.202/?authSource=unnamedb");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
@@ -81,21 +78,59 @@ public class DBManager {
 
         ArrayList<Robot> robotList = new ArrayList<Robot>();
 
+        int s1[] = null, s2[] = null, s3[] = null,
+                s4[] = null, s5[] = null, s6[] = null, s7[] = null;
+
+        Date[] d1 = null, d2 = null, d3 = null,
+                d4 = null, d5 = null, d6 = null, d7 = null;
+
         for (Document robot : robots) {
 
-            Robot roboTemp = new Robot(robot.getInteger("id"), robot.getInteger("cluster"), robot.getInteger("signal1"), robot.getInteger("signal2"),
-                    robot.getInteger("signal3"), robot.getInteger("signal4"), robot.getInteger("signal5"), robot.getInteger("signal6"),
-                    robot.getInteger("signal7"), robot.getDate("signal1Time"), robot.getDate("signal2Time"), robot.getDate("signal3Time"),
-                    robot.getDate("signal4Time"), robot.getDate("signal5Time"), robot.getDate("signal6Time"), robot.getDate("signal7Time"));
+            // Get every list for every signal array
+            List<Integer> s1l = (List<Integer>) robot.get("signal1");
+            List<Integer> s2l = (List<Integer>) robot.get("signal2");
+            List<Integer> s3l = (List<Integer>) robot.get("signal3");
+            List<Integer> s4l = (List<Integer>) robot.get("signal4");
+            List<Integer> s5l = (List<Integer>) robot.get("signal5");
+            List<Integer> s6l = (List<Integer>) robot.get("signal6");
+            List<Integer> s7l = (List<Integer>) robot.get("signal7");
+
+            // Store the date arrays
+            List<Date> d1l = (List<Date>) robot.get("signal1Time");
+            List<Date> d2l = (List<Date>) robot.get("signal2Time");
+            List<Date> d3l = (List<Date>) robot.get("signal3Time");
+            List<Date> d4l = (List<Date>) robot.get("signal4Time");
+            List<Date> d5l = (List<Date>) robot.get("signal5Time");
+            List<Date> d6l = (List<Date>) robot.get("signal6Time");
+            List<Date> d7l = (List<Date>) robot.get("signal7Time");
+
+            // Convert the lists to arrays
+            s1 = listToIntArray(s1l);
+            s2 = listToIntArray(s2l);
+            s3 = listToIntArray(s3l);
+            s4 = listToIntArray(s4l);
+            s5 = listToIntArray(s5l);
+            s6 = listToIntArray(s6l);
+            s7 = listToIntArray(s7l);
+
+            // Convert the lists to arrays
+            d1 = listToDateArray(d1l);
+            d2 = listToDateArray(d2l);
+            d3 = listToDateArray(d3l);
+            d4 = listToDateArray(d4l);
+            d5 = listToDateArray(d5l);
+            d6 = listToDateArray(d6l);
+            d7 = listToDateArray(d7l);
+
+            Robot roboTemp = new Robot(robot.getInteger("id"), robot.getInteger("cluster"), s1, s2, s3, s4, s5, s6, s7,
+                    d1, d2, d3, d4, d5, d6, d7);
 
             robotList.add(roboTemp);
-
         }
 
         return robotList;
     }
 
-    // TODO: Use threads
     /* Update elements in the DB*/
     public static void runUpdateTests(MongoDatabase db, ArrayList<Robot> robotList) throws IOException, ClassNotFoundException {
 
@@ -114,9 +149,7 @@ public class DBManager {
         long count = 0;
 
         for (int q = 0; q < robotParams.size(); q++) {
-
             count += robotParams.get(q);
-
         }
 
         for (int j = 0; j < count; j++) {
@@ -145,5 +178,33 @@ public class DBManager {
                 .into(new ArrayList<String>()).contains("robot");
 
         return collectionExists;
+    }
+
+    /* Convert a list to an int array */
+    public static int[] listToIntArray(List<Integer> list) {
+
+        int size = list.size();
+        int[] result = new int[size];
+
+        // Convert the list to an int array
+        Integer[] temp = list.toArray(new Integer[size]);
+        for (int n = 0; n < size; ++n) {
+            result[n] = temp[n];
+        }
+        return result;
+    }
+
+    /* Convert a list to a date array */
+    public static Date[] listToDateArray(List<Date> list) {
+
+        int size = list.size();
+        Date[] result = new Date[size];
+
+        // Convert the list to an int array
+        Date[] temp = list.toArray(new Date[size]);
+        for (int n = 0; n < size; ++n) {
+            result[n] = temp[n];
+        }
+        return result;
     }
 }

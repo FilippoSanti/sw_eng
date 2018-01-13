@@ -63,7 +63,6 @@ public class inputSimulation {
     }
 
     // Generate random signals for the robots given the cluster parameters
-    // TODO: (maybe) send signals using threads to optimize speed
     public static void generateSignals(List<Integer> paramList) throws IOException, ClassNotFoundException {
 
         int cluster, nRobots;
@@ -86,9 +85,32 @@ public class inputSimulation {
 
                 nRobots++;
 
+                int s1[] = null, s2[] = null, s3[] = null,
+                        s4[] = null, s5[] = null, s6[] = null, s7[] = null;
+
+                Date d1[] = null, d2[] = null, d3[] = null,
+                        d4[] = null, d5[] = null, d6[] = null, d7[] = null;
+
+                s1[0] = signals[0];
+                s2[0] = signals[1];
+                s3[0] = signals[2];
+                s4[0] = signals[3];
+                s5[0] = signals[4];
+                s6[0] = signals[5];
+                s7[0] = signals[6];
+
+                d1[0] = dates[0];
+                d2[0] = dates[1];
+                d3[0] = dates[2];
+                d4[0] = dates[3];
+                d5[0] = dates[4];
+                d6[0] = dates[5];
+                d7[0] = dates[6];
+
+
                 // Create the robot object
-                Robot robotObj = new Robot(nRobots, cluster, signals[0], signals[1], signals[2], signals[3],
-                        signals[4], signals[5], signals[6], dates[0], dates[1], dates[2], dates[3], dates[4], dates[5], dates[6]);
+                Robot robotObj = new Robot(nRobots, cluster, s1, s2, s3, s4,
+                        s5, s6, s7, d1,d2,d3,d4,d5,d6, d7);
 
                 // Add the robot to a list
                 robotList.add(robotObj);
@@ -146,14 +168,37 @@ public class inputSimulation {
                 int signals[] = sig.getSignalValues();
                 Date dates[] = sig.getDateValues();
 
+                // Declare the dates and signals arrays
+                int s1[] = null, s2[] = null, s3[] = null,
+                        s4[] = null, s5[] = null, s6[] = null, s7[] = null;
+
+                Date d1[] = null, d2[] = null, d3[] = null,
+                        d4[] = null, d5[] = null, d6[] = null, d7[] = null;
+
+                // Store the dates and signals values into the arrays
+                s1[0] = signals[0];
+                s2[0] = signals[1];
+                s3[0] = signals[2];
+                s4[0] = signals[3];
+                s5[0] = signals[4];
+                s6[0] = signals[5];
+                s7[0] = signals[6];
+
+                d1[0] = dates[0];
+                d2[0] = dates[1];
+                d3[0] = dates[2];
+                d4[0] = dates[3];
+                d5[0] = dates[4];
+                d6[0] = dates[5];
+                d7[0] = dates[6];
+
                 // Create the robot object
-                Robot robotObj = new Robot(nRobots, cluster, signals[0], signals[1], signals[2], signals[3],
-                        signals[4], signals[5], signals[6], dates[0], dates[1], dates[2], dates[3], dates[4], dates[5], dates[6]);
+                Robot robotObj = new Robot(nRobots, cluster, s1, s2, s3, s4, s5, s6, s7,
+                        d1, d2, d3, d4, d5, d6, d7);
 
                 // Add the robot to a list
                 robotList.add(robotObj);
             }
-
         }
 
         // Record the execution time and display it on screen
