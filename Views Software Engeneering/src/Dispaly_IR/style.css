@@ -28,7 +28,16 @@
     -fx-font-weight: 500;
 }
 
-.on_img{
-
+.style3{
+    -fx-background-color: #119d1c;
+    -fx-font-family: "Bodoni MT";
+    -fx-font-weight: 500;
+    -fx-font-size: 18;
 }
 
+.style4{
+    -fx-background-color: #e20912;
+    -fx-font-family: "Bodoni MT";
+    -fx-font-weight: 500;
+    -fx-font-size: 18;
+}
