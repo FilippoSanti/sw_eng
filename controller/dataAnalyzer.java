@@ -22,7 +22,7 @@ public class dataAnalyzer {
         // First we get the signals from the DB
         ArrayList<Robot> oldList = DBManager.getDataFromDB(DBManager.dbConnect());
         ArrayList<Robot> tempList = null;
-        long roboCount = 0;
+        long roboCount = 0, upCount = 0;
 
         MongoCollection<Document> collection = db.getCollection("robot");
 
@@ -31,39 +31,46 @@ public class dataAnalyzer {
         for (int q = 0; q < robotParams.size(); q++) {
 
             roboCount += robotParams.get(q);
-
         }
 
         // Check if any of the signals has changed
         for (int i = 0; i < newList.size(); i++) {
+            upCount = 0;
 
             // If signal x has changed, we update the field in the db
             if (oldList.get(i).getSignal1() != newList.get(i).getSignal1()) {
-                collection.updateOne(eq("id", newList.get(i).getId()), push("signal1", newList.get(i).getSignal1()));
+                collection.updateOne(eq("id", newList.get(i).getId()), push("signal1", newList.get(i).getSignal1()[0]));
+                upCount++;
             }
 
             if (oldList.get(i).getSignal2() != newList.get(i).getSignal2()) {
-                collection.updateOne(eq("id", newList.get(i).getId()), push("signal2", newList.get(i).getSignal2()));
+                collection.updateOne(eq("id", newList.get(i).getId()), push("signal2", newList.get(i).getSignal2()[0]));
+                upCount++;
             }
 
             if (oldList.get(i).getSignal3() != newList.get(i).getSignal3()) {
-                collection.updateOne(eq("id", newList.get(i).getId()), push("signal3", newList.get(i).getSignal3()));
+                collection.updateOne(eq("id", newList.get(i).getId()), push("signal3", newList.get(i).getSignal3()[0]));
+                upCount++
             }
 
             if (oldList.get(i).getSignal4() != newList.get(i).getSignal4()) {
-                collection.updateOne(eq("id", newList.get(i).getId()), push("signal4", newList.get(i).getSignal4()));
+                collection.updateOne(eq("id", newList.get(i).getId()), push("signal4", newList.get(i).getSignal4()[0]));
+                upCount++;
             }
 
-            if (oldList.get(i).getSignal4() != newList.get(i).getSignal4()) {
-                collection.updateOne(eq("id", newList.get(i).getId()), push("signal5", newList.get(i).getSignal5()));
+            if (oldList.get(i).getSignal5() != newList.get(i).getSignal5()) {
+                collection.updateOne(eq("id", newList.get(i).getId()), push("signal5", newList.get(i).getSignal5()[0]));
+                upCount++;
             }
 
-            if (oldList.get(i).getSignal4() != newList.get(i).getSignal4()) {
-                collection.updateOne(eq("id", newList.get(i).getId()), push("signal6", newList.get(i).getSignal6()));
+            if (oldList.get(i).getSignal6() != newList.get(i).getSignal6()) {
+                collection.updateOne(eq("id", newList.get(i).getId()), push("signal6", newList.get(i).getSignal6()[0]));
+                upCount++;
             }
 
-            if (oldList.get(i).getSignal4() != newList.get(i).getSignal4()) {
-                collection.updateOne(eq("id", newList.get(i).getId()), push("signal7", newList.get(i).getSignal7()));
+            if (oldList.get(i).getSignal7() != newList.get(i).getSignal7()) {
+                collection.updateOne(eq("id", newList.get(i).getId()), push("signal7", newList.get(i).getSignal7()[0]));
+                upCount++;
             }
         }
     }

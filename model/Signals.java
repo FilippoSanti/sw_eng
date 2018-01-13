@@ -1,23 +1,24 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Signals {
 
-        private int[]  signalValues;
-        private Date[] timestampValues;
+        private  List<int[]> signalValues;
+        private  List<Date[]> timestampValues;
 
-        public Signals(int[] signalValues, Date[] timestampValues)
+        public Signals(List<int[]> signalValues,  List<Date[]> timestampValues)
         {
             this.signalValues = signalValues;
             this.timestampValues = timestampValues;
         }
 
-    public int[] getSignalValues() {
+    public  List<int[]> getSignalValues() {
         return this.signalValues;
     }
 
-    public Date[] getDateValues() {
+    public  List<Date[]> getDateValues() {
         return this.timestampValues;
     }
 

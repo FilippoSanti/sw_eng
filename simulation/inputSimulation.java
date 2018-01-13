@@ -80,37 +80,13 @@ public class inputSimulation {
 
                 // Read values from sensors
                 Signals sig = readSensors();
-                int signals[] = sig.getSignalValues();
-                Date dates[] = sig.getDateValues();
-
-                nRobots++;
-
-                int s1[] = null, s2[] = null, s3[] = null,
-                        s4[] = null, s5[] = null, s6[] = null, s7[] = null;
-
-                Date d1[] = null, d2[] = null, d3[] = null,
-                        d4[] = null, d5[] = null, d6[] = null, d7[] = null;
-
-                s1[0] = signals[0];
-                s2[0] = signals[1];
-                s3[0] = signals[2];
-                s4[0] = signals[3];
-                s5[0] = signals[4];
-                s6[0] = signals[5];
-                s7[0] = signals[6];
-
-                d1[0] = dates[0];
-                d2[0] = dates[1];
-                d3[0] = dates[2];
-                d4[0] = dates[3];
-                d5[0] = dates[4];
-                d6[0] = dates[5];
-                d7[0] = dates[6];
-
+                List<int[]> intList = sig.getSignalValues();
+                List<Date[]> dateList = sig.getDateValues();
 
                 // Create the robot object
-                Robot robotObj = new Robot(nRobots, cluster, s1, s2, s3, s4,
-                        s5, s6, s7, d1,d2,d3,d4,d5,d6, d7);
+                Robot robotObj = new Robot(nRobots, cluster, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
+                        intList.get(4), intList.get(5), intList.get(6), dateList.get(0),dateList.get(1), dateList.get(2),
+                        dateList.get(3), dateList.get(4), dateList.get(5), dateList.get(6));
 
                 // Add the robot to a list
                 robotList.add(robotObj);
@@ -165,36 +141,13 @@ public class inputSimulation {
 
                 // Read values from sensors
                 Signals sig = readSensors();
-                int signals[] = sig.getSignalValues();
-                Date dates[] = sig.getDateValues();
-
-                // Declare the dates and signals arrays
-                int s1[] = null, s2[] = null, s3[] = null,
-                        s4[] = null, s5[] = null, s6[] = null, s7[] = null;
-
-                Date d1[] = null, d2[] = null, d3[] = null,
-                        d4[] = null, d5[] = null, d6[] = null, d7[] = null;
-
-                // Store the dates and signals values into the arrays
-                s1[0] = signals[0];
-                s2[0] = signals[1];
-                s3[0] = signals[2];
-                s4[0] = signals[3];
-                s5[0] = signals[4];
-                s6[0] = signals[5];
-                s7[0] = signals[6];
-
-                d1[0] = dates[0];
-                d2[0] = dates[1];
-                d3[0] = dates[2];
-                d4[0] = dates[3];
-                d5[0] = dates[4];
-                d6[0] = dates[5];
-                d7[0] = dates[6];
+                List<int[]> intList = sig.getSignalValues();
+                List<Date[]> dateList = sig.getDateValues();
 
                 // Create the robot object
-                Robot robotObj = new Robot(nRobots, cluster, s1, s2, s3, s4, s5, s6, s7,
-                        d1, d2, d3, d4, d5, d6, d7);
+                Robot robotObj = new Robot(nRobots, cluster, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
+                        intList.get(4), intList.get(5), intList.get(6), dateList.get(0),dateList.get(1), dateList.get(2),
+                        dateList.get(3), dateList.get(4), dateList.get(5), dateList.get(6));
 
                 // Add the robot to a list
                 robotList.add(robotObj);
@@ -239,6 +192,9 @@ public class inputSimulation {
         Date signalTime = null;
         Date dates[] = new Date[7];
         int signalsArray[] = new int[7];
+
+        List<int[]> intList = new ArrayList<int[]>();
+        List<Date[]> dateList = new ArrayList<Date[]>();
 
         int randomNum;
 
@@ -302,11 +258,25 @@ public class inputSimulation {
             dates[6] = signalTime;
         }
 
-        return new Signals(signalsArray, dates);
+        // Assign the first value of the generates arrays to a list of arrays
+        for (int i = 0; i < 7; i++) {
+
+            // Add an int array
+            int tempIntArray[] = new int[1];
+            tempIntArray[0] = signalsArray[i];
+            intList.add(tempIntArray);
+
+            // Add a date array
+            Date tempDateArray[] = new Date[1];
+            tempDateArray[0] = dates[i];
+            dateList.add(tempDateArray);
+        }
+
+
+        return new Signals(intList, dateList);
     }
 
     // Send the list to the server via sockets
-    // TODO: use threads to send and recieve data faster
     public static void sendDataToServer(ArrayList<Robot> robotList) throws IOException {
 
         // Hostname and port configuration

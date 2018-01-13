@@ -38,27 +38,27 @@ public class DBManager {
         MongoCollection<Document> collection = database.getCollection("robot");
         List<Document> documents = new ArrayList<Document>();
 
+
         for (int i = 0; i < robotList.size(); i++) {
 
             // Save every robot into a temporary variable and add it to a list
             Document roboTemp = new Document("id", robotList.get(i).getId())
                     .append("cluster", robotList.get(i).getCluster())
+                    .append("signal1", Arrays.asList(robotList.get(i).getSignal1()[0]))
+                    .append("signal2", Arrays.asList(robotList.get(i).getSignal2()[0]))
+                    .append("signal3", Arrays.asList(robotList.get(i).getSignal3()[0]))
+                    .append("signal4", Arrays.asList(robotList.get(i).getSignal4()[0]))
+                    .append("signal5", Arrays.asList(robotList.get(i).getSignal5()[0]))
+                    .append("signal6", Arrays.asList(robotList.get(i).getSignal6()[0]))
+                    .append("signal7", Arrays.asList(robotList.get(i).getSignal7()[0]))
 
-                    .append("signal1", Arrays.asList(robotList.get(i).getSignal1()))
-                    .append("signal2", Arrays.asList(robotList.get(i).getSignal2()))
-                    .append("signal3", Arrays.asList(robotList.get(i).getSignal3()))
-                    .append("signal4", Arrays.asList(robotList.get(i).getSignal4()))
-                    .append("signal5", Arrays.asList(robotList.get(i).getSignal5()))
-                    .append("signal6", Arrays.asList(robotList.get(i).getSignal6()))
-                    .append("signal7", Arrays.asList(robotList.get(i).getSignal7()))
-
-                    .append("signal1Time", Arrays.asList(robotList.get(i).getSignal1Time()))
-                    .append("signal2Time", Arrays.asList(robotList.get(i).getSignal2Time()))
-                    .append("signal3Time", Arrays.asList(robotList.get(i).getSignal3Time()))
-                    .append("signal4Time", Arrays.asList(robotList.get(i).getSignal4Time()))
-                    .append("signal5Time", Arrays.asList(robotList.get(i).getSignal5Time()))
-                    .append("signal6Time", Arrays.asList(robotList.get(i).getSignal6Time()))
-                    .append("signal7Time", Arrays.asList(robotList.get(i).getSignal7Time()));
+                    .append("signal1Time", Arrays.asList(robotList.get(i).getSignal1Time()[0]))
+                    .append("signal2Time", Arrays.asList(robotList.get(i).getSignal2Time()[0]))
+                    .append("signal3Time", Arrays.asList(robotList.get(i).getSignal3Time()[0]))
+                    .append("signal4Time", Arrays.asList(robotList.get(i).getSignal4Time()[0]))
+                    .append("signal5Time", Arrays.asList(robotList.get(i).getSignal5Time()[0]))
+                    .append("signal6Time", Arrays.asList(robotList.get(i).getSignal6Time()[0]))
+                    .append("signal7Time", Arrays.asList(robotList.get(i).getSignal7Time()[0]));
 
             documents.add(roboTemp);
         }
@@ -129,40 +129,6 @@ public class DBManager {
         }
 
         return robotList;
-    }
-
-    /* Update elements in the DB*/
-    public static void runUpdateTests(MongoDatabase db, ArrayList<Robot> robotList) throws IOException, ClassNotFoundException {
-
-        int robot = 0;
-
-        // Get count of the documents stored in the db
-        long robotCount = db.getCollection("robot").count();
-
-        MongoCollection<Document> collection = db.getCollection("robot");
-
-        long startTime = System.currentTimeMillis();
-
-        List<Integer> robotParams = inputSimulation.getDataFromList();
-
-        System.out.println("Robotparams.size = " +robotParams.get(1));
-        long count = 0;
-
-        for (int q = 0; q < robotParams.size(); q++) {
-            count += robotParams.get(q);
-        }
-
-        for (int j = 0; j < count; j++) {
-
-            collection.updateOne(eq("id", j), push("signal1", robotList.get(j).getSignal1()));
-            System.out.println(j);
-
-        }
-
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
-        System.out.println("Updated " + robotParams.size() + " clusters containing " + robotCount + " robot entries in " + elapsedTime + "ms");
-
     }
 
     /* Return the size of a collection */
