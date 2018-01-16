@@ -1,4 +1,4 @@
-package robot;
+package view.robot;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

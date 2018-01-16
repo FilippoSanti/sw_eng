@@ -1,4 +1,4 @@
-package robot;
+package view.robot;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
