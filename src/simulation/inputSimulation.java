@@ -82,6 +82,8 @@ public class inputSimulation {
                 List<int[]> intList = sig.getSignalValues();
                 List<Date[]> dateList = sig.getDateValues();
 
+                nRobots++;
+
                 // Create the robot object
                 Robot robotObj = new Robot(nRobots, cluster, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
                         intList.get(4), intList.get(5), intList.get(6), dateList.get(0),dateList.get(1), dateList.get(2),
@@ -234,7 +236,7 @@ public class inputSimulation {
 
             // Generate signal S5 and get its timestamp
             randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-            if (randomNum > 98) signalsArray[4] = 0;
+            if (randomNum > 99) signalsArray[4] = 0;
             else signalsArray[4] = 1;
 
             signalTime = new Date(System.currentTimeMillis());
@@ -242,7 +244,7 @@ public class inputSimulation {
 
             // Generate signal S6 and get its timestamp
             randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-            if (randomNum > 98) signalsArray[5] = 0;
+            if (randomNum > 99) signalsArray[5] = 0;
             else signalsArray[5] = 1;
 
             signalTime = new Date(System.currentTimeMillis());
@@ -250,7 +252,7 @@ public class inputSimulation {
 
             // Generate signal S7 and get its timestamp
             randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-            if (randomNum > 98) signalsArray[6] = 0;
+            if (randomNum > 99) signalsArray[6] = 0;
             else signalsArray[6] = 1;
 
             signalTime = new Date(System.currentTimeMillis());

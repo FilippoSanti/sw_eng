@@ -4,22 +4,17 @@ import com.mongodb.client.MongoCollection;
 import controller.DBManager;
 import model.Robot;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class tests {
 
     public static void main(String[] args) {
 
-        //runUpdateTests(DBManager.dbConnect(), 100);
 
-        // Get data into a list
-        ArrayList<Robot> robotList = DBManager.getDataFromDB(DBManager.dbConnect());
-
-        int array[] = robotList.get(1).getSignal1();
-
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(array[i]);
-        }
     }
 
     public static void runGetTests() {
@@ -32,8 +27,5 @@ public class tests {
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
         System.out.println("Got " + robotList.size() + " robots in " + elapsedTime + "ms");
-    }
-
-    public static void runUpdate(MongoCollection collection) {
     }
 }
