@@ -22,7 +22,7 @@ public class Server {
 
             // Create the server socket and accept new connections
             ServerSocket serverSocket = new ServerSocket(25001);
-            System.out.println("Server Started and listening to the port 25000");
+            System.out.println("Server Started and listening to the port: 25000");
             ObjectInputStream ois = null;
 
             while (true) {
@@ -56,9 +56,9 @@ public class Server {
 
                     // Update existing robots signals
                     System.out.println("");
-                    System.out.println("Updating robot entries in the db...");
+                    System.out.println("Got the list from the client...updating robot entries in the db...");
 
-                    dataAnalyzer.detectSignalChanges(DBManager.dbConnect(), robotList);
+                    dataAnalyzer.updateRobotsDB(DBManager.dbConnect(), robotList);
                 }
             }
         } catch (Exception e) {

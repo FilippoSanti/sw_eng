@@ -58,7 +58,7 @@ public class inputSimulation {
                     e.printStackTrace();
                 }
             }
-        }, 0, 5000);
+        }, 0, 36000);
     }
 
     // Generate random signals for the robots given the cluster parameters
@@ -95,11 +95,9 @@ public class inputSimulation {
             }
         }
 
-        System.out.println("Generated " +robotList.size()*7 + " signals for " + robotList.size() + "robots");
+        System.out.println("");
+        System.out.println("Generated " +robotList.size()*7 + " signals for " + robotList.size() + " robots");
 
-        // Analyze the generated list to find out
-        // Which signals have changed
-        // dataAnalyzer.detectSignalChanges(robotList);
         sendDataToServer(robotList);
     }
 
@@ -236,7 +234,7 @@ public class inputSimulation {
 
             // Generate signal S5 and get its timestamp
             randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-            if (randomNum > 99) signalsArray[4] = 0;
+            if (randomNum > 98) signalsArray[4] = 0;
             else signalsArray[4] = 1;
 
             signalTime = new Date(System.currentTimeMillis());
@@ -244,7 +242,7 @@ public class inputSimulation {
 
             // Generate signal S6 and get its timestamp
             randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-            if (randomNum > 99) signalsArray[5] = 0;
+            if (randomNum > 98) signalsArray[5] = 0;
             else signalsArray[5] = 1;
 
             signalTime = new Date(System.currentTimeMillis());
@@ -252,7 +250,7 @@ public class inputSimulation {
 
             // Generate signal S7 and get its timestamp
             randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-            if (randomNum > 99) signalsArray[6] = 0;
+            if (randomNum > 98) signalsArray[6] = 0;
             else signalsArray[6] = 1;
 
             signalTime = new Date(System.currentTimeMillis());

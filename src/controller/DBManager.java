@@ -9,7 +9,6 @@ import org.bson.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -24,43 +23,6 @@ public class DBManager {
         MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
         return db;
-
-    }
-
-    /* Insert robots in the DB */
-    public static void saveDataToDB(MongoDatabase database, ArrayList<Robot> robotList) throws IOException {
-
-        MongoCollection<Document> collection = database.getCollection("robot");
-        List<Document> documents = new ArrayList<Document>();
-
-
-        for (int i = 0; i < robotList.size(); i++) {
-
-            // Save every robot into a temporary variable and add it to a list
-            Document roboTemp = new Document("id", robotList.get(i).getId())
-                    .append("cluster", robotList.get(i).getCluster())
-                    .append("signal1", Arrays.asList(robotList.get(i).getSignal1()[0]))
-                    .append("signal2", Arrays.asList(robotList.get(i).getSignal2()[0]))
-                    .append("signal3", Arrays.asList(robotList.get(i).getSignal3()[0]))
-                    .append("signal4", Arrays.asList(robotList.get(i).getSignal4()[0]))
-                    .append("signal5", Arrays.asList(robotList.get(i).getSignal5()[0]))
-                    .append("signal6", Arrays.asList(robotList.get(i).getSignal6()[0]))
-                    .append("signal7", Arrays.asList(robotList.get(i).getSignal7()[0]))
-
-                    .append("signal1Time", Arrays.asList(robotList.get(i).getSignal1Time()[0]))
-                    .append("signal2Time", Arrays.asList(robotList.get(i).getSignal2Time()[0]))
-                    .append("signal3Time", Arrays.asList(robotList.get(i).getSignal3Time()[0]))
-                    .append("signal4Time", Arrays.asList(robotList.get(i).getSignal4Time()[0]))
-                    .append("signal5Time", Arrays.asList(robotList.get(i).getSignal5Time()[0]))
-                    .append("signal6Time", Arrays.asList(robotList.get(i).getSignal6Time()[0]))
-                    .append("signal7Time", Arrays.asList(robotList.get(i).getSignal7Time()[0]));
-
-            documents.add(roboTemp);
-        }
-
-        // Write the documents into the DB
-        collection.insertMany(documents);
-
     }
 
     /* Get the list of robots from the database */
@@ -167,5 +129,129 @@ public class DBManager {
             result[n] = temp[n];
         }
         return result;
+    }
+
+    /* Insert robots in the DB */
+    public static void saveDataToDB(MongoDatabase database, ArrayList<Robot> robotList) throws IOException {
+
+        MongoCollection<Document> collection = database.getCollection("robot");
+
+        List<Document> documents = getSignalList(robotList);
+
+        // Write the documents into the DB
+        collection.insertMany(documents);
+
+    }
+
+    /* Get the list of signals from che robot object */
+    public static List<Document> getSignalList(ArrayList<Robot> robotList) {
+
+        List<Document> documents = new ArrayList<Document>();
+
+        for (int i = 0; i < robotList.size(); i++) {
+
+            Document roboTemp = new Document("id", robotList.get(i).getId());
+            roboTemp.append("cluster", robotList.get(i).getCluster());
+
+            // Scan the array ang get the signal
+            for (int y = 0; y < robotList.get(i).getSignal1().length; y++) {
+
+                List<Integer> ArrayIntList = new ArrayList<Integer>();
+                ArrayIntList.add(robotList.get(i).getSignal1()[y]);
+                roboTemp.append("signal1", ArrayIntList);
+
+            }
+
+            for (int y = 0; y < robotList.get(i).getSignal2().length; y++) {
+
+                List<Integer> ArrayIntList = new ArrayList<Integer>();
+                ArrayIntList.add(robotList.get(i).getSignal2()[y]);
+                roboTemp.append("signal2", ArrayIntList);
+            }
+
+
+            for (int y = 0; y < robotList.get(i).getSignal3().length; y++) {
+                List<Integer> ArrayIntList = new ArrayList<Integer>();
+                ArrayIntList.add(robotList.get(i).getSignal3()[y]);
+                roboTemp.append("signal3", ArrayIntList);
+            }
+
+
+            for (int y = 0; y < robotList.get(i).getSignal4().length; y++) {
+                List<Integer> ArrayIntList = new ArrayList<Integer>();
+                ArrayIntList.add(robotList.get(i).getSignal4()[y]);
+                roboTemp.append("signal4", ArrayIntList);
+            }
+
+            for (int y = 0; y < robotList.get(i).getSignal5().length; y++) {
+                List<Integer> ArrayIntList = new ArrayList<Integer>();
+                ArrayIntList.add(robotList.get(i).getSignal5()[y]);
+                roboTemp.append("signal5", ArrayIntList);
+            }
+
+            for (int y = 0; y < robotList.get(i).getSignal6().length; y++) {
+                List<Integer> ArrayIntList = new ArrayList<Integer>();
+                ArrayIntList.add(robotList.get(i).getSignal6()[y]);
+                roboTemp.append("signal6", ArrayIntList);
+            }
+
+            for (int y = 0; y < robotList.get(i).getSignal7().length; y++) {
+                List<Integer> ArrayIntList = new ArrayList<Integer>();
+                ArrayIntList.add(robotList.get(i).getSignal7()[y]);
+                roboTemp.append("signal7", ArrayIntList);
+            }
+
+
+            // Scan the array ang get the timestamps
+            for (int y = 0; y < robotList.get(i).getSignal1Time().length; y++) {
+                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
+                ArrayDateList.add(robotList.get(i).getSignal1Time()[y]);
+                roboTemp.append("signal1Time", ArrayDateList);
+            }
+
+            for (int y = 0; y < robotList.get(i).getSignal2Time().length; y++) {
+                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
+                ArrayDateList.add(robotList.get(i).getSignal2Time()[y]);
+                roboTemp.append("signal2Time", ArrayDateList);
+            }
+
+
+            for (int y = 0; y < robotList.get(i).getSignal3Time().length; y++) {
+                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
+                ArrayDateList.add(robotList.get(i).getSignal3Time()[y]);
+                roboTemp.append("signal3Time", ArrayDateList);
+            }
+
+            for (int y = 0; y < robotList.get(i).getSignal4Time().length; y++) {
+                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
+                ArrayDateList.add(robotList.get(i).getSignal4Time()[y]);
+                roboTemp.append("signal4Time", ArrayDateList);
+            }
+
+
+            for (int y = 0; y < robotList.get(i).getSignal5Time().length; y++) {
+                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
+                ArrayDateList.add(robotList.get(i).getSignal5Time()[y]);
+                roboTemp.append("signal5Time", ArrayDateList);
+            }
+
+
+            for (int y = 0; y < robotList.get(i).getSignal6Time().length; y++) {
+                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
+                ArrayDateList.add(robotList.get(i).getSignal6Time()[y]);
+                roboTemp.append("signal6Time", ArrayDateList);
+            }
+
+
+            for (int y = 0; y < robotList.get(i).getSignal7Time().length; y++) {
+                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
+                ArrayDateList.add(robotList.get(i).getSignal7Time()[y]);
+                roboTemp.append("signal7Time", ArrayDateList);
+            }
+
+            documents.add(roboTemp);
+
+        }
+        return documents;
     }
 }
