@@ -15,6 +15,8 @@ import java.util.List;
 
 public class DBManager {
 
+    public static String newLine = System.getProperty("line.separator");
+
     /* Conenct to the DB */
     public static MongoDatabase dbConnect() {
 
@@ -147,59 +149,85 @@ public class DBManager {
     public static List<Document> getSignalList(ArrayList<Robot> robotList) {
 
         List<Document> documents = new ArrayList<Document>();
-
+        // Signal 1
         for (int i = 0; i < robotList.size(); i++) {
+
+            List<Integer> ArrayIntList1 = new ArrayList<Integer>();
+            List<Integer> ArrayIntList2 = new ArrayList<Integer>();
+            List<Integer> ArrayIntList3 = new ArrayList<Integer>();
+            List<Integer> ArrayIntList4 = new ArrayList<Integer>();
+            List<Integer> ArrayIntList5 = new ArrayList<Integer>();
+            List<Integer> ArrayIntList6 = new ArrayList<Integer>();
+            List<Integer> ArrayIntList7 = new ArrayList<Integer>();
 
             Document roboTemp = new Document("id", robotList.get(i).getId());
             roboTemp.append("cluster", robotList.get(i).getCluster());
 
-            // Scan the array ang get the signal
+            // Scan the array and get the signal
+
             for (int y = 0; y < robotList.get(i).getSignal1().length; y++) {
 
-                List<Integer> ArrayIntList = new ArrayList<Integer>();
-                ArrayIntList.add(robotList.get(i).getSignal1()[y]);
-                roboTemp.append("signal1", ArrayIntList);
+                ArrayIntList1.add(robotList.get(i).getSignal1()[y]);
+
 
             }
+
+
+            roboTemp.append("signal1", ArrayIntList1);
 
             for (int y = 0; y < robotList.get(i).getSignal2().length; y++) {
 
-                List<Integer> ArrayIntList = new ArrayList<Integer>();
-                ArrayIntList.add(robotList.get(i).getSignal2()[y]);
-                roboTemp.append("signal2", ArrayIntList);
+                ArrayIntList2.add(robotList.get(i).getSignal2()[y]);
+
             }
+
+            roboTemp.append("signal2", ArrayIntList2);
 
 
             for (int y = 0; y < robotList.get(i).getSignal3().length; y++) {
-                List<Integer> ArrayIntList = new ArrayList<Integer>();
-                ArrayIntList.add(robotList.get(i).getSignal3()[y]);
-                roboTemp.append("signal3", ArrayIntList);
+
+                ArrayIntList3.add(robotList.get(i).getSignal3()[y]);
+
             }
+
+
+            roboTemp.append("signal3", ArrayIntList3);
 
 
             for (int y = 0; y < robotList.get(i).getSignal4().length; y++) {
-                List<Integer> ArrayIntList = new ArrayList<Integer>();
-                ArrayIntList.add(robotList.get(i).getSignal4()[y]);
-                roboTemp.append("signal4", ArrayIntList);
+
+                ArrayIntList4.add(robotList.get(i).getSignal4()[y]);
+
             }
+
+
+            roboTemp.append("signal4", ArrayIntList4);
 
             for (int y = 0; y < robotList.get(i).getSignal5().length; y++) {
-                List<Integer> ArrayIntList = new ArrayList<Integer>();
-                ArrayIntList.add(robotList.get(i).getSignal5()[y]);
-                roboTemp.append("signal5", ArrayIntList);
+
+                ArrayIntList5.add(robotList.get(i).getSignal5()[y]);
+
             }
+
+            roboTemp.append("signal5", ArrayIntList5);
+
 
             for (int y = 0; y < robotList.get(i).getSignal6().length; y++) {
-                List<Integer> ArrayIntList = new ArrayList<Integer>();
-                ArrayIntList.add(robotList.get(i).getSignal6()[y]);
-                roboTemp.append("signal6", ArrayIntList);
+
+                ArrayIntList6.add(robotList.get(i).getSignal6()[y]);
+
             }
 
+            roboTemp.append("signal6", ArrayIntList6);
+
             for (int y = 0; y < robotList.get(i).getSignal7().length; y++) {
-                List<Integer> ArrayIntList = new ArrayList<Integer>();
-                ArrayIntList.add(robotList.get(i).getSignal7()[y]);
-                roboTemp.append("signal7", ArrayIntList);
+
+                ArrayIntList7.add(robotList.get(i).getSignal7()[y]);
+
             }
+
+
+            roboTemp.append("signal7", ArrayIntList7);
 
 
             // Scan the array ang get the timestamps
