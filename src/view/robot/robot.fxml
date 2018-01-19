@@ -78,7 +78,7 @@
             <HBox prefHeight="140.0" prefWidth="1000.0">
                <children>
                   <Region prefHeight="125.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                  <Label text="General Robot IR    =&gt;    99%" textAlignment="CENTER">
+                  <Label text="General Robot IR*    =&gt;    99%" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets top="45.0" />
                      </HBox.margin>
