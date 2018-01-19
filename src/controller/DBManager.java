@@ -27,6 +27,244 @@ public class DBManager {
         return db;
     }
 
+    /* Update the list of robots in the db */
+    public static void updateRobots(MongoDatabase db, ArrayList<Robot> newList) throws IOException {
+
+        ArrayList<Robot> oldList = DBManager.getDataFromDB(DBManager.dbConnect());
+
+        System.out.println(oldList.get(0).getSignal2().length);
+        System.out.println(newList.get(0).getSignal2().length);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Delete the collection to insert a new one
+        MongoCollection myCollection = db.getCollection("robot");
+
+
+        for (int i = 0; i < oldList.size(); i++) {
+
+            if (oldList.get(i).getSignal1()[oldList.get(i).getSignal1().length - 1]
+                    != newList.get(i).getSignal1()[0]) {
+
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 1 " + oldList.get(i).getSignal1()[oldList.get(i).getSignal1().length - 1]+
+                        " è cambiato in " +newList.get(i).getSignal1()[0]);
+
+                int size = oldList.get(i).getSignal1().length;
+
+                int tempArray[] = new int[size+1];
+                Date tempDate[] = new Date[size+1];
+
+                for (int k = 0; k < oldList.get(i).getSignal1().length; k++) {
+                    tempArray[k] = oldList.get(i).getSignal1()[k];
+                }
+
+                for (int k = 0; k < oldList.get(i).getSignal1Time().length; k++) {
+                    tempDate[k] = oldList.get(i).getSignal1Time()[k];
+                }
+
+                tempArray[tempArray.length-1] = newList.get(i).getSignal1()[0];
+                tempDate[tempDate.length-1] = newList.get(i).getSignal1Time()[0];
+
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+
+                oldList.get(i).setSignal1(tempArray);
+                oldList.get(i).setSignal1Time(tempDate);
+
+            }
+
+            if (oldList.get(i).getSignal2()[oldList.get(i).getSignal2().length - 1]
+                    != newList.get(i).getSignal2()[0]) {
+
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 2 " + oldList.get(i).getSignal2()[oldList.get(i).getSignal2().length - 1]+
+                        " è cambiato in " +newList.get(i).getSignal2()[0]);
+
+                int size = oldList.get(i).getSignal2().length;
+
+                int tempArray[] = new int[size+1];
+                Date tempDate[] = new Date[size+1];
+
+                for (int k = 0; k < oldList.get(i).getSignal2().length; k++) {
+                    tempArray[k] = oldList.get(i).getSignal2()[k];
+                }
+
+                for (int k = 0; k < oldList.get(i).getSignal2Time().length; k++) {
+                    tempDate[k] = oldList.get(i).getSignal2Time()[k];
+                }
+
+                tempArray[tempArray.length-1] = newList.get(i).getSignal2()[0];
+                tempDate[tempDate.length-1] = newList.get(i).getSignal2Time()[0];
+
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+
+                oldList.get(i).setSignal2(tempArray);
+                oldList.get(i).setSignal2Time(tempDate);
+
+
+            }
+
+            if (oldList.get(i).getSignal3()[oldList.get(i).getSignal3().length - 1]
+                    != newList.get(i).getSignal3()[0]) {
+
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 3 " + oldList.get(i).getSignal3()[oldList.get(i).getSignal3().length - 1]+
+                        " è cambiato in " +newList.get(i).getSignal3()[0]);
+
+                int size = oldList.get(i).getSignal3().length;
+
+                int tempArray[] = new int[size+1];
+                Date tempDate[] = new Date[size+1];
+
+                for (int k = 0; k < oldList.get(i).getSignal3().length; k++) {
+                    tempArray[k] = oldList.get(i).getSignal3()[k];
+                }
+
+                for (int k = 0; k < oldList.get(i).getSignal3Time().length; k++) {
+                    tempDate[k] = oldList.get(i).getSignal3Time()[k];
+                }
+
+                tempArray[tempArray.length-1] = newList.get(i).getSignal3()[0];
+                tempDate[tempDate.length-1] = newList.get(i).getSignal3Time()[0];
+
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+
+                oldList.get(i).setSignal3(tempArray);
+                oldList.get(i).setSignal3Time(tempDate);
+
+            }
+
+            if (oldList.get(i).getSignal4()[oldList.get(i).getSignal4().length - 1]
+                    != newList.get(i).getSignal4()[0]) {
+
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 4 " + oldList.get(i).getSignal4()[oldList.get(i).getSignal4().length - 1]+
+                        " è cambiato in " +newList.get(i).getSignal4()[0]);
+
+                int size = oldList.get(i).getSignal4().length;
+
+                int tempArray[] = new int[size+1];
+                Date tempDate[] = new Date[size+1];
+
+                for (int k = 0; k < oldList.get(i).getSignal4().length; k++) {
+                    tempArray[k] = oldList.get(i).getSignal4()[k];
+                }
+
+                for (int k = 0; k < oldList.get(i).getSignal4Time().length; k++) {
+                    tempDate[k] = oldList.get(i).getSignal4Time()[k];
+                }
+
+                tempArray[tempArray.length-1] = newList.get(i).getSignal4()[0];
+                tempDate[tempDate.length-1] = newList.get(i).getSignal4Time()[0];
+
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+
+                oldList.get(i).setSignal4(tempArray);
+                oldList.get(i).setSignal4Time(tempDate);
+
+            }
+
+            if (oldList.get(i).getSignal5()[oldList.get(i).getSignal5().length - 1]
+                    != newList.get(i).getSignal5()[0]) {
+
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 5 " + oldList.get(i).getSignal5()[oldList.get(i).getSignal5().length - 1]+
+                        " è cambiato in " +newList.get(i).getSignal5()[0]);
+
+                int size = oldList.get(i).getSignal5().length;
+
+                int tempArray[] = new int[size+1];
+                Date tempDate[] = new Date[size+1];
+
+                for (int k = 0; k < oldList.get(i).getSignal5().length; k++) {
+                    tempArray[k] = oldList.get(i).getSignal5()[k];
+                }
+
+                for (int k = 0; k < oldList.get(i).getSignal5Time().length; k++) {
+                    tempDate[k] = oldList.get(i).getSignal5Time()[k];
+                }
+
+                tempArray[tempArray.length-1] = newList.get(i).getSignal5()[0];
+                tempDate[tempDate.length-1] = newList.get(i).getSignal5Time()[0];
+
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+
+                oldList.get(i).setSignal5(tempArray);
+                oldList.get(i).setSignal5Time(tempDate);
+
+            }
+
+
+            if (oldList.get(i).getSignal6()[oldList.get(i).getSignal6().length - 1]
+                    != newList.get(i).getSignal6()[0]) {
+
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 6 " + oldList.get(i).getSignal6()[oldList.get(i).getSignal6().length - 1]+
+                        " è cambiato in " +newList.get(i).getSignal6()[0]);
+
+                int size = oldList.get(i).getSignal6().length;
+
+                int tempArray[] = new int[size+1];
+                Date tempDate[] = new Date[size+1];
+
+                for (int k = 0; k < oldList.get(i).getSignal6().length; k++) {
+                    tempArray[k] = oldList.get(i).getSignal6()[k];
+                }
+
+                for (int k = 0; k < oldList.get(i).getSignal6Time().length; k++) {
+                    tempDate[k] = oldList.get(i).getSignal6Time()[k];
+                }
+
+                tempArray[tempArray.length-1] = newList.get(i).getSignal6()[0];
+                tempDate[tempDate.length-1] = newList.get(i).getSignal6Time()[0];
+
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+
+                oldList.get(i).setSignal6(tempArray);
+                oldList.get(i).setSignal6Time(tempDate);
+            }
+
+
+            if (oldList.get(i).getSignal7()[oldList.get(i).getSignal7().length - 1]
+                    != newList.get(i).getSignal7()[0]) {
+
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 7 " + oldList.get(i).getSignal7()[oldList.get(i).getSignal7().length - 1]+
+                        " è cambiato in " +newList.get(i).getSignal7()[0]);
+
+                int size = oldList.get(i).getSignal7().length;
+
+                int tempArray[] = new int[size+1];
+                Date tempDate[] = new Date[size+1];
+
+                for (int k = 0; k < oldList.get(i).getSignal7().length; k++) {
+                    tempArray[k] = oldList.get(i).getSignal7()[k];
+                }
+
+                for (int k = 0; k < oldList.get(i).getSignal7Time().length; k++) {
+                    tempDate[k] = oldList.get(i).getSignal7Time()[k];
+                }
+
+                tempArray[tempArray.length-1] = newList.get(i).getSignal7()[0];
+                tempDate[tempDate.length-1] = newList.get(i).getSignal7Time()[0];
+
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+
+                oldList.get(i).setSignal7(tempArray);
+                oldList.get(i).setSignal7Time(tempDate);
+
+            }
+        }
+
+        myCollection.drop();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        DBManager.saveDataToDB(db, oldList);
+
+    }
+
     /* Get the list of robots from the database */
     public static ArrayList<Robot> getDataFromDB(MongoDatabase database) {
 
@@ -160,122 +398,105 @@ public class DBManager {
             List<Integer> ArrayIntList6 = new ArrayList<Integer>();
             List<Integer> ArrayIntList7 = new ArrayList<Integer>();
 
+            List<Date> ArrayDateList1 = new ArrayList<Date>();
+            List<Date> ArrayDateList2 = new ArrayList<Date>();
+            List<Date> ArrayDateList3 = new ArrayList<Date>();
+            List<Date> ArrayDateList4 = new ArrayList<Date>();
+            List<Date> ArrayDateList5 = new ArrayList<Date>();
+            List<Date> ArrayDateList6 = new ArrayList<Date>();
+            List<Date> ArrayDateList7 = new ArrayList<Date>();
+
+
             Document roboTemp = new Document("id", robotList.get(i).getId());
             roboTemp.append("cluster", robotList.get(i).getCluster());
 
-            // Scan the array and get the signal
-
+            // Scan the array and get the signal lists
             for (int y = 0; y < robotList.get(i).getSignal1().length; y++) {
 
                 ArrayIntList1.add(robotList.get(i).getSignal1()[y]);
-
-
             }
-
 
             roboTemp.append("signal1", ArrayIntList1);
 
             for (int y = 0; y < robotList.get(i).getSignal2().length; y++) {
-
                 ArrayIntList2.add(robotList.get(i).getSignal2()[y]);
-
             }
 
             roboTemp.append("signal2", ArrayIntList2);
 
-
             for (int y = 0; y < robotList.get(i).getSignal3().length; y++) {
-
                 ArrayIntList3.add(robotList.get(i).getSignal3()[y]);
-
             }
-
 
             roboTemp.append("signal3", ArrayIntList3);
 
-
             for (int y = 0; y < robotList.get(i).getSignal4().length; y++) {
-
                 ArrayIntList4.add(robotList.get(i).getSignal4()[y]);
-
             }
-
 
             roboTemp.append("signal4", ArrayIntList4);
 
             for (int y = 0; y < robotList.get(i).getSignal5().length; y++) {
-
                 ArrayIntList5.add(robotList.get(i).getSignal5()[y]);
-
             }
 
             roboTemp.append("signal5", ArrayIntList5);
 
-
             for (int y = 0; y < robotList.get(i).getSignal6().length; y++) {
-
                 ArrayIntList6.add(robotList.get(i).getSignal6()[y]);
-
             }
 
             roboTemp.append("signal6", ArrayIntList6);
 
             for (int y = 0; y < robotList.get(i).getSignal7().length; y++) {
-
                 ArrayIntList7.add(robotList.get(i).getSignal7()[y]);
-
             }
-
 
             roboTemp.append("signal7", ArrayIntList7);
 
 
-            // Scan the array ang get the timestamps
+            // Scan the array and get the timestamps
             for (int y = 0; y < robotList.get(i).getSignal1Time().length; y++) {
-                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
-                ArrayDateList.add(robotList.get(i).getSignal1Time()[y]);
-                roboTemp.append("signal1Time", ArrayDateList);
+                ArrayDateList1.add(robotList.get(i).getSignal1Time()[y]);
             }
+
+            roboTemp.append("signal1Time", ArrayDateList1);
 
             for (int y = 0; y < robotList.get(i).getSignal2Time().length; y++) {
-                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
-                ArrayDateList.add(robotList.get(i).getSignal2Time()[y]);
-                roboTemp.append("signal2Time", ArrayDateList);
+                ArrayDateList2.add(robotList.get(i).getSignal2Time()[y]);
             }
 
+            roboTemp.append("signal2Time", ArrayDateList2);
 
             for (int y = 0; y < robotList.get(i).getSignal3Time().length; y++) {
-                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
-                ArrayDateList.add(robotList.get(i).getSignal3Time()[y]);
-                roboTemp.append("signal3Time", ArrayDateList);
+                ArrayDateList3.add(robotList.get(i).getSignal3Time()[y]);
             }
+
+            roboTemp.append("signal3Time", ArrayDateList3);
 
             for (int y = 0; y < robotList.get(i).getSignal4Time().length; y++) {
-                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
-                ArrayDateList.add(robotList.get(i).getSignal4Time()[y]);
-                roboTemp.append("signal4Time", ArrayDateList);
+                ArrayDateList4.add(robotList.get(i).getSignal4Time()[y]);
             }
 
+            roboTemp.append("signal4Time", ArrayDateList4);
 
             for (int y = 0; y < robotList.get(i).getSignal5Time().length; y++) {
-                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
-                ArrayDateList.add(robotList.get(i).getSignal5Time()[y]);
-                roboTemp.append("signal5Time", ArrayDateList);
+                ArrayDateList5.add(robotList.get(i).getSignal5Time()[y]);
             }
 
+            roboTemp.append("signal5Time", ArrayDateList5);
 
             for (int y = 0; y < robotList.get(i).getSignal6Time().length; y++) {
-                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
-                ArrayDateList.add(robotList.get(i).getSignal6Time()[y]);
-                roboTemp.append("signal6Time", ArrayDateList);
+                ArrayDateList6.add(robotList.get(i).getSignal6Time()[y]);
             }
 
+            roboTemp.append("signal6Time", ArrayDateList6);
 
             for (int y = 0; y < robotList.get(i).getSignal7Time().length; y++) {
-                ArrayList<Date> ArrayDateList = new ArrayList<Date>();
-                ArrayDateList.add(robotList.get(i).getSignal7Time()[y]);
-                roboTemp.append("signal7Time", ArrayDateList);
+                ArrayDateList7.add(robotList.get(i).getSignal7Time()[y]);
             }
+
+            roboTemp.append("signal7Time", ArrayDateList7);
 
             documents.add(roboTemp);
 
