@@ -58,7 +58,7 @@ public class Server {
                     System.out.println("");
                     System.out.println("Got the list from the client...updating robot entries in the db...");
 
-                    dataAnalyzer.updateRobotsDB(DBManager.dbConnect(), robotList);
+                    DBManager.updateRobots(DBManager.dbConnect(), robotList);
                 }
             }
         } catch (Exception e) {

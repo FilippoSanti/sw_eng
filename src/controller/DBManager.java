@@ -1,16 +1,18 @@
 package controller;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import model.Robot;
 import org.bson.Document;
+import sun.security.pkcs11.Secmod;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.mongodb.client.model.Filters.*;
 
 
 public class DBManager {
@@ -20,7 +22,7 @@ public class DBManager {
     /* Conenct to the DB */
     public static MongoDatabase dbConnect() {
 
-        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@localhost/?authSource=unnamedb");
+        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@87.20.196.37/?authSource=unnamedb");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
@@ -265,6 +267,8 @@ public class DBManager {
 
     }
 
+
+
     /* Get the list of robots from the database */
     public static ArrayList<Robot> getDataFromDB(MongoDatabase database) {
 
@@ -327,6 +331,23 @@ public class DBManager {
 
         return robotList;
     }
+
+    public static boolean Authentication (String username, String password)
+
+    {
+        MongoDatabase database = dbConnect();
+        MongoCollection<Document> collection = database.getCollection("utenti");
+
+        List<Document> utenti = (List<Document>) collection.find((and(eq("username", username), eq("password", password)))).into(
+                new ArrayList<Document>());
+
+
+
+
+      return !utenti.isEmpty();
+    }
+
+
 
     /* Return the size of a collection */
     public static long getCollectionSize(MongoDatabase db, String collName) {

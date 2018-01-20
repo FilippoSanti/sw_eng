@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Choose_IR_Log_Out.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.authentication.Controller">
    <top>
       <Label text="Choose Which IR to Display" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -59,7 +59,7 @@
       </VBox>
    </bottom>
    <left>
-      <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#IRbyRobot_btn" styleClass="btn_robot" stylesheets="@Style.css" text="       Display IR by &#10;       ROBOT" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
+      <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#IRbyRobot_btn" styleClass="btn_robot" stylesheets="@../select_ir/Style.css" text="       Display IR by &#10;       ROBOT" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
          <padding>
             <Insets bottom="100.0" left="125.0" right="91.0" top="100.0" />
          </padding>
@@ -72,7 +72,7 @@
       </Button>
    </left>
    <right>
-      <Button focusTraversable="false" mnemonicParsing="false" onAction="#IRbyCluster_btn" styleClass="btn_cluster" stylesheets="@Style.css" text="Display IR by &#10;CLUSTER" textAlignment="CENTER" BorderPane.alignment="CENTER_LEFT">
+      <Button focusTraversable="false" mnemonicParsing="false" onAction="#IRbyCluster_btn" styleClass="btn_cluster" stylesheets="@../select_ir/Style.css" text="Display IR by &#10;CLUSTER" textAlignment="CENTER" BorderPane.alignment="CENTER_LEFT">
          <padding>
             <Insets bottom="100.0" left="125.0" right="125.0" top="100.0" />
          </padding>

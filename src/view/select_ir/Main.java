@@ -10,7 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("select_ir.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../authentication/select_ir.fxml"));
         primaryStage.setTitle("Industrial Robot Dashboard");
         primaryStage.setScene(new Scene(root, 1000, 650));
         primaryStage.setMinHeight(650);
