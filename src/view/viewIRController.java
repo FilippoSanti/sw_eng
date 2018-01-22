@@ -139,6 +139,7 @@ public class viewIRController extends Application {
         ir.setCursor(Cursor.HAND);
 
 
+
         // red panel
         Label id1 = new Label("K57CM");
         id1.setPrefSize(130, 65);
