@@ -40,7 +40,7 @@ public class authController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Error");
             alert.setHeaderText("An error occurred");
-            alert.setContentText("Try with a different username and password");
+            alert.setContentText("Try with a different user code or/and password");
 
             alert.showAndWait();
 

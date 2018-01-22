@@ -36,9 +36,12 @@ public class viewRobotIRController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //TODO
         TableColumn sensors = new TableColumn("Sensors");
-
+        sensors.setMinWidth(400.0);
         TableColumn actState = new TableColumn("Actual State");
+        actState.setMinWidth(150.0);
         TableColumn partIR = new TableColumn("Partial IR");
+        partIR.setMinWidth(150.0);
+
         myTable.getColumns().addAll(sensors, actState, partIR);
 
 

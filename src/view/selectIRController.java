@@ -23,8 +23,14 @@ public class selectIRController {
 
     }
 
-    // View ir by robot
+    // View ir by cluster
     public void IRbyCluster_btn() {
+        irButton.getScene().getWindow().hide();
+        new viewIRController().start(mainStage);
+    }
+
+    //View ir by area
+    public void IRbyArea_btn() {
         irButton.getScene().getWindow().hide();
         new viewIRController().start(mainStage);
     }

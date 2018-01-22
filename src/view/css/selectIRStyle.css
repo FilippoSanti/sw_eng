@@ -4,3 +4,7 @@
 .btn_cluster{
     -fx-background-image: url('../img/8.png');
 }
+
+.btn_area{
+    -fx-background-image: url('../img/10.png') 0.8%;
+}
