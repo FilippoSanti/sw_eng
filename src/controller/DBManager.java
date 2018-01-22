@@ -22,7 +22,7 @@ public class DBManager {
     /* Conenct to the DB */
     public static MongoDatabase dbConnect() {
 
-        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@87.20.196.37/?authSource=unnamedb");
+        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@79.13.232.9/?authSource=unnamedb");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
