@@ -11,7 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import view.view_model.Robot;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -75,7 +74,7 @@ public class viewRobotIRController implements Initializable {
     public void goBack(ActionEvent actionEvent) {
 
         btn.getScene().getWindow().hide();
-        new viewIRController().start(mainStage);
+        new viewIR_RobotController().start(mainStage);
 
     }
 }

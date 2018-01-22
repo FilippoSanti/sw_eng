@@ -19,20 +19,20 @@ public class selectIRController {
     public void IRbyRobot_btn() throws IOException {
         // Change page
         irButton.getScene().getWindow().hide();
-        new viewIRController().start(mainStage);
+        new viewIR_RobotController().start(mainStage);
 
     }
 
     // View ir by cluster
     public void IRbyCluster_btn() {
         irButton.getScene().getWindow().hide();
-        new viewIRController().start(mainStage);
+        new viewIR_Cluster_AreaController().start(mainStage);
     }
 
     //View ir by area
     public void IRbyArea_btn() {
         irButton.getScene().getWindow().hide();
-        new viewIRController().start(mainStage);
+        new viewIR_Cluster_AreaController().start(mainStage);
     }
 
     // Go back to the authetication
