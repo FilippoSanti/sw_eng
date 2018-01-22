@@ -12,11 +12,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static view.startGUI.mainStage;
+
 public class authController {
     @FXML
     private TextField text;
     @FXML
     private PasswordField psw;
+    private Stage myStage;
 
 
     public void GoToDashboard_btn() throws IOException {
@@ -29,7 +32,7 @@ public class authController {
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
-            startGUI.mainStage.close();
+            mainStage.close();
             stage.show();
 
         } else {

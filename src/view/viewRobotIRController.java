@@ -2,17 +2,23 @@ package view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import view.view_model.Robot;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static view.startGUI.mainStage;
+
 public class viewRobotIRController implements Initializable {
+    public Button btn;
 
    /* @FXML
     private Label label;
@@ -60,5 +66,13 @@ public class viewRobotIRController implements Initializable {
 
 
         myTable.setItems(data);
+    }
+
+
+    public void goBack(ActionEvent actionEvent) {
+
+        btn.getScene().getWindow().hide();
+        new viewIRController().start(mainStage);
+
     }
 }

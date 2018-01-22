@@ -1,36 +1,42 @@
 package view;
 
-import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
-import java.awt.event.ActionEvent;
+import java.io.IOException;
 
-import static javafx.application.Application.launch;
+import static view.startGUI.mainStage;
 
 public class selectIRController {
 
+    public Button irButton;
+    private Stage myStage;
 
-    public void IRbyRobot_btn() {
-
-
+    // View ir by robot
+    public void IRbyRobot_btn() throws IOException {
+        // Change page
+        irButton.getScene().getWindow().hide();
+        new viewIRController().start(mainStage);
 
     }
 
+    // View ir by robot
     public void IRbyCluster_btn() {
-        System.out.println("Display Inefficiency Rate by CLUSTER!!!!!");
-
+        irButton.getScene().getWindow().hide();
+        new viewIRController().start(mainStage);
     }
 
-    public void LogOut_btn() {
-        System.out.println("You are Logged Out!!!!!");
+    // Go back to the authetication
+    public void LogOut_btn() throws IOException {
 
+        irButton.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("fxml/auth.fxml"));
+        mainStage.setTitle("User Authentication Page");
+        mainStage.setScene(new Scene(root, 1000, 650));
+        mainStage.setResizable(false);
+        mainStage.show();
     }
-
 }

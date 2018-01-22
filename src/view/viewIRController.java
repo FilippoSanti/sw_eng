@@ -3,10 +3,12 @@ package view;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -15,6 +17,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
+import static view.startGUI.mainStage;
 
 
 public class viewIRController extends Application {
@@ -100,73 +106,86 @@ public class viewIRController extends Application {
 
         // Display ID & IR
         // Premi il tasto back per popolare la view
-        btn.setOnAction((ActionEvent event) -> {
 
-            // Dichiarazioni delle labels
+        // Dichiarazioni delle labels
 
-            // Green panel
-            Label id = new Label("K57CM");
-            id.setPrefSize(130, 65);
-            id.setAlignment(Pos.CENTER);
-            id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            id.getStyleClass().add("style3");
-            id.setCursor(Cursor.HAND);
-            id.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
-                @Override
-                public void handle(MouseEvent t) {
-                    id.setStyle("-fx-font-size: 22px; -fx-font-family: 'Open Sans Light'");
+        // Green panel
+        Label id = new Label("K57CM");
+        id.setPrefSize(130, 65);
+        id.setAlignment(Pos.CENTER);
+        id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        id.getStyleClass().add("style3");
+        id.setCursor(Cursor.HAND);
+        id.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+            @Override
+            public void handle(MouseEvent t) {
+
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
-
-            Label ir = new Label("55%");
-            ir.setPrefSize(130, 65);
-            ir.setAlignment(Pos.CENTER);
-            ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            ir.getStyleClass().add("style3");
-            ir.setCursor(Cursor.HAND);
-            ir.setOnMouseClicked(new EventHandler<MouseEvent>() {       // quando servirà di aggiungere il click che manda all'altra view
-                @Override
-                public void handle(MouseEvent t) {
-                    ir.setStyle("-fx-font-size: 22px; -fx-font-family: 'Open Sans Light'");
-                }
-            });
-
-            // red panel
-            Label id1 = new Label("K57CM");
-            id1.setPrefSize(130, 65);
-            id1.setAlignment(Pos.CENTER);
-            id1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            id1.getStyleClass().add("style4");
-            id1.setCursor(Cursor.HAND);
-            id1.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
-                @Override
-                public void handle(MouseEvent t) {
-                    id1.setStyle("-fx-font-size: 22px; -fx-font-family: 'Open Sans Light'");
-                }
-            });
-
-            Label ir1 = new Label("55%");
-            ir1.setPrefSize(130, 65);
-            ir1.setAlignment(Pos.CENTER);
-            ir1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            ir1.getStyleClass().add("style4");
-            ir1.setCursor(Cursor.HAND);
-            ir1.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
-                @Override
-                public void handle(MouseEvent t) {
-                    ir1.setStyle("-fx-font-size: 22px; -fx-font-family: 'Open Sans Light'");
-                }
-            });
-
-            // stampa sulla finestra
-            pane.getChildren().add(new VBox(id, ir));
-            pane.getChildren().add(new VBox(id1, ir1));
-
+                mainStage.setScene(new Scene(root, 1000, 650));
+                mainStage.show();
+            }
         });
+
+        Label ir = new Label("55%");
+        ir.setPrefSize(130, 65);
+        ir.setAlignment(Pos.CENTER);
+        ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        ir.getStyleClass().add("style3");
+        ir.setCursor(Cursor.HAND);
+
+
+        // red panel
+        Label id1 = new Label("K57CM");
+        id1.setPrefSize(130, 65);
+        id1.setAlignment(Pos.CENTER);
+        id1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        id1.getStyleClass().add("style4");
+        id1.setCursor(Cursor.HAND);
+        id1.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+            @Override
+            public void handle(MouseEvent t) {
+                id1.setStyle("-fx-font-size: 22px; -fx-font-family: 'Open Sans Light'");
+            }
+        });
+
+        Label ir1 = new Label("55%");
+        ir1.setPrefSize(130, 65);
+        ir1.setAlignment(Pos.CENTER);
+        ir1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        ir1.getStyleClass().add("style4");
+        ir1.setCursor(Cursor.HAND);
+
+
+        // stampa sulla finestra
+        pane.getChildren().add(new VBox(id, ir));
+        pane.getChildren().add(new VBox(id1, ir1));
+
 
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        btn.setOnAction((ActionEvent event) -> {
+
+            // Go back to the start page
+            primaryStage.close();
+            Parent root1 = null;
+            try {
+                root1 = FXMLLoader.load(getClass().getResource("fxml/select_ir.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            mainStage.setScene(new Scene(root1, 1000, 650));
+            mainStage.show();
+
+        });
+
     }
 }

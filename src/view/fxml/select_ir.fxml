@@ -59,7 +59,7 @@
       </VBox>
    </bottom>
    <left>
-      <Button focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#IRbyRobot_btn" styleClass="btn_robot" stylesheets="@../css/selectIRStyle.css" text="       Display IR by &#10;       ROBOT" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
+      <Button fx:id="irButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#IRbyRobot_btn" styleClass="btn_robot" stylesheets="@../css/selectIRStyle.css" text="       Display IR by &#10;       ROBOT" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
          <padding>
             <Insets bottom="100.0" left="125.0" right="91.0" top="100.0" />
          </padding>
