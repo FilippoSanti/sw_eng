@@ -86,7 +86,7 @@ public class inputSimulation {
 
                 // Create the robot object
                 Robot robotObj = new Robot(nRobots, cluster, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
-                        intList.get(4), intList.get(5), intList.get(6), dateList.get(0),dateList.get(1), dateList.get(2),
+                        intList.get(4), intList.get(5), intList.get(6), dateList.get(0), dateList.get(1), dateList.get(2),
                         dateList.get(3), dateList.get(4), dateList.get(5), dateList.get(6));
 
                 // Add the robot to a list
@@ -96,7 +96,7 @@ public class inputSimulation {
         }
 
         System.out.println("");
-        System.out.println("Generated " +robotList.size()*7 + " signals for " + robotList.size() + " robots");
+        System.out.println("Generated " + robotList.size() * 7 + " signals for " + robotList.size() + " robots");
 
         sendDataToServer(robotList);
     }
@@ -145,7 +145,7 @@ public class inputSimulation {
 
                 // Create the robot object
                 Robot robotObj = new Robot(nRobots, cluster, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
-                        intList.get(4), intList.get(5), intList.get(6), dateList.get(0),dateList.get(1), dateList.get(2),
+                        intList.get(4), intList.get(5), intList.get(6), dateList.get(0), dateList.get(1), dateList.get(2),
                         dateList.get(3), dateList.get(4), dateList.get(5), dateList.get(6));
 
                 // Add the robot to a list

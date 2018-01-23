@@ -1,28 +1,29 @@
 package controller;
 
-import com.mongodb.*;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import model.Robot;
 import org.bson.Document;
-import sun.security.pkcs11.Secmod;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
 
 
 public class DBManager {
 
     public static String newLine = System.getProperty("line.separator");
 
-    /* Conenct to the DB */
+    /* Connect to the DB */
     public static MongoDatabase dbConnect() {
 
-        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@79.13.232.9/?authSource=unnamedb");
+        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@localhost/?authSource=unnamedb");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
@@ -52,13 +53,13 @@ public class DBManager {
             if (oldList.get(i).getSignal1()[oldList.get(i).getSignal1().length - 1]
                     != newList.get(i).getSignal1()[0]) {
 
-                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 1 " + oldList.get(i).getSignal1()[oldList.get(i).getSignal1().length - 1]+
-                        " è cambiato in " +newList.get(i).getSignal1()[0]);
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 1 " + oldList.get(i).getSignal1()[oldList.get(i).getSignal1().length - 1] +
+                        " è cambiato in " + newList.get(i).getSignal1()[0]);
 
                 int size = oldList.get(i).getSignal1().length;
 
-                int tempArray[] = new int[size+1];
-                Date tempDate[] = new Date[size+1];
+                int tempArray[] = new int[size + 1];
+                Date tempDate[] = new Date[size + 1];
 
                 for (int k = 0; k < oldList.get(i).getSignal1().length; k++) {
                     tempArray[k] = oldList.get(i).getSignal1()[k];
@@ -68,10 +69,10 @@ public class DBManager {
                     tempDate[k] = oldList.get(i).getSignal1Time()[k];
                 }
 
-                tempArray[tempArray.length-1] = newList.get(i).getSignal1()[0];
-                tempDate[tempDate.length-1] = newList.get(i).getSignal1Time()[0];
+                tempArray[tempArray.length - 1] = newList.get(i).getSignal1()[0];
+                tempDate[tempDate.length - 1] = newList.get(i).getSignal1Time()[0];
 
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
 
                 oldList.get(i).setSignal1(tempArray);
                 oldList.get(i).setSignal1Time(tempDate);
@@ -81,13 +82,13 @@ public class DBManager {
             if (oldList.get(i).getSignal2()[oldList.get(i).getSignal2().length - 1]
                     != newList.get(i).getSignal2()[0]) {
 
-                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 2 " + oldList.get(i).getSignal2()[oldList.get(i).getSignal2().length - 1]+
-                        " è cambiato in " +newList.get(i).getSignal2()[0]);
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 2 " + oldList.get(i).getSignal2()[oldList.get(i).getSignal2().length - 1] +
+                        " è cambiato in " + newList.get(i).getSignal2()[0]);
 
                 int size = oldList.get(i).getSignal2().length;
 
-                int tempArray[] = new int[size+1];
-                Date tempDate[] = new Date[size+1];
+                int tempArray[] = new int[size + 1];
+                Date tempDate[] = new Date[size + 1];
 
                 for (int k = 0; k < oldList.get(i).getSignal2().length; k++) {
                     tempArray[k] = oldList.get(i).getSignal2()[k];
@@ -97,10 +98,10 @@ public class DBManager {
                     tempDate[k] = oldList.get(i).getSignal2Time()[k];
                 }
 
-                tempArray[tempArray.length-1] = newList.get(i).getSignal2()[0];
-                tempDate[tempDate.length-1] = newList.get(i).getSignal2Time()[0];
+                tempArray[tempArray.length - 1] = newList.get(i).getSignal2()[0];
+                tempDate[tempDate.length - 1] = newList.get(i).getSignal2Time()[0];
 
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
 
                 oldList.get(i).setSignal2(tempArray);
                 oldList.get(i).setSignal2Time(tempDate);
@@ -111,13 +112,13 @@ public class DBManager {
             if (oldList.get(i).getSignal3()[oldList.get(i).getSignal3().length - 1]
                     != newList.get(i).getSignal3()[0]) {
 
-                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 3 " + oldList.get(i).getSignal3()[oldList.get(i).getSignal3().length - 1]+
-                        " è cambiato in " +newList.get(i).getSignal3()[0]);
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 3 " + oldList.get(i).getSignal3()[oldList.get(i).getSignal3().length - 1] +
+                        " è cambiato in " + newList.get(i).getSignal3()[0]);
 
                 int size = oldList.get(i).getSignal3().length;
 
-                int tempArray[] = new int[size+1];
-                Date tempDate[] = new Date[size+1];
+                int tempArray[] = new int[size + 1];
+                Date tempDate[] = new Date[size + 1];
 
                 for (int k = 0; k < oldList.get(i).getSignal3().length; k++) {
                     tempArray[k] = oldList.get(i).getSignal3()[k];
@@ -127,10 +128,10 @@ public class DBManager {
                     tempDate[k] = oldList.get(i).getSignal3Time()[k];
                 }
 
-                tempArray[tempArray.length-1] = newList.get(i).getSignal3()[0];
-                tempDate[tempDate.length-1] = newList.get(i).getSignal3Time()[0];
+                tempArray[tempArray.length - 1] = newList.get(i).getSignal3()[0];
+                tempDate[tempDate.length - 1] = newList.get(i).getSignal3Time()[0];
 
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
 
                 oldList.get(i).setSignal3(tempArray);
                 oldList.get(i).setSignal3Time(tempDate);
@@ -140,13 +141,13 @@ public class DBManager {
             if (oldList.get(i).getSignal4()[oldList.get(i).getSignal4().length - 1]
                     != newList.get(i).getSignal4()[0]) {
 
-                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 4 " + oldList.get(i).getSignal4()[oldList.get(i).getSignal4().length - 1]+
-                        " è cambiato in " +newList.get(i).getSignal4()[0]);
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 4 " + oldList.get(i).getSignal4()[oldList.get(i).getSignal4().length - 1] +
+                        " è cambiato in " + newList.get(i).getSignal4()[0]);
 
                 int size = oldList.get(i).getSignal4().length;
 
-                int tempArray[] = new int[size+1];
-                Date tempDate[] = new Date[size+1];
+                int tempArray[] = new int[size + 1];
+                Date tempDate[] = new Date[size + 1];
 
                 for (int k = 0; k < oldList.get(i).getSignal4().length; k++) {
                     tempArray[k] = oldList.get(i).getSignal4()[k];
@@ -156,10 +157,10 @@ public class DBManager {
                     tempDate[k] = oldList.get(i).getSignal4Time()[k];
                 }
 
-                tempArray[tempArray.length-1] = newList.get(i).getSignal4()[0];
-                tempDate[tempDate.length-1] = newList.get(i).getSignal4Time()[0];
+                tempArray[tempArray.length - 1] = newList.get(i).getSignal4()[0];
+                tempDate[tempDate.length - 1] = newList.get(i).getSignal4Time()[0];
 
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
 
                 oldList.get(i).setSignal4(tempArray);
                 oldList.get(i).setSignal4Time(tempDate);
@@ -169,13 +170,13 @@ public class DBManager {
             if (oldList.get(i).getSignal5()[oldList.get(i).getSignal5().length - 1]
                     != newList.get(i).getSignal5()[0]) {
 
-                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 5 " + oldList.get(i).getSignal5()[oldList.get(i).getSignal5().length - 1]+
-                        " è cambiato in " +newList.get(i).getSignal5()[0]);
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 5 " + oldList.get(i).getSignal5()[oldList.get(i).getSignal5().length - 1] +
+                        " è cambiato in " + newList.get(i).getSignal5()[0]);
 
                 int size = oldList.get(i).getSignal5().length;
 
-                int tempArray[] = new int[size+1];
-                Date tempDate[] = new Date[size+1];
+                int tempArray[] = new int[size + 1];
+                Date tempDate[] = new Date[size + 1];
 
                 for (int k = 0; k < oldList.get(i).getSignal5().length; k++) {
                     tempArray[k] = oldList.get(i).getSignal5()[k];
@@ -185,10 +186,10 @@ public class DBManager {
                     tempDate[k] = oldList.get(i).getSignal5Time()[k];
                 }
 
-                tempArray[tempArray.length-1] = newList.get(i).getSignal5()[0];
-                tempDate[tempDate.length-1] = newList.get(i).getSignal5Time()[0];
+                tempArray[tempArray.length - 1] = newList.get(i).getSignal5()[0];
+                tempDate[tempDate.length - 1] = newList.get(i).getSignal5Time()[0];
 
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
 
                 oldList.get(i).setSignal5(tempArray);
                 oldList.get(i).setSignal5Time(tempDate);
@@ -199,13 +200,13 @@ public class DBManager {
             if (oldList.get(i).getSignal6()[oldList.get(i).getSignal6().length - 1]
                     != newList.get(i).getSignal6()[0]) {
 
-                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 6 " + oldList.get(i).getSignal6()[oldList.get(i).getSignal6().length - 1]+
-                        " è cambiato in " +newList.get(i).getSignal6()[0]);
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 6 " + oldList.get(i).getSignal6()[oldList.get(i).getSignal6().length - 1] +
+                        " è cambiato in " + newList.get(i).getSignal6()[0]);
 
                 int size = oldList.get(i).getSignal6().length;
 
-                int tempArray[] = new int[size+1];
-                Date tempDate[] = new Date[size+1];
+                int tempArray[] = new int[size + 1];
+                Date tempDate[] = new Date[size + 1];
 
                 for (int k = 0; k < oldList.get(i).getSignal6().length; k++) {
                     tempArray[k] = oldList.get(i).getSignal6()[k];
@@ -215,10 +216,10 @@ public class DBManager {
                     tempDate[k] = oldList.get(i).getSignal6Time()[k];
                 }
 
-                tempArray[tempArray.length-1] = newList.get(i).getSignal6()[0];
-                tempDate[tempDate.length-1] = newList.get(i).getSignal6Time()[0];
+                tempArray[tempArray.length - 1] = newList.get(i).getSignal6()[0];
+                tempDate[tempDate.length - 1] = newList.get(i).getSignal6Time()[0];
 
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
 
                 oldList.get(i).setSignal6(tempArray);
                 oldList.get(i).setSignal6Time(tempDate);
@@ -228,13 +229,13 @@ public class DBManager {
             if (oldList.get(i).getSignal7()[oldList.get(i).getSignal7().length - 1]
                     != newList.get(i).getSignal7()[0]) {
 
-                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 7 " + oldList.get(i).getSignal7()[oldList.get(i).getSignal7().length - 1]+
-                        " è cambiato in " +newList.get(i).getSignal7()[0]);
+                System.out.println("Nel robot " + oldList.get(i).getId() + " il segnale 7 " + oldList.get(i).getSignal7()[oldList.get(i).getSignal7().length - 1] +
+                        " è cambiato in " + newList.get(i).getSignal7()[0]);
 
                 int size = oldList.get(i).getSignal7().length;
 
-                int tempArray[] = new int[size+1];
-                Date tempDate[] = new Date[size+1];
+                int tempArray[] = new int[size + 1];
+                Date tempDate[] = new Date[size + 1];
 
                 for (int k = 0; k < oldList.get(i).getSignal7().length; k++) {
                     tempArray[k] = oldList.get(i).getSignal7()[k];
@@ -244,10 +245,10 @@ public class DBManager {
                     tempDate[k] = oldList.get(i).getSignal7Time()[k];
                 }
 
-                tempArray[tempArray.length-1] = newList.get(i).getSignal7()[0];
-                tempDate[tempDate.length-1] = newList.get(i).getSignal7Time()[0];
+                tempArray[tempArray.length - 1] = newList.get(i).getSignal7()[0];
+                tempDate[tempDate.length - 1] = newList.get(i).getSignal7Time()[0];
 
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length-2] + ", " + tempArray[tempArray.length-1]);
+                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
 
                 oldList.get(i).setSignal7(tempArray);
                 oldList.get(i).setSignal7Time(tempDate);
@@ -266,8 +267,6 @@ public class DBManager {
         DBManager.saveDataToDB(db, oldList);
 
     }
-
-
 
     /* Get the list of robots from the database */
     public static ArrayList<Robot> getDataFromDB(MongoDatabase database) {
@@ -332,22 +331,16 @@ public class DBManager {
         return robotList;
     }
 
-    public static boolean Authentication (String username, String password)
-
-    {
+    /* Authentication function */
+    public static boolean Authentication(String username, String password) {
         MongoDatabase database = dbConnect();
         MongoCollection<Document> collection = database.getCollection("utenti");
 
         List<Document> utenti = (List<Document>) collection.find((and(eq("username", username), eq("password", password)))).into(
                 new ArrayList<Document>());
 
-
-
-
-      return !utenti.isEmpty();
+        return !utenti.isEmpty();
     }
-
-
 
     /* Return the size of a collection */
     public static long getCollectionSize(MongoDatabase db, String collName) {

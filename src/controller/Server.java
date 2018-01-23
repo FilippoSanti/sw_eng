@@ -32,7 +32,7 @@ public class Server {
                 InputStream is = socket.getInputStream();
                 ois = new ObjectInputStream(is);
 
-                // Read the object - 100% illegal
+                // Read the object from client
                 robotList = (ArrayList<Robot>) ois.readObject();
 
                 // Measure execution time

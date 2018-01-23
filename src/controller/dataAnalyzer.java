@@ -1,25 +1,13 @@
 package controller;
 
-import com.mongodb.Mongo;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import model.Robot;
-import org.bson.Document;
-import simulation.inputSimulation;
 
-import java.io.*;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Updates.combine;
-import static com.mongodb.client.model.Updates.push;
 
 public class dataAnalyzer {
+
     private static boolean isMinutesAgo(Date date, long minutes) {
         Instant instant = Instant.ofEpochMilli(date.getTime());
         Instant time = Instant.now().minus(Duration.ofMinutes(minutes));
@@ -27,7 +15,6 @@ public class dataAnalyzer {
     }
 
     public static long CalculateDownTime(Robot robot, long timeLeft, long relativeDownTime, boolean LOTrovato) {
-
 
         // Ora corrente
         Date d1 = new Date(System.currentTimeMillis());
@@ -87,8 +74,7 @@ public class dataAnalyzer {
             switch (segnale) {
                 case 1:
 
-                    {
-
+                {
                     LOTrovato = true;
                     System.out.println(robot.getSignal1Time()[y]);
                     // Controlliamo che il valore sia diverso da uno e resti 0
@@ -161,14 +147,11 @@ public class dataAnalyzer {
                     }
                 }
 
-
-                    break;
-
+                break;
 
                 case 3:
 
                 {
-
                     LOTrovato = true;
                     System.out.println(robot.getSignal3Time()[y]);
                     // Controlliamo che il valore sia diverso da uno e resti 0
@@ -191,7 +174,6 @@ public class dataAnalyzer {
                             timeLeft = timeLeft - diff1 / (60 * 1000);
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
-
                     }
                 }
 
@@ -202,14 +184,12 @@ public class dataAnalyzer {
                     }
                 }
 
-                    break;
+                break;
 
 
                 case 4:
 
-
                 {
-
                     LOTrovato = true;
                     System.out.println(robot.getSignal4Time()[y]);
                     // Controlliamo che il valore sia diverso da uno e resti 0
@@ -243,15 +223,11 @@ public class dataAnalyzer {
                     }
                 }
 
-
-                    break;
-
+                break;
 
                 case 5:
 
-
                 {
-
                     LOTrovato = true;
                     System.out.println(robot.getSignal5Time()[y]);
                     // Controlliamo che il valore sia diverso da uno e resti 0
@@ -274,7 +250,6 @@ public class dataAnalyzer {
                             timeLeft = timeLeft - diff1 / (60 * 1000);
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
-
                     }
                 }
 
@@ -286,14 +261,12 @@ public class dataAnalyzer {
                 }
 
 
-                    break;
+                break;
 
 
                 case 6:
 
-
                 {
-
                     LOTrovato = true;
                     System.out.println(robot.getSignal6Time()[y]);
                     // Controlliamo che il valore sia diverso da uno e resti 0
@@ -316,7 +289,6 @@ public class dataAnalyzer {
                             timeLeft = timeLeft - diff1 / (60 * 1000);
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
-
                     }
                 }
 
@@ -328,14 +300,12 @@ public class dataAnalyzer {
                 }
 
 
-                    break;
+                break;
 
 
                 case 7:
 
-
                 {
-
                     LOTrovato = true;
                     System.out.println(robot.getSignal7Time()[y]);
                     // Controlliamo che il valore sia diverso da uno e resti 0
@@ -358,7 +328,6 @@ public class dataAnalyzer {
                             timeLeft = timeLeft - diff1 / (60 * 1000);
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
-
                     }
                 }
 
@@ -369,15 +338,12 @@ public class dataAnalyzer {
                     }
                 }
 
-
-                    break;
-
+                break;
             }
-
 
         }
 
- //CONTROLLO FINALE.
+        //CONTROLLO FINALE.
         if (LOTrovato == false) {
             if (robot.getSignal1()[robot.getSignal1Time().length - 1] == 1) {
                 relativeDownTime = 0;
@@ -390,14 +356,4 @@ public class dataAnalyzer {
 
         return relativeDownTime;
     }
-
 }
-
-
-
-
-
-
-
-
-
