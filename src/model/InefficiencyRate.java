@@ -3,10 +3,10 @@ package model;
 public class InefficiencyRate {
     private int id;
     private int cluster;
-    private long inefficiencyRate;
+    private double inefficiencyRate;
     private int area;
 
-    public InefficiencyRate(int id, int cluster, long iR, int area) {
+    public InefficiencyRate(int id, int cluster, double iR, int area) {
         this.id = id;
         this.cluster = cluster;
         this.inefficiencyRate = iR;
@@ -25,7 +25,7 @@ public class InefficiencyRate {
         return id;
     }
 
-    public long getInefficiencyRate() {
+    public double getInefficiencyRate() {
         return inefficiencyRate;
     }
 

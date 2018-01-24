@@ -2,14 +2,14 @@ package model;
 
 public class InefficiencyRateByCluster {
     private int cluster;
-    private long inefficiencyRate;
+    private double inefficiencyRate;
 
     public InefficiencyRateByCluster(int cluster, long iR){
         this.cluster = cluster;
         this.inefficiencyRate = iR;
     }
 
-    public void setInefficiencyRate(long inefficiencyRate) {
+    public void setInefficiencyRate(double inefficiencyRate) {
         this.inefficiencyRate = inefficiencyRate;
     }
 
@@ -17,7 +17,7 @@ public class InefficiencyRateByCluster {
         this.cluster = cluster;
     }
 
-    public long getInefficiencyRate() {
+    public double getInefficiencyRate() {
         return inefficiencyRate;
     }
 

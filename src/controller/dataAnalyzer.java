@@ -17,8 +17,8 @@ public class dataAnalyzer {
 
         Instant instant = Instant.ofEpochMilli(date.getTime());
         Instant time = Instant.now().minus(Duration.ofMinutes(minutes));
-        System.out.print(instant);
-        System.out.println(time);
+
+
         return instant.isAfter(time);
     }
 
@@ -46,8 +46,7 @@ public class dataAnalyzer {
         int pos7 = 0;
         int segnale = 0;
 
-        System.out.println(robot.getSignal3Time()[0]);
-        System.out.println(d1);
+
         // Signal 1
         for (int y = 0; y < 5; y++) {
 
@@ -118,7 +117,7 @@ public class dataAnalyzer {
                 }
             }
 
-            for (int j = 0; j < robot.getSignal1Time().length && !trovato1; j++) {
+            for (int j = 0; j < robot.getSignal7Time().length && !trovato1; j++) {
                 if (isMinutesAgo(robot.getSignal7Time()[j], timeLeft)) {
                     if (robot.getSignal7Time()[j].before(signalbiggestfaster)) {
                         signalbiggestfaster = robot.getSignal7Time()[j];
@@ -133,7 +132,7 @@ public class dataAnalyzer {
             switch (segnale) {
 
                 case 1: {
-                    System.out.println(robot.getSignal1Time()[pos1]);
+
                     // Controlliamo che il valore sia diverso da uno e resti 0
                     if (robot.getSignal1()[pos1] != 1) {
                         if (pos1 == robot.getSignal1Time().length - 1) {
@@ -159,7 +158,7 @@ public class dataAnalyzer {
                         Date d3 = robot.getSignal1Time()[pos1];
                         long diff = Math.abs(d1.getTime() - d3.getTime());
                         timeLeft = diff / (60 * 1000);
-                        relativeDownTime = relativeDownTime - timeLeft;
+                        relativeDownTime = relativeDownTime + (60 - timeLeft);
 
                         return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
 
@@ -173,7 +172,7 @@ public class dataAnalyzer {
                 break;
 
                 case 2: {
-                    System.out.println(robot.getSignal2Time()[pos2]);
+
                     // Controlliamo che il valore sia diverso da uno e resti 0
                     if (robot.getSignal2()[pos2] != 1) {
                         if (pos2 == robot.getSignal2Time().length - 1) {
@@ -199,7 +198,7 @@ public class dataAnalyzer {
                         Date d3 = robot.getSignal2Time()[pos2];
                         long diff = Math.abs(d1.getTime() - d3.getTime());
                         timeLeft = diff / (60 * 1000);
-                        relativeDownTime = relativeDownTime - timeLeft;
+                        relativeDownTime = relativeDownTime + (60 - timeLeft);
 
                         return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
 
@@ -213,7 +212,7 @@ public class dataAnalyzer {
                 break;
 
                 case 3: {
-                    System.out.println(robot.getSignal3Time()[pos3]);
+
                     // Controlliamo che il valore sia diverso da uno e resti 0
                     if (robot.getSignal3()[pos3] != 1) {
                         if (pos3 == robot.getSignal3Time().length - 1) {
@@ -240,7 +239,7 @@ public class dataAnalyzer {
                         Date d3 = robot.getSignal3Time()[pos3];
                         long diff = Math.abs(d1.getTime() - d3.getTime());
                         timeLeft = diff / (60 * 1000);
-                        relativeDownTime = relativeDownTime - timeLeft;
+                        relativeDownTime = relativeDownTime + (60 - timeLeft);
 
                         return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
 
@@ -252,7 +251,7 @@ public class dataAnalyzer {
                 break;
 
                 case 4: {
-                    System.out.println(robot.getSignal4Time()[pos4]);
+
                     // Controlliamo che il valore sia diverso da uno e resti 0
                     if (robot.getSignal4()[pos4] != 1) {
                         if (pos4 == robot.getSignal4Time().length - 1) {
@@ -278,7 +277,7 @@ public class dataAnalyzer {
                         Date d3 = robot.getSignal4Time()[pos4];
                         long diff = Math.abs(d1.getTime() - d3.getTime());
                         timeLeft = diff / (60 * 1000);
-                        relativeDownTime = relativeDownTime - timeLeft;
+                        relativeDownTime = relativeDownTime + (60 - timeLeft);
 
                         return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
 
@@ -291,7 +290,7 @@ public class dataAnalyzer {
                 break;
 
                 case 5: {
-                    System.out.println(robot.getSignal5Time()[pos5]);
+
                     // Controlliamo che il valore sia diverso da uno e resti 0
                     if (robot.getSignal5()[pos5] != 1) {
                         if (pos5 == robot.getSignal5Time().length - 1) {
@@ -317,7 +316,7 @@ public class dataAnalyzer {
                         Date d3 = robot.getSignal5Time()[pos5];
                         long diff = Math.abs(d1.getTime() - d3.getTime());
                         timeLeft = diff / (60 * 1000);
-                        relativeDownTime = relativeDownTime - timeLeft;
+                        relativeDownTime = relativeDownTime + (60 - timeLeft);
 
                         return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
 
@@ -332,7 +331,7 @@ public class dataAnalyzer {
 
                 case 6: {
 
-                    System.out.println(robot.getSignal6Time()[pos6]);
+
                     // Controlliamo che il valore sia diverso da uno e resti 0
                     if (robot.getSignal6()[pos6] != 1) {
                         if (pos6 == robot.getSignal6Time().length - 1) {
@@ -374,7 +373,7 @@ public class dataAnalyzer {
                 case 7:
 
                 {
-                    System.out.println(robot.getSignal7Time()[pos7]);
+
                     // Controlliamo che il valore sia diverso da uno e resti 0
                     if (robot.getSignal7()[pos7] != 1) {
                         if (pos7 == robot.getSignal7Time().length - 1) {
@@ -401,7 +400,7 @@ public class dataAnalyzer {
                         Date d3 = robot.getSignal7Time()[pos7];
                         long diff = Math.abs(d1.getTime() - d3.getTime());
                         timeLeft = diff / (60 * 1000);
-                        relativeDownTime = relativeDownTime - timeLeft;
+                        relativeDownTime = relativeDownTime + (60 - timeLeft);
 
                         return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
 
@@ -415,15 +414,8 @@ public class dataAnalyzer {
         }
 
         //CONTROLLO FINALE.
-        if (LOTrovato == false) {
-            if (robot.getSignal1()[robot.getSignal1Time().length - 1] == 1) {
-                relativeDownTime = 0;
-                return relativeDownTime;
-            } else {
-                relativeDownTime = 60;
-                return relativeDownTime;
-            }
-        }
+
+
 
         return relativeDownTime;
     }
@@ -431,7 +423,8 @@ public class dataAnalyzer {
 
     public static InefficiencyRate inefficiencyRateOfARobot(Robot robot) {
         long downtime= CalculateDownTime(robot, 60, 0, false);
-        InefficiencyRate temp = new InefficiencyRate(robot.getId(), robot.getCluster(), (downtime/60 * 100), robot.getArea());
+        double iR =  (downtime* 100.00)/60.00;
+        InefficiencyRate temp = new InefficiencyRate(robot.getId(), robot.getCluster(), iR, robot.getArea());
         return temp;
     }
 
@@ -454,8 +447,8 @@ public class dataAnalyzer {
         int robotId = 0;
 
         for (int i = 0; i < lista.size(); i++) {
-            long ineffRate = 0;
-            InefficiencyRateByCluster IRBC = null;
+            double ineffRate = 0;
+            InefficiencyRateByCluster IRBC = new InefficiencyRateByCluster(0,0);
             for (int y = 0; y < lista.get(i); y++){
                 ineffRate = ineffRate + tuttecose.get(robotId).getInefficiencyRate();
                 robotId++;
