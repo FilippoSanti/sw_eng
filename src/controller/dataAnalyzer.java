@@ -152,6 +152,18 @@ public class dataAnalyzer {
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
                     }
+                    else if (pos1 != 0 ) {
+                        Date d3 = robot.getSignal1Time()[pos1];
+                        long diff = Math.abs(d1.getTime() - d3.getTime());
+                        timeLeft = diff / (60 * 1000);
+                        relativeDownTime = relativeDownTime - timeLeft;
+
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+
+
+                    }
+
                 }
 
 
@@ -182,6 +194,18 @@ public class dataAnalyzer {
                             timeLeft = diff1 / (60 * 1000);
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
+                    }
+
+                    else if (pos2 != 0 ) {
+                        Date d3 = robot.getSignal2Time()[pos2];
+                        long diff = Math.abs(d1.getTime() - d3.getTime());
+                        timeLeft = diff / (60 * 1000);
+                        relativeDownTime = relativeDownTime - timeLeft;
+
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+
+
                     }
                 }
 
@@ -216,6 +240,18 @@ public class dataAnalyzer {
                         }
 
                     }
+
+                    else if (pos3 != 0 ) {
+                        Date d3 = robot.getSignal3Time()[pos3];
+                        long diff = Math.abs(d1.getTime() - d3.getTime());
+                        timeLeft = diff / (60 * 1000);
+                        relativeDownTime = relativeDownTime - timeLeft;
+
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+
+
+                    }
                 }
 
                 signalbiggestfaster = d1;
@@ -245,6 +281,17 @@ public class dataAnalyzer {
                             timeLeft = diff1 / (60 * 1000);
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
+                    }
+                    else if (pos4 != 0 ) {
+                        Date d3 = robot.getSignal4Time()[pos4];
+                        long diff = Math.abs(d1.getTime() - d3.getTime());
+                        timeLeft = diff / (60 * 1000);
+                        relativeDownTime = relativeDownTime - timeLeft;
+
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+
+
                     }
                 }
 
@@ -276,6 +323,17 @@ public class dataAnalyzer {
                             timeLeft = diff1 / (60 * 1000);
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
+                    }
+                    else if (pos5 != 0 ) {
+                        Date d3 = robot.getSignal5Time()[pos5];
+                        long diff = Math.abs(d1.getTime() - d3.getTime());
+                        timeLeft = diff / (60 * 1000);
+                        relativeDownTime = relativeDownTime - timeLeft;
+
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+
+
                     }
                 }
 
@@ -310,6 +368,18 @@ public class dataAnalyzer {
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
                     }
+
+                    else if (pos6 != 0 ) {
+                        Date d3 = robot.getSignal6Time()[pos6];
+                        long diff = Math.abs(d1.getTime() - d3.getTime());
+                        timeLeft = diff / (60 * 1000);
+                        relativeDownTime = relativeDownTime + (60-timeLeft);
+
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+
+
+                    }
                 }
 
                 signalbiggestfaster = d1;
@@ -342,6 +412,18 @@ public class dataAnalyzer {
                             timeLeft = diff1 / (60 * 1000);
                             return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
                         }
+
+                    }
+
+                    else if (pos7 != 0 ) {
+                        Date d3 = robot.getSignal7Time()[pos7];
+                        long diff = Math.abs(d1.getTime() - d3.getTime());
+                        timeLeft = diff / (60 * 1000);
+                        relativeDownTime = relativeDownTime - timeLeft;
+
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+
 
                     }
                 }
