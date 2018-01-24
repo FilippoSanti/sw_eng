@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -11,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.Cursor?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.selectIRController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" styleClass="window_style" stylesheets="@../css/selectIRStyle.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.selectIRController">
    <top>
       <Label text="Choose Which IR to Display" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -63,12 +63,12 @@
       </VBox>
    </bottom>
    <left>
-      <Button fx:id="irButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#IRbyRobot_btn" prefHeight="175.0" prefWidth="275.0" styleClass="btn_robot" stylesheets="@../css/selectIRStyle.css" text="       Display IR by &#10;       ROBOT" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
+      <Button fx:id="irButton" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#IRbyRobot_btn" prefHeight="275.0" prefWidth="400.0" style=": ;" styleClass="btn_robot-cluster" stylesheets="@../css/selectIRStyle.css" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
          <padding>
             <Insets bottom="60.0" left="65.0" right="65.0" top="60.0" />
          </padding>
          <BorderPane.margin>
-            <Insets left="30.0" />
+            <Insets left="50.0" />
          </BorderPane.margin>
          <font>
             <Font name="System Bold" size="16.0" />
@@ -78,24 +78,8 @@
          </cursor>
       </Button>
    </left>
-   <center>
-      <Button focusTraversable="false" mnemonicParsing="false" onAction="#IRbyCluster_btn" prefHeight="175.0" prefWidth="275.0" styleClass="btn_cluster" stylesheets="@../css/selectIRStyle.css" text="Display IR by &#10;   CLUSTER" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="60.0" left="65.0" right="65.0" top="60.0" />
-         </padding>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-   </center>
    <right>
-      <Button focusTraversable="false" mnemonicParsing="false" onAction="#IRbyArea_btn" prefHeight="175.0" prefWidth="275.0" styleClass="btn_area" stylesheets="@../css/selectIRStyle.css" text="       Display IR by &#10;          AREA" BorderPane.alignment="CENTER_LEFT">
+      <Button focusTraversable="false" mnemonicParsing="false" onAction="#IRbyArea_btn" prefHeight="275.0" prefWidth="400.0" styleClass="btn_area-cluster" stylesheets="@../css/selectIRStyle.css" BorderPane.alignment="CENTER_LEFT">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -103,7 +87,7 @@
             <Insets bottom="60.0" left="65.0" right="65.0" top="60.0" />
          </padding>
          <BorderPane.margin>
-            <Insets right="30.0" />
+            <Insets right="50.0" />
          </BorderPane.margin>
          <cursor>
             <Cursor fx:constant="HAND" />

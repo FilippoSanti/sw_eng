@@ -1,10 +1,16 @@
-.btn_robot{
-    -fx-background-image: url('../img/9.png');
+.window_style{
+    -fx-background-image: url('../img/background.jpg');
 }
-.btn_cluster{
-    -fx-background-image: url('../img/8.png');
+.btn_robot-cluster{
+    -fx-background-image: url('../img/9.png');
+    -fx-background-color: #0e0e0e1c;
+    -fx-border-color: #0e0e0e8f;
+    -fx-border-radius: 10;
 }
 
-.btn_area{
-    -fx-background-image: url('../img/10.png') 0.8%;
+.btn_area-cluster{
+    -fx-background-image: url('../img/10.png');
+    -fx-background-color: #0e0e0e1c;
+    -fx-border-color: #0e0e0e8f;
+    -fx-border-radius: 10;
 }
