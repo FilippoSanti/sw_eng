@@ -27,8 +27,10 @@ public class inputSimulation {
         if (!f.exists()) {
 
             System.out.println("O_O There are no robots in the system O_O - STARTING SIMULATION NOW");
+
             // Create the robots and return the dimension of each cluster to generate signals
-            List<Integer> robotsCount = createRobots(DBManager.dbConnect(), 100);
+            // In this test, we create 10 areas with 10 clusters each (around 9000 robots per cluster)
+            List<Integer> robotsCount = createRobots(DBManager.dbConnect(), 10, 10);
             saveDataToList(robotsCount);
             System.out.println("All done, ready to generate signals...");
 
@@ -51,7 +53,7 @@ public class inputSimulation {
                 try {
 
                     // Start generating signals
-                    generateSignals(paramList);
+                    generateSignals(paramList, 10, 10);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
@@ -62,38 +64,44 @@ public class inputSimulation {
     }
 
     // Generate random signals for the robots given the cluster parameters
-    public static void generateSignals(List<Integer> paramList) throws IOException, ClassNotFoundException {
+    public static void generateSignals(List<Integer> paramList, int nAreas, int nClust) throws IOException, ClassNotFoundException {
 
-        int cluster, nRobots;
-        cluster = nRobots = 0;
+        int cluster, nRobots, areaCount;
+        cluster = nRobots = areaCount = 0;
         ArrayList<Robot> robotList = new ArrayList<Robot>();
 
-        // Iterate for every cluster of robots
-        for (int i = 0; i < paramList.size(); i++) {
+        for (int k = 0; k < nAreas; k++ ) {
+            areaCount++;
+            // Iterate for every cluster of robots
+            for (int i = 0; i < nClust; i++) {
 
-            // Keep track of the clusters
-            cluster++;
+                // Keep track of the clusters
+                cluster++;
+                System.out.println("Cluster " +cluster);
 
-            // Go trough each robot
-            for (int j = 0; j < paramList.get(i); j++) {
+                // Go trough each robot
+                for (int j = 0; j < paramList.get(i); j++) {
 
-                // Read values from sensors
-                Signals sig = readSensors();
-                List<int[]> intList = sig.getSignalValues();
-                List<Date[]> dateList = sig.getDateValues();
+                    // Read values from sensors
+                    Signals sig = readSensors();
+                    List<int[]> intList = sig.getSignalValues();
+                    List<Date[]> dateList = sig.getDateValues();
 
-                nRobots++;
+                    nRobots++;
 
-                // Create the robot object
-                Robot robotObj = new Robot(nRobots, cluster, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
-                        intList.get(4), intList.get(5), intList.get(6), dateList.get(0), dateList.get(1), dateList.get(2),
-                        dateList.get(3), dateList.get(4), dateList.get(5), dateList.get(6));
+                    // Create the robot object
+                    Robot robotObj = new Robot(nRobots, cluster, areaCount, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
+                            intList.get(4), intList.get(5), intList.get(6), dateList.get(0), dateList.get(1), dateList.get(2),
+                            dateList.get(3), dateList.get(4), dateList.get(5), dateList.get(6));
 
-                // Add the robot to a list
-                robotList.add(robotObj);
+                    // Add the robot to a list
+                    robotList.add(robotObj);
 
+                }
             }
+
         }
+
 
         System.out.println("");
         System.out.println("Generated " + robotList.size() * 7 + " signals for " + robotList.size() + " robots");
@@ -102,7 +110,7 @@ public class inputSimulation {
     }
 
     // Generate the first set of Robots
-    public static List<Integer> createRobots(MongoDatabase db, int nCluster) throws IOException {
+    public static List<Integer> createRobots(MongoDatabase db, int nAreas, int nCluster) throws IOException {
 
         // Drop the previous collection to make
         // execution easier
@@ -116,41 +124,48 @@ public class inputSimulation {
         List<Integer> robotsCount = new ArrayList<Integer>();
 
         // Variables to identify a robot and its cluster
-        int robot, cluster, signal, value, nRobots, randomRobots;
+        int robot, cluster, signal, value, nRobots, randomRobots, areaCount;
 
-        nRobots = robot = cluster = signal = value = 0;
+        nRobots = robot = cluster = signal = value = areaCount = 0;
 
         // Measure execution time
         long startTime = System.currentTimeMillis();
 
-        // Create the clusters, every cluster has 900 robots
-        for (cluster = 1; cluster <= nCluster; cluster++) {
+        // Create areas
+        for (int area = 1; area <= nAreas; area++) {
 
-            // Generate the robots for each cluster in a specified range (500-1000)
-            randomRobots = ThreadLocalRandom.current().nextInt(600, 1200);
+            areaCount++;
 
-            // Add the count of the robots for each cluster to return it
-            robotsCount.add(randomRobots);
+            // Create the clusters, every cluster has around 900 robots
+            for (cluster = 1; cluster <= nCluster; cluster++) {
 
-            // Spawn 900 robots for each cluster
-            for (robot = 1; robot <= randomRobots; robot++) {
+                // Generate the robots for each cluster in a specified range
+                randomRobots = ThreadLocalRandom.current().nextInt(600, 1200);
 
-                // Increment the counter to keep track of the robots
-                nRobots++;
+                // Add the count of the robots for each cluster to return it
+                robotsCount.add(randomRobots);
 
-                // Read values from sensors
-                Signals sig = readSensors();
-                List<int[]> intList = sig.getSignalValues();
-                List<Date[]> dateList = sig.getDateValues();
+                // Spawn 900 robots for each cluster
+                for (robot = 1; robot <= randomRobots; robot++) {
 
-                // Create the robot object
-                Robot robotObj = new Robot(nRobots, cluster, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
-                        intList.get(4), intList.get(5), intList.get(6), dateList.get(0), dateList.get(1), dateList.get(2),
-                        dateList.get(3), dateList.get(4), dateList.get(5), dateList.get(6));
+                    // Increment the counter to keep track of the robots
+                    nRobots++;
 
-                // Add the robot to a list
-                robotList.add(robotObj);
+                    // Read values from sensors
+                    Signals sig = readSensors();
+                    List<int[]> intList = sig.getSignalValues();
+                    List<Date[]> dateList = sig.getDateValues();
+
+                    // Create the robot object
+                    Robot robotObj = new Robot(nRobots, cluster, areaCount, intList.get(0), intList.get(1), intList.get(2), intList.get(3),
+                            intList.get(4), intList.get(5), intList.get(6), dateList.get(0), dateList.get(1), dateList.get(2),
+                            dateList.get(3), dateList.get(4), dateList.get(5), dateList.get(6));
+
+                    // Add the robot to a list
+                    robotList.add(robotObj);
+                }
             }
+
         }
 
         // Record the execution time and display it on screen
@@ -305,4 +320,5 @@ public class inputSimulation {
         long elapsedTime = stopTime - startTime;
         System.out.println("TCP transfer time: " + elapsedTime + "ms");
     }
+
 }
