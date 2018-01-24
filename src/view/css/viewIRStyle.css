@@ -29,15 +29,27 @@
 }
 
 .style3{
-    -fx-background-color: #119d1c;
+    -fx-background-image: url('../img/green.png');
+    -fx-background-repeat: no-repeat;
+}
+
+.style5{
+    -fx-background-image: url('../img/red.png');
+    -fx-background-repeat: no-repeat;
+}
+
+.style6{
     -fx-font-family: "Bodoni MT";
-    -fx-font-weight: 500;
+    -fx-font-weight: 900;
     -fx-font-size: 18;
 }
 
-.style4{
-    -fx-background-color: #e20912;
-    -fx-font-family: "Bodoni MT";
-    -fx-font-weight: 500;
-    -fx-font-size: 18;
+.style7{
+    -fx-background-image: url('../img/green1.png');
+    -fx-background-repeat: no-repeat;
+}
+
+.style8{
+    -fx-background-image: url('../img/red1.png');
+    -fx-background-repeat: no-repeat;
 }
