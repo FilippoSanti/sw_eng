@@ -30,22 +30,22 @@ public class viewIR_Cluster_AreaController extends Application {
         primaryStage.setTitle("Industrial Robot Dashboard");
 
         FlowPane pane = new FlowPane();
-        pane.setHgap(30);
-        pane.setVgap(30);
+        pane.setHgap(40);
+        pane.setVgap(40);
         pane.setRowValignment(VPos.CENTER);
         pane.setColumnHalignment(HPos.LEFT);
         pane.setFocusTraversable(false);
 
         ScrollPane scroll = new ScrollPane(pane);
         scroll.setFitToWidth(true);
-        scroll.setPrefSize(1110, 610);
+        scroll.setPrefSize(1140, 610);
         scroll.setFocusTraversable(false);
 
         BorderPane root = new BorderPane(scroll);
         root.setFocusTraversable(false);
 
         // central title
-        Label title = new Label("Display IR by ######");
+        Label title = new Label("Display IR by Cluster / Area");
         title.setFocusTraversable(false);
         title.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         title.getStyleClass().add("style2");
@@ -105,48 +105,148 @@ public class viewIR_Cluster_AreaController extends Application {
 
 
         // Display ID & IR
-        // Premi il tasto back per popolare la view
 
-        // Dichiarazioni delle labels
+        for (int i=0; i<100; i++) {
 
-        // Green panel
-        Label id = new Label("K57CM");
-        id.setPrefSize(130, 65);
-        id.setAlignment(Pos.CENTER);
-        id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-        id.getStyleClass().add("style3");
-        id.setCursor(Cursor.HAND);
+            // Green panel
+            // green ligth img
+            Label id = new Label("");
+            id.setPrefSize(150, 150);
+            id.setAlignment(Pos.CENTER);
+            id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            id.getStyleClass().add("style7");
+            id.setCursor(Cursor.HAND);
+            id.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
+
+            Label ir = new Label("ID:  123455");
+            ir.setPrefSize(150, 25);
+            ir.setAlignment(Pos.CENTER);
+            ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            ir.getStyleClass().add("style6");
+            ir.setCursor(Cursor.HAND);
+            ir.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
+
+            Label irr = new Label("IR:  25%");
+            irr.setPrefSize(150, 25);
+            irr.setAlignment(Pos.CENTER);
+            irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            irr.getStyleClass().add("style6");
+            irr.setCursor(Cursor.HAND);
+            irr.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
 
 
-        Label ir = new Label("55%");
-        ir.setPrefSize(130, 65);
-        ir.setAlignment(Pos.CENTER);
-        ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-        ir.getStyleClass().add("style3");
-        ir.setCursor(Cursor.HAND);
+            // red panel
+            //red light img
+            Label id1 = new Label("");
+            id1.setPrefSize(150, 150);
+            id1.setAlignment(Pos.CENTER);
+            id1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            id1.getStyleClass().add("style8");
+            id1.setCursor(Cursor.HAND);
+            id1.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
+
+            //id label
+            Label ir1 = new Label("ID:  123456");
+            ir1.setPrefSize(150, 25);
+            ir1.setAlignment(Pos.CENTER);
+            ir1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            ir1.getStyleClass().add("style6");
+            ir1.setCursor(Cursor.HAND);
+            ir1.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
+
+            //ir label
+            Label ir2 = new Label("IR:  55%");
+            ir2.setPrefSize(150, 25);
+            ir2.setAlignment(Pos.CENTER);
+            ir2.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            ir2.getStyleClass().add("style6");
+            ir2.setCursor(Cursor.HAND);
+            ir2.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
 
 
+            // stampa sulla finestra
+            pane.getChildren().add(new VBox(id, ir, irr));
+            pane.getChildren().add(new VBox(id1, ir1, ir2));
 
-        // red panel
-        Label id1 = new Label("K57CM");
-        id1.setPrefSize(130, 65);
-        id1.setAlignment(Pos.CENTER);
-        id1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-        id1.getStyleClass().add("style4");
-        id1.setCursor(Cursor.HAND);
-
-
-        Label ir1 = new Label("55%");
-        ir1.setPrefSize(130, 65);
-        ir1.setAlignment(Pos.CENTER);
-        ir1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-        ir1.getStyleClass().add("style4");
-        ir1.setCursor(Cursor.HAND);
-
-
-        // stampa sulla finestra
-        pane.getChildren().add(new VBox(id, ir));
-        pane.getChildren().add(new VBox(id1, ir1));
+        }  //end for
 
 
         Scene scene = new Scene(root);
