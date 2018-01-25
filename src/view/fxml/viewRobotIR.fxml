@@ -35,7 +35,7 @@
                      </HBox.margin></Region>
                </children>
             </HBox>
-            <Button fx:id="btn" mnemonicParsing="false" onAction="#goBack" text="Back" textAlignment="CENTER">
+            <Button fx:id="btn" focusTraversable="false" mnemonicParsing="false" onAction="#goBack" text="Back" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="12.0" left="20.0" />
                </VBox.margin>
