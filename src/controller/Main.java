@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         ArrayList<Robot> oldList = DBManager.getDataFromDB(DBManager.dbConnect());
-        Robot robot1 = oldList.get(0);
+        Robot robot1 = oldList.get(32843);
 
         double minute = dataAnalyzer.inefficiencyRateOfARobot(robot1).getInefficiencyRate();
         System.out.println(minute);
