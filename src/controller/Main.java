@@ -9,11 +9,11 @@ public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         ArrayList<Robot> oldList = DBManager.getDataFromDB(DBManager.dbConnect());
-        Robot robot1 = oldList.get(32843);
+        Robot robot1 = oldList.get(20163);
 
         double minute = dataAnalyzer.inefficiencyRateOfARobot(robot1).getInefficiencyRate();
         System.out.println(minute);
-        double prova = dataAnalyzer.inefficiencyRateByCluster(dataAnalyzer.inefficiencyRateAllRobot(oldList)).get(0).getInefficiencyRate();
-        System.out.println(prova);
+          double prova = dataAnalyzer.inefficiencyRateByCluster(dataAnalyzer.inefficiencyRateAllRobot(oldList)).get(0).getInefficiencyRate();
+         System.out.println(prova);
     }
 }

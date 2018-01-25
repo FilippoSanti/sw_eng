@@ -22,7 +22,7 @@ public class dataAnalyzer {
         return instant.isAfter(time);
     }
 
-    public static double CalculateDownTime(Robot robot, double timeLeft, double relativeDownTime, boolean LOTrovato) {
+    public static double CalculateDownTime(Robot robot, double timeLeft, double relativeDownTime, boolean LOTrovato, int ultimo, int posizione) {
 
 
         // Ora corrente
@@ -37,6 +37,7 @@ public class dataAnalyzer {
         boolean trovato6 = false;
         boolean trovato7 = false;
 
+
         int pos1 = 0;
         int pos2 = 0;
         int pos3 = 0;
@@ -47,14 +48,14 @@ public class dataAnalyzer {
         int segnale = 0;
 
 
-        // Signal 1
+        // start
         for (int y = 0; y < 5; y++) {
 
             for (int j = 0; j < robot.getSignal1Time().length && !trovato1; j++) {
 
                 if (isMinutesAgo(robot.getSignal1Time()[j], (long)timeLeft) ) {
 
-                    if (!(robot.getSignal1()[j] == 1 && j == 0)) {
+                    if (!(robot.getSignal1()[j] == 1 && j == 0) && !(ultimo==1 && posizione ==j)) {
 
                         signalbiggestfaster = robot.getSignal1Time()[j];
                         segnale = 1;
@@ -70,7 +71,7 @@ public class dataAnalyzer {
                 if (isMinutesAgo(robot.getSignal2Time()[j], (long)timeLeft)) {
                     if (robot.getSignal2Time()[j].before(signalbiggestfaster)) {
 
-                        if (!(robot.getSignal2()[j] == 1 && j==0)) {
+                        if (!(robot.getSignal2()[j] == 1 && j==0) && !(ultimo==2 && posizione ==j)) {
 
                             signalbiggestfaster = robot.getSignal2Time()[j];
                             segnale = 2;
@@ -84,7 +85,7 @@ public class dataAnalyzer {
             for (int j = 0; j < robot.getSignal3Time().length && !trovato3; j++) {
                 if (isMinutesAgo(robot.getSignal3Time()[j], (long)timeLeft)) {
 
-                    if (!(robot.getSignal3()[j] == 1 && j == 0)) {
+                    if (!(robot.getSignal3()[j] == 1 && j == 0) && !(ultimo==3 && posizione ==j)) {
 
 
                         if (robot.getSignal3Time()[j].before(signalbiggestfaster)) {
@@ -101,7 +102,7 @@ public class dataAnalyzer {
                 if (isMinutesAgo(robot.getSignal4Time()[j], (long)timeLeft) ) {
                     if (robot.getSignal4Time()[j].before(signalbiggestfaster)) {
 
-                        if (!(robot.getSignal4()[j] == 1 && j == 0)) {
+                        if (!(robot.getSignal4()[j] == 1 && j == 0) && !(ultimo==4 && posizione ==j)) {
 
                             signalbiggestfaster = robot.getSignal4Time()[j];
                             segnale = 4;
@@ -116,7 +117,7 @@ public class dataAnalyzer {
                 if (isMinutesAgo(robot.getSignal5Time()[j], (long)timeLeft)) {
                     if (robot.getSignal5Time()[j].before(signalbiggestfaster)) {
 
-                        if (!(robot.getSignal5()[j] == 1 && j == 0)) {
+                        if (!(robot.getSignal5()[j] == 1 && j == 0) && !(ultimo==5 && posizione ==j)) {
 
                             signalbiggestfaster = robot.getSignal5Time()[j];
                             segnale = 5;
@@ -131,7 +132,7 @@ public class dataAnalyzer {
                 if (isMinutesAgo(robot.getSignal6Time()[j], (long)timeLeft)) {
                     if (robot.getSignal6Time()[j].before(signalbiggestfaster)) {
 
-                        if (!(robot.getSignal6()[j] == 1 && j == 0)) {
+                        if (!(robot.getSignal6()[j] == 1 && j == 0) && !(ultimo==6 && posizione ==j)) {
 
                             signalbiggestfaster = robot.getSignal6Time()[j];
                             segnale = 6;
@@ -146,7 +147,7 @@ public class dataAnalyzer {
                 if (isMinutesAgo(robot.getSignal7Time()[j], (long)timeLeft)) {
                     if (robot.getSignal7Time()[j].before(signalbiggestfaster)) {
 
-                        if (!(robot.getSignal7()[j] == 1 && j == 0)) {
+                        if (!(robot.getSignal7()[j] == 1 && j == 0) && !(ultimo==7 && posizione ==j)) {
 
 
                             signalbiggestfaster = robot.getSignal7Time()[j];
@@ -180,9 +181,11 @@ public class dataAnalyzer {
                             double diff = Math.abs(d3.getTime() - robot.getSignal1Time()[pos1].getTime());
                             relativeDownTime = relativeDownTime + diff / (60 * 1000);
 
+                            ultimo = 1;
+                            posizione = pos1+1;
                             double diff1 = Math.abs(d1.getTime() - d3.getTime());
                             timeLeft = diff1 / (60 * 1000);
-                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
                         }
                     } else if (pos1 != 0) {
                         Date d3 = robot.getSignal1Time()[pos1];
@@ -190,7 +193,9 @@ public class dataAnalyzer {
                         timeLeft = diff / (60 * 1000);
                         relativeDownTime = relativeDownTime + (60 - (long)timeLeft);
 
-                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                        ultimo = 1;
+                        posizione = pos1;
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
 
 
                     }
@@ -222,7 +227,9 @@ public class dataAnalyzer {
 
                             double diff1 = Math.abs(d1.getTime() - d3.getTime());
                             timeLeft = diff1 / (60 * 1000);
-                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                            ultimo = 2;
+                            posizione = pos2+1;
+                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
                         }
                     } else if (pos2 != 0) {
                         Date d3 = robot.getSignal2Time()[pos2];
@@ -230,7 +237,9 @@ public class dataAnalyzer {
                         timeLeft = diff / (60 * 1000);
                         relativeDownTime = relativeDownTime + (60 - (long)timeLeft);
 
-                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                        ultimo = 2;
+                        posizione = pos2;
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
 
 
                     }
@@ -262,7 +271,10 @@ public class dataAnalyzer {
 
                             double diff1 = Math.abs(d1.getTime() - d3.getTime());
                             timeLeft = diff1 / (60 * 1000);
-                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+                            ultimo = 3;
+                            posizione = pos3+1;
+                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
                         }
 
                     } else if (pos3 != 0) {
@@ -271,7 +283,9 @@ public class dataAnalyzer {
                         timeLeft = diff / (60 * 1000);
                         relativeDownTime = relativeDownTime + (60 - (long)timeLeft);
 
-                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                        ultimo = 3;
+                        posizione = pos3;
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
 
 
                     }
@@ -301,7 +315,9 @@ public class dataAnalyzer {
 
                             double diff1 = Math.abs(d1.getTime() - d3.getTime());
                             timeLeft = diff1 / (60 * 1000);
-                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                            ultimo = 4;
+                            posizione = pos4+1;
+                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
                         }
                     } else if (pos4 != 0) {
                         Date d3 = robot.getSignal4Time()[pos4];
@@ -309,7 +325,9 @@ public class dataAnalyzer {
                         timeLeft = diff / (60 * 1000);
                         relativeDownTime = relativeDownTime + (60 - (long)timeLeft);
 
-                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                        ultimo = 4;
+                        posizione = pos4;
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
 
 
                     }
@@ -340,7 +358,10 @@ public class dataAnalyzer {
 
                             double diff1 = Math.abs(d1.getTime() - d3.getTime());
                             timeLeft = diff1 / (60 * 1000);
-                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+                            ultimo = 5;
+                            posizione = pos5+1;
+                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
                         }
                     } else if (pos5 != 0) {
                         Date d3 = robot.getSignal5Time()[pos5];
@@ -348,7 +369,9 @@ public class dataAnalyzer {
                         timeLeft = diff / (60 * 1000);
                         relativeDownTime = relativeDownTime + (60 - (long)timeLeft);
 
-                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                        ultimo = 5;
+                        posizione = pos5;
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
 
 
                     }
@@ -381,7 +404,10 @@ public class dataAnalyzer {
 
                             double diff1 = Math.abs(d1.getTime() - d3.getTime());
                             timeLeft = diff1 / (60 * 1000);
-                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+                            ultimo = 6;
+                            posizione = pos6+1;
+                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
                         }
                     } else if (pos6 != 0) {
                         Date d3 = robot.getSignal6Time()[pos6];
@@ -389,7 +415,9 @@ public class dataAnalyzer {
                         timeLeft = diff / (60 * 1000);
                         relativeDownTime = relativeDownTime + (60 - (long)timeLeft);
 
-                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                        ultimo = 6;
+                        posizione = pos6;
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
 
 
                     }
@@ -423,7 +451,10 @@ public class dataAnalyzer {
 
                             double diff1 = Math.abs(d1.getTime() - d3.getTime());
                             timeLeft = diff1 / (60 * 1000);
-                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+
+                            ultimo = 7;
+                            posizione = pos7+1;
+                            return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
                         }
 
                     } else if (pos7 != 0) {
@@ -432,7 +463,9 @@ public class dataAnalyzer {
                         timeLeft = diff / (60 * 1000);
                         relativeDownTime = relativeDownTime + (60 - (long)timeLeft);
 
-                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato);
+                        ultimo = 7;
+                        posizione = pos7;
+                        return CalculateDownTime(robot, timeLeft, relativeDownTime, LOTrovato, ultimo, posizione);
 
 
                     }
@@ -452,7 +485,7 @@ public class dataAnalyzer {
 
 
     public static InefficiencyRate inefficiencyRateOfARobot(Robot robot) {
-        double downtime= CalculateDownTime(robot, 60, 0, false);
+        double downtime= CalculateDownTime(robot, 60, 0, false, 0,0);
         double iR =  (downtime* 100.00)/60.00;
         InefficiencyRate temp = new InefficiencyRate(robot.getId(), robot.getCluster(), iR, robot.getArea());
         System.out.println("robot: " + temp.getId() + "cluster: " +  temp.getCluster() + "ir   " + temp.getInefficiencyRate());
