@@ -19,18 +19,14 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 import static view.startGUI.mainStage;
 
-
-public class viewIR_RobotController extends Application {
-
-    public static int robotFakeID;
-    public static int robotRealID;
+public class viewIRClusterRobot extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
-
+    public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         primaryStage.setTitle("Industrial Robot Dashboard");
 
         FlowPane pane = new FlowPane();
@@ -49,7 +45,7 @@ public class viewIR_RobotController extends Application {
         root.setFocusTraversable(false);
 
         // central title
-        Label title = new Label("Display IR by Robot");
+        Label title = new Label("Display IR by Cluster / Robot");
         title.setFocusTraversable(false);
         title.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         title.getStyleClass().add("style2");
@@ -64,7 +60,7 @@ public class viewIR_RobotController extends Application {
         HBox.setHgrow(spacer3, Priority.ALWAYS);
 
         // text near choicebox
-        Label Lbl = new Label("Select IR to display:");
+        Label Lbl = new Label("Select IR to display:" +viewIR_Cluster_AreaController.roboSize);
         Lbl.setFocusTraversable(false);
         Lbl.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         Lbl.getStyleClass().add("style1");
@@ -107,32 +103,23 @@ public class viewIR_RobotController extends Application {
         // Title and menu
         root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer3, Lbl, choiceBox))));
 
+        // Get the list of clusters
+        List<Integer> tempList = simulation.inputSimulation.getDataFromList();
 
         // Display ID & IR
-        int tempIndex = viewIR_Cluster_AreaController.roboSize;
-        int roboCounter = 0;
-
-        for (int i = tempIndex; i < tempIndex*2 ; i++) {
-
-            roboCounter++;
-
+        for (int i = 0; i < tempList.size(); i++) {
             // Green panel
-            // Green robot img
+            // green ligth img
             Label id = new Label("");
             id.setPrefSize(150, 150);
             id.setAlignment(Pos.CENTER);
             id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            id.getStyleClass().add("style3");
+            id.getStyleClass().add("style7");
             id.setCursor(Cursor.HAND);
-
-            int finalI = i;
-            int finalRoboCounter = roboCounter;
-            int finalI1 = i;
-            id.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            id.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
                 @Override
                 public void handle(MouseEvent t) {
-                    robotRealID = finalI1;
-                    robotFakeID = finalRoboCounter;
+
                     Parent root = null;
                     try {
                         root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
@@ -144,13 +131,13 @@ public class viewIR_RobotController extends Application {
                 }
             });
 
-            Label ir = new Label("Robot ID: "+roboCounter);
+            Label ir = new Label("ID:  123455");
             ir.setPrefSize(150, 25);
             ir.setAlignment(Pos.CENTER);
             ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
             ir.getStyleClass().add("style6");
             ir.setCursor(Cursor.HAND);
-            ir.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            ir.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
                 @Override
                 public void handle(MouseEvent t) {
 
@@ -171,7 +158,7 @@ public class viewIR_RobotController extends Application {
             irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
             irr.getStyleClass().add("style6");
             irr.setCursor(Cursor.HAND);
-            irr.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            irr.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
                 @Override
                 public void handle(MouseEvent t) {
 
@@ -186,10 +173,80 @@ public class viewIR_RobotController extends Application {
                 }
             });
 
+
+            // red panel
+            //red light img
+            Label id1 = new Label("");
+            id1.setPrefSize(150, 150);
+            id1.setAlignment(Pos.CENTER);
+            id1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            id1.getStyleClass().add("style8");
+            id1.setCursor(Cursor.HAND);
+            id1.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
+
+            //id label
+            Label ir1 = new Label("ID:  123456");
+            ir1.setPrefSize(150, 25);
+            ir1.setAlignment(Pos.CENTER);
+            ir1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            ir1.getStyleClass().add("style6");
+            ir1.setCursor(Cursor.HAND);
+            ir1.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
+
+            //ir label
+            Label ir2 = new Label("IR:  55%");
+            ir2.setPrefSize(150, 25);
+            ir2.setAlignment(Pos.CENTER);
+            ir2.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+            ir2.getStyleClass().add("style6");
+            ir2.setCursor(Cursor.HAND);
+            ir2.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+                @Override
+                public void handle(MouseEvent t) {
+
+                    Parent root = null;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mainStage.setScene(new Scene(root, 1000, 650));
+                    mainStage.show();
+                }
+            });
+
+
             // stampa sulla finestra
             pane.getChildren().add(new VBox(id, ir, irr));
+            pane.getChildren().add(new VBox(id1, ir1, ir2));
 
-        }
+        }  //end for
 
 
         Scene scene = new Scene(root);
@@ -203,12 +260,13 @@ public class viewIR_RobotController extends Application {
             primaryStage.close();
             Parent root1 = null;
             try {
-                new viewIR_Cluster_AreaController().start(primaryStage);
+                root1 = FXMLLoader.load(getClass().getResource("fxml/select_ir.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
+
+            mainStage.setScene(new Scene(root1, 1000, 650));
+            mainStage.show();
 
         });
 
