@@ -20,7 +20,7 @@ public class startGUI extends Application {
         mainStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("fxml/auth.fxml"));
         mainStage.setTitle("User Authentication Page");
-        mainStage.setScene(new Scene(root, 1000, 650));
+        mainStage.setScene(new Scene(root, 1000, 657));
         mainStage.show();
     }
 }

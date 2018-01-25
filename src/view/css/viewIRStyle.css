@@ -1,8 +1,15 @@
 .back_btn{
     -fx-translate-x:20;
-    -fx-translate-y: -4;
+    -fx-translate-y: -4pt;
     -fx-font-size: 9pt;
 }
+
+.refresh_btn{
+    -fx-font-size: 9pt;
+    -fx-translate-y: -4pt;
+    -fx-translate-x: 50pt;
+}
+
 .margin_top{
     -fx-border-color: transparent;
 }

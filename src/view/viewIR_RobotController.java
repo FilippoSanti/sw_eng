@@ -63,6 +63,9 @@ public class viewIR_RobotController extends Application {
         Region spacer3 = new Region();
         HBox.setHgrow(spacer3, Priority.ALWAYS);
 
+        Region spacer4 = new Region();
+        HBox.setHgrow(spacer4, Priority.SOMETIMES);
+
         // text near choicebox
         Label Lbl = new Label("Select IR to display:");
         Lbl.setFocusTraversable(false);
@@ -103,9 +106,14 @@ public class viewIR_RobotController extends Application {
         btn.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         btn.getStyleClass().add("back_btn");
 
+ 		//refresh button
+        Button refresh= new Button("Refresh");
+        refresh.setFocusTraversable(false);
+        refresh.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        refresh.getStyleClass().add("refresh_btn");
 
-        // Title and menu
-        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer3, Lbl, choiceBox))));
+        // title and menu
+        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3, Lbl, choiceBox))));
 
 
         // Display ID & IR

@@ -85,6 +85,9 @@ public class viewIR_Cluster_AreaController extends Application {
         Region spacer3 = new Region();
         HBox.setHgrow(spacer3, Priority.ALWAYS);
 
+        Region spacer4 = new Region();
+        HBox.setHgrow(spacer4, Priority.SOMETIMES);
+
         // Text near choicebox
         Label Lbl = new Label("Select IR to display:");
         Lbl.setFocusTraversable(false);
@@ -126,8 +129,14 @@ public class viewIR_Cluster_AreaController extends Application {
         btn.getStyleClass().add("back_btn");
 
 
-        // Title and menu
-        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer3, Lbl, choiceBox))));
+        //refresh button
+        Button refresh= new Button("Refresh");
+        refresh.setFocusTraversable(false);
+        refresh.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        refresh.getStyleClass().add("refresh_btn");
+
+        // title and menu
+        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3, Lbl, choiceBox))));
 
         // Get the list of clusters
         List<Integer> tempList = simulation.inputSimulation.getDataFromList();
