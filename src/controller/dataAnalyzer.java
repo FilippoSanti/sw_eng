@@ -52,11 +52,15 @@ public class dataAnalyzer {
 
             for (int j = 0; j < robot.getSignal1Time().length && !trovato1; j++) {
 
-                if (isMinutesAgo(robot.getSignal1Time()[j], timeLeft)) {
-                    signalbiggestfaster = robot.getSignal1Time()[j];
-                    segnale = 1;
-                    trovato1 = true;
-                    pos1 = j;
+                if (isMinutesAgo(robot.getSignal1Time()[j], timeLeft) ) {
+
+                    if (!(robot.getSignal1()[j] == 1 && j == 0)) {
+
+                        signalbiggestfaster = robot.getSignal1Time()[j];
+                        segnale = 1;
+                        trovato1 = true;
+                        pos1 = j;
+                    }
                 }
 
             }
@@ -65,43 +69,60 @@ public class dataAnalyzer {
             for (int j = 0; j < robot.getSignal2Time().length && !trovato2; j++) {
                 if (isMinutesAgo(robot.getSignal2Time()[j], timeLeft)) {
                     if (robot.getSignal2Time()[j].before(signalbiggestfaster)) {
-                        signalbiggestfaster = robot.getSignal2Time()[j];
-                        segnale = 2;
-                        trovato2 = true;
-                        pos2 = j;
+
+                        if (!(robot.getSignal2()[j] == 1 && j==0)) {
+
+                            signalbiggestfaster = robot.getSignal2Time()[j];
+                            segnale = 2;
+                            trovato2 = true;
+                            pos2 = j;
+                        }
                     }
                 }
             }
 
             for (int j = 0; j < robot.getSignal3Time().length && !trovato3; j++) {
                 if (isMinutesAgo(robot.getSignal3Time()[j], timeLeft)) {
-                    if (robot.getSignal3Time()[j].before(signalbiggestfaster)) {
-                        signalbiggestfaster = robot.getSignal3Time()[j];
-                        segnale = 3;
-                        trovato3 = true;
-                        pos3 = j;
+
+                    if (!(robot.getSignal3()[j] == 1 && j == 0)) {
+
+
+                        if (robot.getSignal3Time()[j].before(signalbiggestfaster)) {
+                            signalbiggestfaster = robot.getSignal3Time()[j];
+                            segnale = 3;
+                            trovato3 = true;
+                            pos3 = j;
+                        }
                     }
                 }
             }
 
             for (int j = 0; j < robot.getSignal4Time().length && !trovato4; j++) {
-                if (isMinutesAgo(robot.getSignal4Time()[j], timeLeft)) {
+                if (isMinutesAgo(robot.getSignal4Time()[j], timeLeft) ) {
                     if (robot.getSignal4Time()[j].before(signalbiggestfaster)) {
-                        signalbiggestfaster = robot.getSignal4Time()[j];
-                        segnale = 4;
-                        trovato4 = true;
-                        pos4 = j;
+
+                        if (!(robot.getSignal4()[j] == 1 && j == 0)) {
+
+                            signalbiggestfaster = robot.getSignal4Time()[j];
+                            segnale = 4;
+                            trovato4 = true;
+                            pos4 = j;
+                        }
                     }
                 }
             }
 
-            for (int j = 0; j < robot.getSignal5Time().length && !trovato1; j++) {
+            for (int j = 0; j < robot.getSignal5Time().length && !trovato5; j++) {
                 if (isMinutesAgo(robot.getSignal5Time()[j], timeLeft)) {
                     if (robot.getSignal5Time()[j].before(signalbiggestfaster)) {
-                        signalbiggestfaster = robot.getSignal5Time()[j];
-                        segnale = 5;
-                        trovato5 = true;
-                        pos5 = j;
+
+                        if (!(robot.getSignal5()[j] == 1 && j == 0)) {
+
+                            signalbiggestfaster = robot.getSignal5Time()[j];
+                            segnale = 5;
+                            trovato5 = true;
+                            pos5 = j;
+                        }
                     }
                 }
             }
@@ -109,21 +130,30 @@ public class dataAnalyzer {
             for (int j = 0; j < robot.getSignal6Time().length && !trovato6; j++) {
                 if (isMinutesAgo(robot.getSignal6Time()[j], timeLeft)) {
                     if (robot.getSignal6Time()[j].before(signalbiggestfaster)) {
-                        signalbiggestfaster = robot.getSignal6Time()[j];
-                        segnale = 6;
-                        trovato6 = true;
-                        pos6 = j;
+
+                        if (!(robot.getSignal6()[j] == 1 && j == 0)) {
+
+                            signalbiggestfaster = robot.getSignal6Time()[j];
+                            segnale = 6;
+                            trovato6 = true;
+                            pos6 = j;
+                        }
                     }
                 }
             }
 
-            for (int j = 0; j < robot.getSignal7Time().length && !trovato1; j++) {
+            for (int j = 0; j < robot.getSignal7Time().length && !trovato7; j++) {
                 if (isMinutesAgo(robot.getSignal7Time()[j], timeLeft)) {
                     if (robot.getSignal7Time()[j].before(signalbiggestfaster)) {
-                        signalbiggestfaster = robot.getSignal7Time()[j];
-                        segnale = 7;
-                        trovato7 = true;
-                        pos7 = j;
+
+                        if (!(robot.getSignal7()[j] == 1 && j == 0)) {
+
+
+                            signalbiggestfaster = robot.getSignal7Time()[j];
+                            segnale = 7;
+                            trovato7 = true;
+                            pos7 = j;
+                        }
                     }
                 }
             }
@@ -422,9 +452,10 @@ public class dataAnalyzer {
 
 
     public static InefficiencyRate inefficiencyRateOfARobot(Robot robot) {
-        long downtime= CalculateDownTime(robot, 60, 0, false);
+        long downtime= CalculateDownTime(robot, 120, 0, false);
         double iR =  (downtime* 100.00)/60.00;
         InefficiencyRate temp = new InefficiencyRate(robot.getId(), robot.getCluster(), iR, robot.getArea());
+        System.out.println("robot: " + temp.getId() + "cluster: " +  temp.getCluster() + "ir   " + temp.getInefficiencyRate());
         return temp;
     }
 
