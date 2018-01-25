@@ -23,33 +23,29 @@ import java.io.IOException;
 import static view.startGUI.mainStage;
 
 
-public class viewIR_RobotController extends Application {
-
-    public static int robotFakeID;
-    public static int robotRealID;
+public class viewIRController extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         primaryStage.setTitle("Industrial Robot Dashboard");
 
         FlowPane pane = new FlowPane();
-        pane.setHgap(40);
-        pane.setVgap(40);
+        pane.setHgap(30);
+        pane.setVgap(30);
         pane.setRowValignment(VPos.CENTER);
         pane.setColumnHalignment(HPos.LEFT);
         pane.setFocusTraversable(false);
 
         ScrollPane scroll = new ScrollPane(pane);
         scroll.setFitToWidth(true);
-        scroll.setPrefSize(1140, 610);
+        scroll.setPrefSize(1110, 610);
         scroll.setFocusTraversable(false);
 
         BorderPane root = new BorderPane(scroll);
         root.setFocusTraversable(false);
 
         // central title
-        Label title = new Label("Display IR by Robot");
+        Label title = new Label("Display IR by ######");
         title.setFocusTraversable(false);
         title.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         title.getStyleClass().add("style2");
@@ -97,99 +93,78 @@ public class viewIR_RobotController extends Application {
         choiceBox.setValue("40%");
 
 
-        // Back button
+        // back button
         Button btn = new Button("Back");
         btn.setFocusTraversable(false);
         btn.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         btn.getStyleClass().add("back_btn");
 
 
-        // Title and menu
+        // title and menu
         root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer3, Lbl, choiceBox))));
 
 
         // Display ID & IR
-        int tempIndex = viewIR_Cluster_AreaController.roboSize;
-        int roboCounter = 0;
+        // Premi il tasto back per popolare la view
 
-        for (int i = tempIndex; i < tempIndex*2 ; i++) {
+        // Dichiarazioni delle labels
 
-            roboCounter++;
+        // Green panel
+        Label id = new Label("K57CM");
+        id.setPrefSize(130, 65);
+        id.setAlignment(Pos.CENTER);
+        id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        id.getStyleClass().add("style3");
+        id.setCursor(Cursor.HAND);
+        id.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+            @Override
+            public void handle(MouseEvent t) {
 
-            // Green panel
-            // Green robot img
-            Label id = new Label("");
-            id.setPrefSize(150, 150);
-            id.setAlignment(Pos.CENTER);
-            id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            id.getStyleClass().add("style3");
-            id.setCursor(Cursor.HAND);
-
-            int finalI = i;
-            int finalRoboCounter = roboCounter;
-            int finalI1 = i;
-            id.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
-                    robotRealID = finalI1;
-                    robotFakeID = finalRoboCounter;
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mainStage.setScene(new Scene(root, 1000, 650));
-                    mainStage.show();
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });
+                mainStage.setScene(new Scene(root, 1000, 650));
+                mainStage.show();
+            }
+        });
 
-            Label ir = new Label("Robot ID: "+roboCounter);
-            ir.setPrefSize(150, 25);
-            ir.setAlignment(Pos.CENTER);
-            ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            ir.getStyleClass().add("style6");
-            ir.setCursor(Cursor.HAND);
-            ir.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
+        Label ir = new Label("55%");
+        ir.setPrefSize(130, 65);
+        ir.setAlignment(Pos.CENTER);
+        ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        ir.getStyleClass().add("style3");
+        ir.setCursor(Cursor.HAND);
 
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mainStage.setScene(new Scene(root, 1000, 650));
-                    mainStage.show();
-                }
-            });
 
-            Label irr = new Label("IR:  25%");
-            irr.setPrefSize(150, 25);
-            irr.setAlignment(Pos.CENTER);
-            irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            irr.getStyleClass().add("style6");
-            irr.setCursor(Cursor.HAND);
-            irr.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
 
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mainStage.setScene(new Scene(root, 1000, 650));
-                    mainStage.show();
-                }
-            });
+        // red panel
+        Label id1 = new Label("K57CM");
+        id1.setPrefSize(130, 65);
+        id1.setAlignment(Pos.CENTER);
+        id1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        id1.getStyleClass().add("style4");
+        id1.setCursor(Cursor.HAND);
+        id1.setOnMouseClicked(new EventHandler<MouseEvent>() {    // quando servirà di aggiungere il click che manda all'altra view
+            @Override
+            public void handle(MouseEvent t) {
+                id1.setStyle("-fx-font-size: 22px; -fx-font-family: 'Open Sans Light'");
+            }
+        });
 
-            // stampa sulla finestra
-            pane.getChildren().add(new VBox(id, ir, irr));
+        Label ir1 = new Label("55%");
+        ir1.setPrefSize(130, 65);
+        ir1.setAlignment(Pos.CENTER);
+        ir1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        ir1.getStyleClass().add("style4");
+        ir1.setCursor(Cursor.HAND);
 
-        }
+
+        // stampa sulla finestra
+        pane.getChildren().add(new VBox(id, ir));
+        pane.getChildren().add(new VBox(id1, ir1));
 
 
         Scene scene = new Scene(root);
@@ -203,12 +178,13 @@ public class viewIR_RobotController extends Application {
             primaryStage.close();
             Parent root1 = null;
             try {
-                new viewIR_Cluster_AreaController().start(primaryStage);
+                root1 = FXMLLoader.load(getClass().getResource("fxml/select_ir.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
+
+            mainStage.setScene(new Scene(root1, 1000, 650));
+            mainStage.show();
 
         });
 
