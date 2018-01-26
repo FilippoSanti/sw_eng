@@ -17,8 +17,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.Robot;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static view.startGUI.mainStage;
 
@@ -118,9 +120,11 @@ public class viewIR_RobotController extends Application {
 
         // Display ID & IR
         int tempIndex = viewIR_Cluster_AreaController.roboSize;
+
+        ArrayList<Robot> listaTemp = viewIR_Cluster_AreaController.newRobo;
         int roboCounter = 0;
 
-        for (int i = tempIndex; i < tempIndex*2 ; i++) {
+        for (int i = 0; i < listaTemp.size() ; i++) {
 
             roboCounter++;
 
@@ -139,7 +143,8 @@ public class viewIR_RobotController extends Application {
             id.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
-                    robotRealID = finalI1;
+
+                    robotRealID = listaTemp.get(finalI).getId();
                     robotFakeID = finalRoboCounter;
                     Parent root = null;
                     try {

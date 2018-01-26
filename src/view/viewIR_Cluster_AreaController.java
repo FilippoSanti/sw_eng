@@ -31,6 +31,7 @@ import static view.startGUI.mainStage;
 public class viewIR_Cluster_AreaController extends Application {
 
     public static int roboSize;
+    public static int startID;
 
     // Get the list of robots
     public static ArrayList<Robot> getRobotList() {
@@ -48,6 +49,7 @@ public class viewIR_Cluster_AreaController extends Application {
     }
 
     public static ArrayList<Robot> roboTemp;
+    public static ArrayList<Robot> newRobo;
 
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
@@ -144,8 +146,7 @@ public class viewIR_Cluster_AreaController extends Application {
         int counter = 0;
 
         // Display ID & IR
-        for (int i = 0; i < tempList.size(); i++) {
-
+        for (int i = 1; i <= tempList.size(); i++) {
             counter++;
 
             // Gren panel
@@ -156,10 +157,12 @@ public class viewIR_Cluster_AreaController extends Application {
             id.getStyleClass().add("style7");
             id.setCursor(Cursor.HAND);
             int finalI = i;
+            int temp = i;
+
             id.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent t) {
-
+                    newRobo = controller.dataAnalyzer.splitListIntoClusters(roboTemp, temp);
                     roboSize = tempList.get(finalI);
                     System.out.println(roboSize);
                     mainStage.close();
