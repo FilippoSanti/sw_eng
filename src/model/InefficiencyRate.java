@@ -4,17 +4,11 @@ public class InefficiencyRate {
     private int id;
     private int cluster;
     private double inefficiencyRate;
-    private int area;
 
-    public InefficiencyRate(int id, int cluster, double iR, int area) {
+    public InefficiencyRate(int id, int cluster, double iR) {
         this.id = id;
         this.cluster = cluster;
         this.inefficiencyRate = iR;
-        this.area = area;
-    }
-
-    public int getArea() {
-        return area;
     }
 
     public int getCluster() {
@@ -29,9 +23,6 @@ public class InefficiencyRate {
         return inefficiencyRate;
     }
 
-    public void setArea(int area) {
-        this.area = area;
-    }
 
     public void setCluster(int cluster) {
         this.cluster = cluster;

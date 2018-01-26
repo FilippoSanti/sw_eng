@@ -7,7 +7,6 @@ public class Robot implements Serializable {
 
     private int id;
     private int cluster;
-    private int area;
     private int[] signal1;
     private int[] signal2;
     private int[] signal3;
@@ -23,11 +22,10 @@ public class Robot implements Serializable {
     private Date[] signal6Time;
     private Date[] signal7Time;
 
-    public Robot(int id, int c, int a, int[] s1, int[] s2, int[] s3, int[] s4, int[] s5, int[] s6, int[] s7, Date[] s1t, Date[] s2t,
+    public Robot(int id, int c, int[] s1, int[] s2, int[] s3, int[] s4, int[] s5, int[] s6, int[] s7, Date[] s1t, Date[] s2t,
                  Date[] s3t, Date[] s4t, Date[] s5t, Date[] s6t, Date[] s7t) {
         this.id = id;
         this.cluster = c;
-        this.area    = a;
         this.signal1 = s1;
         this.signal2 = s2;
         this.signal3 = s3;
@@ -51,12 +49,6 @@ public class Robot implements Serializable {
     public void setCluster(int cluster) {
         this.cluster = cluster;
     }
-
-    public void setArea (int area) {
-        this.area = area;
-    }
-
-    public int getArea () { return this.area; }
 
     public int getId() {
         return id;

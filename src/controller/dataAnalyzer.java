@@ -487,7 +487,7 @@ public class dataAnalyzer {
     public static InefficiencyRate inefficiencyRateOfARobot(Robot robot) {
         double downtime= CalculateDownTime(robot, 60, 0, false, 0,0);
         double iR =  (downtime* 100.00)/60.00;
-        InefficiencyRate temp = new InefficiencyRate(robot.getId(), robot.getCluster(), iR, robot.getArea());
+        InefficiencyRate temp = new InefficiencyRate(robot.getId(), robot.getCluster(), iR);
         System.out.println("robot: " + temp.getId() + "cluster: " +  temp.getCluster() + "ir   " + temp.getInefficiencyRate());
         return temp;
     }
@@ -529,4 +529,3 @@ public class dataAnalyzer {
 
 
 }
-

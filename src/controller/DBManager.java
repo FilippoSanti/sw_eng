@@ -23,7 +23,7 @@ public class DBManager {
     /* Connect to the DB */
     public static MongoDatabase dbConnect() {
 
-        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@82.57.117.96/?authSource=unnamedb");
+        MongoClientURI uri = new MongoClientURI("mongodb://admin:testadmin123@localhost/?authSource=unnamedb");
         MongoClient mongoClient = new MongoClient(uri);
         MongoDatabase db = mongoClient.getDatabase("unnamedb");
 
@@ -322,7 +322,7 @@ public class DBManager {
             d6 = listToDateArray(d6l);
             d7 = listToDateArray(d7l);
 
-            Robot roboTemp = new Robot(robot.getInteger("id"), robot.getInteger("cluster"), robot.getInteger("area"), s1, s2, s3, s4, s5, s6, s7,
+            Robot roboTemp = new Robot(robot.getInteger("id"), robot.getInteger("cluster"), s1, s2, s3, s4, s5, s6, s7,
                     d1, d2, d3, d4, d5, d6, d7);
 
             robotList.add(roboTemp);
@@ -423,7 +423,6 @@ public class DBManager {
 
             Document roboTemp = new Document("id", robotList.get(i).getId());
             roboTemp.append("cluster", robotList.get(i).getCluster());
-            roboTemp.append("area", robotList.get(i).getArea());
 
             // Scan the array and get the signal lists
             for (int y = 0; y < robotList.get(i).getSignal1().length; y++) {
