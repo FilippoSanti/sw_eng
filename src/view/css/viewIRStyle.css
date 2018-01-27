@@ -7,7 +7,7 @@
 .refresh_btn{
     -fx-font-size: 9pt;
     -fx-translate-y: -4pt;
-    -fx-translate-x: 50pt;
+    -fx-translate-x: -20pt;
 }
 
 .margin_top{

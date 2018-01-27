@@ -63,9 +63,6 @@ public class viewIR_Cluster_AreaController extends Application {
         Region spacer3 = new Region();
         HBox.setHgrow(spacer3, Priority.ALWAYS);
 
-        Region spacer4 = new Region();
-        HBox.setHgrow(spacer4, Priority.SOMETIMES);
-
         // Back button
         Button btn = new Button("Back");
         btn.setFocusTraversable(false);
@@ -79,7 +76,7 @@ public class viewIR_Cluster_AreaController extends Application {
         refresh.getStyleClass().add("refresh_btn");
 
         // Title and menu
-        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3))));
+        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer3, refresh))));
 
         // Get the list of robots from DB
         try {
