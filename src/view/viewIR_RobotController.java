@@ -1,7 +1,6 @@
 package view;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -12,20 +11,16 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.InefficiencyRate;
-import model.InefficiencyRateByCluster;
 import model.Robot;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static view.startGUI.mainStage;
 
@@ -33,6 +28,7 @@ public class viewIR_RobotController extends Application {
 
     public static int robotFakeID;
     public static int robotRealID;
+    public static double robotIR;
 
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
@@ -72,13 +68,19 @@ public class viewIR_RobotController extends Application {
         Region spacer4 = new Region();
         HBox.setHgrow(spacer4, Priority.SOMETIMES);
 
+        // text near choicebox
+        Label Lbl = new Label("Select IR to display:");
+        Lbl.setFocusTraversable(false);
+        Lbl.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+        Lbl.getStyleClass().add("style1");
+
         // Back button
         Button btn = new Button("Back");
         btn.setFocusTraversable(false);
         btn.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         btn.getStyleClass().add("back_btn");
 
- 		//refresh button
+        //refresh button
         Button refresh= new Button("Refresh");
         refresh.setFocusTraversable(false);
         refresh.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
@@ -96,11 +98,59 @@ public class viewIR_RobotController extends Application {
         int roboCounter = 0;
 
         for (int i = 0; i < listaTemp.size() ; i++) {
-            roboCounter++;
-            int robotIneff = (int)allThings.get(i).getInefficiencyRate();
 
-            // If the IR of a robot is > 40 we show the red light
-            if (robotIneff > 2) {
+            int robotIn = (int) allThings.get(i).getInefficiencyRate();
+            roboCounter++;
+
+            // If the IR is > 20 we show the red icon
+            if (robotIn < 20) {
+
+                // Green panel
+                // Green robot img
+                Label id = new Label("");
+                id.setPrefSize(150, 150);
+                id.setAlignment(Pos.CENTER);
+                id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                id.getStyleClass().add("style3");
+                id.setCursor(Cursor.HAND);
+
+                int finalI = i;
+                int finalRoboCounter = roboCounter;
+                int finalI1 = i;
+                id.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+
+                        robotIR = allThings.get(finalI).getInefficiencyRate();
+                        robotRealID = listaTemp.get(finalI).getId();
+                        robotFakeID = finalRoboCounter;
+                        Parent root = null;
+                        try {
+                            root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        mainStage.setScene(new Scene(root, 1000, 650));
+                        mainStage.show();
+                    }
+                });
+
+                Label ir = new Label("Robot ID: "+roboCounter);
+                ir.setPrefSize(150, 25);
+                ir.setAlignment(Pos.CENTER);
+                ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                ir.getStyleClass().add("style6");
+
+                Label irr = new Label("IR: "+robotIn +"%");
+                irr.setPrefSize(150, 25);
+                irr.setAlignment(Pos.CENTER);
+                irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                irr.getStyleClass().add("style6");
+
+                // stampa sulla finestra
+                pane.getChildren().add(new VBox(id, ir, irr));
+
+            } else {
 
                 // Red panel
                 // Red robot img
@@ -117,6 +167,7 @@ public class viewIR_RobotController extends Application {
                     @Override
                     public void handle(MouseEvent t) {
 
+                        robotIR = allThings.get(finalI).getInefficiencyRate();
                         robotRealID = listaTemp.get(finalI).getId();
                         robotFakeID = finalRoboCounter;
                         Parent root = null;
@@ -138,59 +189,15 @@ public class viewIR_RobotController extends Application {
                 ir1.getStyleClass().add("style6");
 
                 //ir label
-                Label ir2 = new Label("IR: " +robotIneff +"%");
+                Label ir2 = new Label("IR: " +robotIn +"%");
                 ir2.setPrefSize(150, 25);
                 ir2.setAlignment(Pos.CENTER);
                 ir2.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
                 ir2.getStyleClass().add("style6");
                 pane.getChildren().add(new VBox(id1, ir1, ir2));
 
-            } else {
-
-                // Green panel
-                // Green robot img
-                Label id = new Label("");
-                id.setPrefSize(150, 150);
-                id.setAlignment(Pos.CENTER);
-                id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-                id.getStyleClass().add("style3");
-                id.setCursor(Cursor.HAND);
-
-                int finalI = i;
-                int finalRoboCounter = roboCounter;
-
-                id.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent t) {
-
-                        robotRealID = listaTemp.get(finalI).getId();
-                        robotFakeID = finalRoboCounter;
-                        Parent root = null;
-                        try {
-                            root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        mainStage.setScene(new Scene(root, 1000, 650));
-                        mainStage.show();
-                    }
-                });
-
-                Label ir = new Label("Robot ID: "+roboCounter);
-                ir.setPrefSize(150, 25);
-                ir.setAlignment(Pos.CENTER);
-                ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-                ir.getStyleClass().add("style6");
-
-                Label irr = new Label("IR: "+(int)allThings.get(i).getInefficiencyRate() +"%");
-                irr.setPrefSize(150, 25);
-                irr.setAlignment(Pos.CENTER);
-                irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-                irr.getStyleClass().add("style6");
-
-                // stampa sulla finestra
-                pane.getChildren().add(new VBox(id, ir, irr));
             }
+
         }
 
         Scene scene = new Scene(root);

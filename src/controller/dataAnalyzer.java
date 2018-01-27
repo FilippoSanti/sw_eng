@@ -3,6 +3,7 @@ package controller;
 import model.InefficiencyRate;
 import model.InefficiencyRateByCluster;
 import model.Robot;
+
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
@@ -39,7 +40,7 @@ public class dataAnalyzer {
                     if (!(robot.getSignal1()[j] == 1 && j == 0) && !(ultimo == 1 && posizione == j)) {
                         signalbiggestfaster = robot.getSignal1Time()[j];
                         segnale = 1;
-                        trovato= true;
+                        trovato = true;
                         trovato1 = true;
                         pos1 = j;
                     }
@@ -54,7 +55,7 @@ public class dataAnalyzer {
 
                             signalbiggestfaster = robot.getSignal2Time()[j];
                             segnale = 2;
-                            trovato= true;
+                            trovato = true;
                             trovato2 = true;
                             pos2 = j;
                         }
@@ -68,7 +69,7 @@ public class dataAnalyzer {
                         if (robot.getSignal3Time()[j].before(signalbiggestfaster)) {
                             signalbiggestfaster = robot.getSignal3Time()[j];
                             segnale = 3;
-                            trovato= true;
+                            trovato = true;
                             trovato3 = true;
                             pos3 = j;
                         }
@@ -82,7 +83,7 @@ public class dataAnalyzer {
                         if (!(robot.getSignal4()[j] == 1 && j == 0) && !(ultimo == 4 && posizione == j)) {
                             signalbiggestfaster = robot.getSignal4Time()[j];
                             segnale = 4;
-                            trovato= true;
+                            trovato = true;
                             trovato4 = true;
                             pos4 = j;
                         }
@@ -96,7 +97,7 @@ public class dataAnalyzer {
                         if (!(robot.getSignal5()[j] == 1 && j == 0) && !(ultimo == 5 && posizione == j)) {
                             signalbiggestfaster = robot.getSignal5Time()[j];
                             segnale = 5;
-                            trovato= true;
+                            trovato = true;
                             trovato5 = true;
                             pos5 = j;
                         }
@@ -110,7 +111,7 @@ public class dataAnalyzer {
                         if (!(robot.getSignal6()[j] == 1 && j == 0) && !(ultimo == 6 && posizione == j)) {
                             signalbiggestfaster = robot.getSignal6Time()[j];
                             segnale = 6;
-                            trovato= true;
+                            trovato = true;
                             trovato6 = true;
                             pos6 = j;
                         }
@@ -124,7 +125,7 @@ public class dataAnalyzer {
                         if (!(robot.getSignal7()[j] == 1 && j == 0) && !(ultimo == 7 && posizione == j)) {
                             signalbiggestfaster = robot.getSignal7Time()[j];
                             segnale = 7;
-                            trovato= true;
+                            trovato = true;
                             trovato7 = true;
                             pos7 = j;
                         }
@@ -495,7 +496,6 @@ public class dataAnalyzer {
                     }
 
 
-
                 }
 
                 case 7: {
@@ -628,12 +628,12 @@ public class dataAnalyzer {
         for (int i = 0; i < 10; i++) {
             double IR = 0;
 
-            for (int j = jCount; j < sizeOne; j++ ) {
+            for (int j = jCount; j < sizeOne; j++) {
                 IR += clusterIneff.get(j).getInefficiencyRate();
                 jCount++;
             }
             sizeOne += 10;
-            list.add(IR/10);
+            list.add(IR / 10);
         }
         return list;
     }

@@ -1,9 +1,7 @@
 package view;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import controller.DBManager;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -27,8 +24,6 @@ import model.Robot;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import static view.startGUI.mainStage;
@@ -37,6 +32,8 @@ public class viewIRClusterRobot extends Application {
 
     public static int roboSize;
     public static int startID;
+    public static ArrayList<Robot> roboTemp;
+    public static ArrayList<Robot> newRobo;
 
     // Get the list of robots
     public static ArrayList<Robot> getRobotList() {
@@ -53,9 +50,6 @@ public class viewIRClusterRobot extends Application {
         return roboTemp;
     }
 
-    public static ArrayList<Robot> roboTemp;
-    public static ArrayList<Robot> newRobo;
-
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException, InterruptedException {
         primaryStage.setTitle("Industrial Robot Dashboard");
@@ -63,8 +57,8 @@ public class viewIRClusterRobot extends Application {
         try {
             roboTemp = getRobotList();
         } catch (Exception e) {
-            System.out.println("DB is updating...retrying in 10 seconds");
-            TimeUnit.SECONDS.sleep(10);
+            System.out.println("DB is updating...retrying in 15 seconds");
+            TimeUnit.SECONDS.sleep(15);
         }
 
         FlowPane pane = new FlowPane();
@@ -107,13 +101,13 @@ public class viewIRClusterRobot extends Application {
         btn.getStyleClass().add("back_btn");
 
 
-        //refresh button
+        // Refresh button
         Button refresh= new Button("Refresh");
         refresh.setFocusTraversable(false);
         refresh.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         refresh.getStyleClass().add("refresh_btn");
 
-        // title and menu
+        // Title and menu
         root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3))));
 
         // Get the list of clusters
@@ -132,8 +126,8 @@ public class viewIRClusterRobot extends Application {
             int clusterIn = (int)clusterIneff.get(i-1).getInefficiencyRate();
             counter++;
 
-            // If the IR by cluster is > 30 we display the red light
-            if (clusterIn > 8) {
+            // If the IR by cluster is > 20 we display the red light
+            if (clusterIn > 20) {
 
                 // Red panel
                 // Red light img
@@ -252,12 +246,10 @@ public class viewIRClusterRobot extends Application {
             }
         }
 
-
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
         primaryStage.show();
-
 
         btn.setOnAction((ActionEvent event) -> {
 
@@ -275,7 +267,6 @@ public class viewIRClusterRobot extends Application {
             stage.setScene(new Scene(root1));
             mainStage.close();
             stage.show();
-
         });
     }
 }

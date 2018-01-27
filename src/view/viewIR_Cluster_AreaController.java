@@ -13,8 +13,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.InefficiencyRate;
+import model.InefficiencyRateByCluster;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static view.startGUI.mainStage;
@@ -75,11 +79,18 @@ public class viewIR_Cluster_AreaController extends Application {
 
         // Get the list of clusters
         List<Integer> tempList = simulation.inputSimulation.getDataFromList();
-        int nClusters = 100;
+
+        ArrayList<InefficiencyRate> allThings = controller.dataAnalyzer.inefficiencyRateAllRobot(
+                viewIRClusterRobot.roboTemp);
+
+        ArrayList<InefficiencyRateByCluster> listaX = controller.dataAnalyzer.inefficiencyRateByCluster(allThings);
+
+        ArrayList<Double> listaY = controller.dataAnalyzer.calculateIRByArea(listaX);
+        int areaCount = 0;
 
         // Divide clusters by area
         for (int j = 0; j < tempList.size() / 10; j++) {
-
+            areaCount++;
             // Green panel
             // Green ligth img
             Label id = new Label("");
@@ -89,14 +100,13 @@ public class viewIR_Cluster_AreaController extends Application {
             id.getStyleClass().add("style7");
 
 
-            Label ir = new Label("Area ID: " + j + 1);
+            Label ir = new Label("Area ID: " + areaCount);
             ir.setPrefSize(150, 25);
             ir.setAlignment(Pos.CENTER);
             ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
             ir.getStyleClass().add("style6");
 
-
-            Label irr = new Label("IR: ");
+            Label irr = new Label("IR: " + new DecimalFormat("##.##").format(listaY.get(j)) + "%");
             irr.setPrefSize(150, 25);
             irr.setAlignment(Pos.CENTER);
             irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());

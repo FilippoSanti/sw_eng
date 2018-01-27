@@ -23,8 +23,7 @@ public class authController {
 
     public void GoToDashboard_btn() throws IOException {
 
-        if (DBManager.Authentication(text.getText(), psw.getText()))
-        {
+        if (DBManager.Authentication(text.getText(), psw.getText())) {
             // Change page
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/select_ir.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();

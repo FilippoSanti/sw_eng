@@ -15,21 +15,20 @@ public class InefficiencyRate {
         return cluster;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public double getInefficiencyRate() {
-        return inefficiencyRate;
-    }
-
-
     public void setCluster(int cluster) {
         this.cluster = cluster;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setId(int id) {
         this.id = id;
+    }
+
+    public double getInefficiencyRate() {
+        return inefficiencyRate;
     }
 
     public void setInefficiencyRate(long inefficiencyRate) {

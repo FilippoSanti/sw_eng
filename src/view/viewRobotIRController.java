@@ -11,14 +11,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import view.view_model.Robot;
-import view.viewIR_Cluster_AreaController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 import static view.startGUI.mainStage;
-import static view.viewIRClusterRobot.newRobo;
 import static view.viewIRClusterRobot.roboTemp;
 
 public class viewRobotIRController implements Initializable {
@@ -27,7 +26,7 @@ public class viewRobotIRController implements Initializable {
     @FXML
     private Label generalIR;
 
-   @FXML
+    @FXML
     private Label label;
 
     @FXML
@@ -45,10 +44,13 @@ public class viewRobotIRController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        label.setText("Display State of Sensors - Robot: " +viewIR_RobotController.robotFakeID);
-        idRob.setText("Robot ID: "+viewIR_RobotController.robotRealID);
-        appCl.setText("Appartenance Cluster ID: " +roboTemp.get(viewIR_RobotController.robotRealID-1).getCluster());
-        generalIR.setText("General robot IR => ");
+        label.setText("Display State of Sensors - Robot: " + viewIR_RobotController.robotFakeID);
+        idRob.setText("Robot ID: " + viewIR_RobotController.robotRealID);
+        appCl.setText("Appartenance Cluster ID: " + roboTemp.get(viewIR_RobotController.robotRealID - 1).getCluster());
+
+        double robotVal = viewIR_RobotController.robotIR;
+
+        generalIR.setText("Specific robot IR => " + new DecimalFormat("##.##").format(robotVal));
 
         //TODO
         TableColumn sensors = new TableColumn("Sensors");
@@ -64,39 +66,39 @@ public class viewRobotIRController implements Initializable {
         int roboID = viewIR_RobotController.robotRealID;
         --roboID;
 
-        System.out.println("Robot id: "+roboID);
+        System.out.println("Robot id: " + roboID);
 
-        int len = roboTemp.get(roboID).getSignal1().length-1;
+        int len = roboTemp.get(roboID).getSignal1().length - 1;
         if (roboTemp.get(roboID).getSignal1()[len] == 0) {
             s1 = "DOWN";
         } else s1 = "UP";
 
-        len = roboTemp.get(roboID).getSignal2().length-1;
+        len = roboTemp.get(roboID).getSignal2().length - 1;
         if (roboTemp.get(roboID).getSignal2()[len] == 0) {
             s2 = "DOWN";
         } else s2 = "UP";
 
-        len = roboTemp.get(roboID).getSignal3().length-1;
+        len = roboTemp.get(roboID).getSignal3().length - 1;
         if (roboTemp.get(roboID).getSignal3()[len] == 0) {
             s3 = "DOWN";
         } else s3 = "UP";
 
-        len = roboTemp.get(roboID).getSignal4().length-1;
+        len = roboTemp.get(roboID).getSignal4().length - 1;
         if (roboTemp.get(roboID).getSignal4()[len] == 0) {
             s4 = "DOWN";
         } else s4 = "UP";
 
-        len = roboTemp.get(roboID).getSignal5().length-1;
+        len = roboTemp.get(roboID).getSignal5().length - 1;
         if (roboTemp.get(roboID).getSignal5()[len] == 0) {
             s5 = "DOWN";
         } else s5 = "UP";
 
-        len = roboTemp.get(roboID).getSignal6().length-1;
+        len = roboTemp.get(roboID).getSignal6().length - 1;
         if (roboTemp.get(roboID).getSignal6()[len] == 0) {
             s6 = "DOWN";
         } else s6 = "UP";
 
-        len = roboTemp.get(roboID).getSignal7().length-1;
+        len = roboTemp.get(roboID).getSignal7().length - 1;
         if (roboTemp.get(roboID).getSignal7()[len] == 0) {
             s7 = "DOWN";
         } else s7 = "UP";
@@ -125,11 +127,9 @@ public class viewRobotIRController implements Initializable {
         myTable.setItems(data);
     }
 
-
     public void goBack(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
 
         btn.getScene().getWindow().hide();
         new viewIR_RobotController().start(mainStage);
-
     }
 }
