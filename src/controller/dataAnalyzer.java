@@ -625,8 +625,8 @@ public class dataAnalyzer {
         int jCount = 0;
         int sizeOne = 10;
 
-        for (int i = 1; i <= clusterIneff.size(); i++) {
-            int IR = 0;
+        for (int i = 0; i < 10; i++) {
+            double IR = 0;
 
             for (int j = jCount; j < sizeOne; j++ ) {
                 IR += clusterIneff.get(j).getInefficiencyRate();

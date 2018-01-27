@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
         ArrayList<Robot> oldList = DBManager.getDataFromDB(DBManager.dbConnect());
-        Robot robot1 = oldList.get(87820);
+        Robot robot1 = oldList.get(0);
 
 
         ArrayList<InefficiencyRate> allThings = controller.dataAnalyzer.inefficiencyRateAllRobot(oldList);
