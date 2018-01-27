@@ -15,18 +15,22 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.InefficiencyRate;
 import model.InefficiencyRateByCluster;
+import model.Robot;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static view.startGUI.mainStage;
 
 public class viewIR_Cluster_AreaController extends Application {
 
+    public static ArrayList<Robot> roboTemp;
+
     @Override
-    public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
+    public void start(Stage primaryStage) throws IOException, ClassNotFoundException, InterruptedException {
         primaryStage.setTitle("Industrial Robot Dashboard");
 
         FlowPane pane = new FlowPane();
@@ -77,15 +81,22 @@ public class viewIR_Cluster_AreaController extends Application {
         // Title and menu
         root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3))));
 
+        // Get the list of robots from DB
+        try {
+            roboTemp = viewIRClusterRobot.getRobotList();
+        } catch (Exception e) {
+            System.out.println("DB is updating...retrying in 15 seconds");
+            TimeUnit.SECONDS.sleep(15);
+        }
+
         // Get the list of clusters
         List<Integer> tempList = simulation.inputSimulation.getDataFromList();
 
-        ArrayList<InefficiencyRate> allThings = controller.dataAnalyzer.inefficiencyRateAllRobot(
-                viewIRClusterRobot.roboTemp);
-
+        // Calculate IR
+        ArrayList<InefficiencyRate> allThings = controller.dataAnalyzer.inefficiencyRateAllRobot(roboTemp);
         ArrayList<InefficiencyRateByCluster> listaX = controller.dataAnalyzer.inefficiencyRateByCluster(allThings);
-
         ArrayList<Double> listaY = controller.dataAnalyzer.calculateIRByArea(listaX);
+
         int areaCount = 0;
 
         // Divide clusters by area

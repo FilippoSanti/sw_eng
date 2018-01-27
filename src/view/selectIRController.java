@@ -23,7 +23,7 @@ public class selectIRController {
     }
 
     //View ir by area - cluster
-    public void IRbyArea_btn() throws IOException, ClassNotFoundException {
+    public void IRbyArea_btn() throws IOException, ClassNotFoundException, InterruptedException {
         irButton.getScene().getWindow().hide();
         new viewIR_Cluster_AreaController().start(mainStage);
     }
