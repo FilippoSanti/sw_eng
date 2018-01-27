@@ -80,14 +80,8 @@ public class viewIR_RobotController extends Application {
         btn.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         btn.getStyleClass().add("back_btn");
 
-        //refresh button
-        Button refresh= new Button("Refresh");
-        refresh.setFocusTraversable(false);
-        refresh.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-        refresh.getStyleClass().add("refresh_btn");
-
         // Title and menu
-        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3))));
+        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, spacer3))));
 
         // Display ID & IR
         int tempIndex = viewIRClusterRobot.roboSize;

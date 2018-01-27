@@ -144,5 +144,19 @@ public class viewIR_Cluster_AreaController extends Application {
             mainStage.show();
 
         });
+
+        refresh.setOnAction((ActionEvent event) -> {
+            // Go back to the start page
+            primaryStage.close();
+            try {
+                new viewIR_Cluster_AreaController().start(mainStage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

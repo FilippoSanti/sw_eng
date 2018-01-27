@@ -265,5 +265,19 @@ public class viewIRClusterRobot extends Application {
             mainStage.close();
             stage.show();
         });
+
+        refresh.setOnAction((ActionEvent event) -> {
+            // Go back to the start page
+            primaryStage.close();
+            try {
+                new viewIRClusterRobot().start(mainStage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
