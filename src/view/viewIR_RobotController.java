@@ -129,53 +129,101 @@ public class viewIR_RobotController extends Application {
         int roboCounter = 0;
 
         for (int i = 0; i < listaTemp.size() ; i++) {
-
             roboCounter++;
+            int robotIneff = (int)allThings.get(i).getInefficiencyRate();
 
-            // Green panel
-            // Green robot img
-            Label id = new Label("");
-            id.setPrefSize(150, 150);
-            id.setAlignment(Pos.CENTER);
-            id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            id.getStyleClass().add("style3");
-            id.setCursor(Cursor.HAND);
+            // If the IR of a robot is > 40 we show the red light
+            if (robotIneff > 2) {
 
-            int finalI = i;
-            int finalRoboCounter = roboCounter;
-            int finalI1 = i;
-            id.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
+                // Red panel
+                // Red robot img
+                Label id1 = new Label("");
+                id1.setPrefSize(150, 150);
+                id1.setAlignment(Pos.CENTER);
+                id1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                id1.getStyleClass().add("style5");
+                id1.setCursor(Cursor.HAND);
+                int finalI = i;
+                int finalRoboCounter = roboCounter;
 
-                    robotRealID = listaTemp.get(finalI).getId();
-                    robotFakeID = finalRoboCounter;
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                id1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+
+                        robotRealID = listaTemp.get(finalI).getId();
+                        robotFakeID = finalRoboCounter;
+                        Parent root = null;
+                        try {
+                            root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        mainStage.setScene(new Scene(root, 1000, 650));
+                        mainStage.show();
                     }
-                    mainStage.setScene(new Scene(root, 1000, 650));
-                    mainStage.show();
-                }
-            });
+                });
 
-            Label ir = new Label("Robot ID: "+roboCounter);
-            ir.setPrefSize(150, 25);
-            ir.setAlignment(Pos.CENTER);
-            ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            ir.getStyleClass().add("style6");
+                //id label
+                Label ir1 = new Label("Robot ID: "+roboCounter);
+                ir1.setPrefSize(150, 25);
+                ir1.setAlignment(Pos.CENTER);
+                ir1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                ir1.getStyleClass().add("style6");
 
-            Label irr = new Label("IR: "+(int)allThings.get(i).getInefficiencyRate() +"%");
-            irr.setPrefSize(150, 25);
-            irr.setAlignment(Pos.CENTER);
-            irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            irr.getStyleClass().add("style6");
+                //ir label
+                Label ir2 = new Label("IR: " +robotIneff +"%");
+                ir2.setPrefSize(150, 25);
+                ir2.setAlignment(Pos.CENTER);
+                ir2.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                ir2.getStyleClass().add("style6");
+                pane.getChildren().add(new VBox(id1, ir1, ir2));
 
-            // stampa sulla finestra
-            pane.getChildren().add(new VBox(id, ir, irr));
+            } else {
 
+                // Green panel
+                // Green robot img
+                Label id = new Label("");
+                id.setPrefSize(150, 150);
+                id.setAlignment(Pos.CENTER);
+                id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                id.getStyleClass().add("style3");
+                id.setCursor(Cursor.HAND);
+
+                int finalI = i;
+                int finalRoboCounter = roboCounter;
+
+                id.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+
+                        robotRealID = listaTemp.get(finalI).getId();
+                        robotFakeID = finalRoboCounter;
+                        Parent root = null;
+                        try {
+                            root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        mainStage.setScene(new Scene(root, 1000, 650));
+                        mainStage.show();
+                    }
+                });
+
+                Label ir = new Label("Robot ID: "+roboCounter);
+                ir.setPrefSize(150, 25);
+                ir.setAlignment(Pos.CENTER);
+                ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                ir.getStyleClass().add("style6");
+
+                Label irr = new Label("IR: "+(int)allThings.get(i).getInefficiencyRate() +"%");
+                irr.setPrefSize(150, 25);
+                irr.setAlignment(Pos.CENTER);
+                irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                irr.getStyleClass().add("style6");
+
+                // stampa sulla finestra
+                pane.getChildren().add(new VBox(id, ir, irr));
+            }
         }
 
         Scene scene = new Scene(root);

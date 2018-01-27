@@ -161,85 +161,129 @@ public class viewIRClusterRobot extends Application {
 
         // Display ID & IR
         for (int i = 1; i <= tempList.size(); i++) {
+
+            // Get the IR of a single cluster
+            int clusterIn = (int)clusterIneff.get(i-1).getInefficiencyRate();
             counter++;
 
-            // Gren panel
-            Label id = new Label("");
-            id.setPrefSize(150, 150);
-            id.setAlignment(Pos.CENTER);
-            id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            id.getStyleClass().add("style7");
-            id.setCursor(Cursor.HAND);
-            int finalI = i-1;
-            int temp = i;
+            // If the IR by cluster is > 30 we display the red light
+            if (clusterIn > 8) {
 
-            id.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
-                    newRobo = controller.dataAnalyzer.splitListIntoClusters(roboTemp, temp);
-                    roboSize = tempList.get(finalI);
-                    System.out.println(roboSize);
-                    mainStage.close();
-                    try {
-                        new viewIR_RobotController().start(mainStage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
+                // Red panel
+                // Red light img
+                Label id1 = new Label("");
+                id1.setPrefSize(150, 150);
+                id1.setAlignment(Pos.CENTER);
+                id1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                id1.getStyleClass().add("style8");
+                id1.setCursor(Cursor.HAND);
+                int temp = i;
+                id1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        newRobo = controller.dataAnalyzer.splitListIntoClusters(roboTemp, temp);
+                        mainStage.close();
+                        try {
+                            new viewIR_RobotController().start(mainStage);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
                     }
+                });
 
-                }
-            });
+                //id label
+                Label ir1 = new Label("Cluster ID: "+counter);
+                ir1.setPrefSize(150, 25);
+                ir1.setAlignment(Pos.CENTER);
+                ir1.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                ir1.getStyleClass().add("style6");
 
-            Label ir = new Label("Cluster ID: " + counter);
-            ir.setPrefSize(150, 25);
-            ir.setAlignment(Pos.CENTER);
-            ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            ir.getStyleClass().add("style6");
-            ir.setCursor(Cursor.HAND);
-            ir.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
+                //ir label
+                Label ir2 = new Label("IR: " +clusterIn +"%");
+                ir2.setPrefSize(150, 25);
+                ir2.setAlignment(Pos.CENTER);
+                ir2.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                ir2.getStyleClass().add("style6");
 
-                    roboSize = tempList.get(finalI);
-                    System.out.println(roboSize);
-                    mainStage.close();
-                    try {
-                        new viewIR_RobotController().start(mainStage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
+                pane.getChildren().add(new VBox(id1, ir1, ir2));
+
+            } else {
+
+                // Show the green panel
+                Label id = new Label("");
+                id.setPrefSize(150, 150);
+                id.setAlignment(Pos.CENTER);
+                id.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                id.getStyleClass().add("style7");
+                id.setCursor(Cursor.HAND);
+                int finalI = i-1;
+                int temp = i;
+
+                id.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        newRobo = controller.dataAnalyzer.splitListIntoClusters(roboTemp, temp);
+                        mainStage.close();
+                        try {
+                            new viewIR_RobotController().start(mainStage);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
                     }
-                }
-            });
+                });
 
-            Label irr = new Label("IR: " +(int)clusterIneff.get(i-1).getInefficiencyRate() +"%");
-            irr.setPrefSize(150, 25);
-            irr.setAlignment(Pos.CENTER);
-            irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-            irr.getStyleClass().add("style6");
-            irr.setCursor(Cursor.HAND);
-            irr.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
-
-                    roboSize = tempList.get(finalI);
-                    System.out.println(roboSize);
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                Label ir = new Label("Cluster ID: " + counter);
+                ir.setPrefSize(150, 25);
+                ir.setAlignment(Pos.CENTER);
+                ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                ir.getStyleClass().add("style6");
+                ir.setCursor(Cursor.HAND);
+                ir.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
+                        mainStage.close();
+                        try {
+                            new viewIR_RobotController().start(mainStage);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    mainStage.setScene(new Scene(root, 1000, 650));
-                    mainStage.show();
-                }
-            });
+                });
 
-            // Add the panel to window
-            pane.getChildren().add(new VBox(id, ir, irr));
+                Label irr = new Label("IR: " +clusterIn +"%");
+                irr.setPrefSize(150, 25);
+                irr.setAlignment(Pos.CENTER);
+                irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
+                irr.getStyleClass().add("style6");
+                irr.setCursor(Cursor.HAND);
+                irr.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent t) {
 
+                        roboSize = tempList.get(finalI);
+                        System.out.println(roboSize);
+                        Parent root = null;
+                        try {
+                            root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        mainStage.setScene(new Scene(root, 1000, 650));
+                        mainStage.show();
+                    }
+                });
+
+                // Add the panel to window
+                pane.getChildren().add(new VBox(id, ir, irr));
+            }
         }
 
 
