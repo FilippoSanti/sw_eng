@@ -21,11 +21,9 @@ public class authController {
     private PasswordField psw;
     private Stage myStage;
 
-
     public void GoToDashboard_btn() throws IOException {
 
         if (DBManager.Authentication(text.getText(), psw.getText()))
-
         {
             // Change page
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/select_ir.fxml"));
@@ -43,7 +41,6 @@ public class authController {
             alert.setContentText("Try with a different user code or/and password");
 
             alert.showAndWait();
-
         }
     }
 }

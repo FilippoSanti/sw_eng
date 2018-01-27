@@ -1,6 +1,7 @@
 package view;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +18,16 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.InefficiencyRate;
+import model.InefficiencyRateByCluster;
 import model.Robot;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static view.startGUI.mainStage;
-
 
 public class viewIR_RobotController extends Application {
 
@@ -31,7 +35,7 @@ public class viewIR_RobotController extends Application {
     public static int robotRealID;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
 
         primaryStage.setTitle("Industrial Robot Dashboard");
 
@@ -101,7 +105,6 @@ public class viewIR_RobotController extends Application {
         choiceBox.getItems().add("95%");
         choiceBox.setValue("40%");
 
-
         // Back button
         Button btn = new Button("Back");
         btn.setFocusTraversable(false);
@@ -114,14 +117,15 @@ public class viewIR_RobotController extends Application {
         refresh.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
         refresh.getStyleClass().add("refresh_btn");
 
-        // title and menu
+        // Title and menu
         root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3, Lbl, choiceBox))));
 
-
         // Display ID & IR
-        int tempIndex = viewIR_Cluster_AreaController.roboSize;
+        int tempIndex = viewIRClusterRobot.roboSize;
+        ArrayList<Robot> listaTemp = viewIRClusterRobot.newRobo;
 
-        ArrayList<Robot> listaTemp = viewIR_Cluster_AreaController.newRobo;
+        ArrayList<InefficiencyRate> allThings = controller.dataAnalyzer.inefficiencyRateAllRobot(listaTemp);
+
         int roboCounter = 0;
 
         for (int i = 0; i < listaTemp.size() ; i++) {
@@ -162,51 +166,19 @@ public class viewIR_RobotController extends Application {
             ir.setAlignment(Pos.CENTER);
             ir.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
             ir.getStyleClass().add("style6");
-            ir.setCursor(Cursor.HAND);
-            ir.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
 
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mainStage.setScene(new Scene(root, 1000, 650));
-                    mainStage.show();
-                }
-            });
-
-            Label irr = new Label("IR:  25%");
+            Label irr = new Label("IR: "+(int)allThings.get(i).getInefficiencyRate() +"%");
             irr.setPrefSize(150, 25);
             irr.setAlignment(Pos.CENTER);
             irr.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
             irr.getStyleClass().add("style6");
-            irr.setCursor(Cursor.HAND);
-            irr.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent t) {
-
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("fxml/viewRobotIR.fxml"));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mainStage.setScene(new Scene(root, 1000, 650));
-                    mainStage.show();
-                }
-            });
 
             // stampa sulla finestra
             pane.getChildren().add(new VBox(id, ir, irr));
 
         }
 
-
         Scene scene = new Scene(root);
-
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -214,16 +186,16 @@ public class viewIR_RobotController extends Application {
 
             // Go back to the start page
             primaryStage.close();
-            Parent root1 = null;
             try {
-                new viewIR_Cluster_AreaController().start(primaryStage);
+                new viewIRClusterRobot().start(primaryStage);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
         });
-
     }
 }

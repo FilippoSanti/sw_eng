@@ -271,7 +271,6 @@ public class inputSimulation {
             dateList.add(tempDateArray);
         }
 
-
         return new Signals(intList, dateList);
     }
 

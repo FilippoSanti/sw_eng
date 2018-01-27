@@ -16,11 +16,10 @@ public class selectIRController {
     private Stage myStage;
 
     // View ir by cluster - robot
-    public void IRbyRobot_btn() throws IOException, ClassNotFoundException {
+    public void IRbyRobot_btn() throws IOException, ClassNotFoundException, InterruptedException {
         // Change page
         irButton.getScene().getWindow().hide();
-        new viewIR_Cluster_AreaController().start(mainStage);
-
+        new viewIRClusterRobot().start(mainStage);
     }
 
     //View ir by area - cluster
