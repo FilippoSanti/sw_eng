@@ -573,7 +573,6 @@ public class dataAnalyzer {
         double downtime = CalculateDownTime(robot, 60, 0, 0, 0);
         double iR = (downtime * 100.00) / 60.00;
         InefficiencyRate temp = new InefficiencyRate(robot.getId(), robot.getCluster(), iR);
-        System.out.println("robot: " + temp.getId() + "cluster: " + temp.getCluster() + "ir   " + temp.getInefficiencyRate());
         return temp;
     }
 
@@ -620,6 +619,24 @@ public class dataAnalyzer {
         return tempList;
     }
 
+    public static ArrayList<Double> calculateIRByArea(ArrayList<InefficiencyRateByCluster> clusterIneff) throws IOException, ClassNotFoundException {
+
+        ArrayList list = new ArrayList<Double>();
+        int jCount = 0;
+        int sizeOne = 10;
+
+        for (int i = 1; i <= clusterIneff.size(); i++) {
+            int IR = 0;
+
+            for (int j = jCount; j < sizeOne; j++ ) {
+                IR += clusterIneff.get(j).getInefficiencyRate();
+                jCount++;
+            }
+            sizeOne += 10;
+            list.add(IR/10);
+        }
+        return list;
+    }
 }
 
 

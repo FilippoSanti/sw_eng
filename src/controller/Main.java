@@ -1,6 +1,9 @@
 package controller;
 
+import model.InefficiencyRate;
+import model.InefficiencyRateByCluster;
 import model.Robot;
+import view.viewIRClusterRobot;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,9 +14,15 @@ public class Main {
         ArrayList<Robot> oldList = DBManager.getDataFromDB(DBManager.dbConnect());
         Robot robot1 = oldList.get(87820);
 
-        double minute = dataAnalyzer.inefficiencyRateOfARobot(robot1).getInefficiencyRate();
-        System.out.println(minute);
-          double prova = dataAnalyzer.inefficiencyRateByCluster(dataAnalyzer.inefficiencyRateAllRobot(oldList)).get(0).getInefficiencyRate();
-         System.out.println(prova);
+
+        ArrayList<InefficiencyRate> allThings = controller.dataAnalyzer.inefficiencyRateAllRobot(oldList);
+        ArrayList<InefficiencyRateByCluster> zsdas = controller.dataAnalyzer.inefficiencyRateByCluster(allThings);
+
+        ArrayList<Double> asdfsdf = controller.dataAnalyzer.calculateIRByArea(zsdas);
+
+        for (int i = 0; i < asdfsdf.size(); i++) {
+            System.out.println(asdfsdf.get(i));
+        }
+
     }
 }

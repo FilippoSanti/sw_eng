@@ -35,9 +35,6 @@ public class DBManager {
 
         ArrayList<Robot> oldList = DBManager.getDataFromDB(DBManager.dbConnect());
 
-        System.out.println(oldList.get(0).getSignal2().length);
-        System.out.println(newList.get(0).getSignal2().length);
-
         // Delete the collection to insert a new one
         MongoCollection myCollection = db.getCollection("robot");
 
@@ -87,8 +84,6 @@ public class DBManager {
                 tempArray[tempArray.length - 1] = newList.get(i).getSignal2()[0];
                 tempDate[tempDate.length - 1] = newList.get(i).getSignal2Time()[0];
 
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
-
                 oldList.get(i).setSignal2(tempArray);
                 oldList.get(i).setSignal2Time(tempDate);
 
@@ -113,8 +108,6 @@ public class DBManager {
 
                 tempArray[tempArray.length - 1] = newList.get(i).getSignal3()[0];
                 tempDate[tempDate.length - 1] = newList.get(i).getSignal3Time()[0];
-
-                System.out.println("I numeri da stampare sono " + tempArray[tempArray.length - 2] + ", " + tempArray[tempArray.length - 1]);
 
                 oldList.get(i).setSignal3(tempArray);
                 oldList.get(i).setSignal3Time(tempDate);
@@ -212,7 +205,6 @@ public class DBManager {
 
                 tempArray[tempArray.length - 1] = newList.get(i).getSignal7()[0];
                 tempDate[tempDate.length - 1] = newList.get(i).getSignal7Time()[0];
-
 
                 oldList.get(i).setSignal7(tempArray);
                 oldList.get(i).setSignal7Time(tempDate);
@@ -346,7 +338,6 @@ public class DBManager {
     public static void saveDataToDB(MongoDatabase database, ArrayList<Robot> robotList) throws IOException {
 
         MongoCollection<Document> collection = database.getCollection("robot");
-
         List<Document> documents = getSignalList(robotList);
 
         // Write the documents into the DB

@@ -63,7 +63,7 @@ public class viewIRClusterRobot extends Application {
         try {
             roboTemp = getRobotList();
         } catch (Exception e) {
-            System.out.println("The list is updating...waiting...");
+            System.out.println("DB is updating...retrying in 10 seconds");
             TimeUnit.SECONDS.sleep(10);
         }
 
@@ -100,40 +100,6 @@ public class viewIRClusterRobot extends Application {
         Region spacer4 = new Region();
         HBox.setHgrow(spacer4, Priority.SOMETIMES);
 
-        // Text near choicebox
-        Label Lbl = new Label("Select IR to display:");
-        Lbl.setFocusTraversable(false);
-        Lbl.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-        Lbl.getStyleClass().add("style1");
-
-
-        // Select here % of IR to display
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        choiceBox.setFocusTraversable(false);
-        choiceBox.getStylesheets().add(getClass().getResource("css/viewIRStyle.css").toExternalForm());
-        choiceBox.getStyleClass().add("choiceBox");
-        choiceBox.getItems().add("5%");
-        choiceBox.getItems().add("10%");
-        choiceBox.getItems().add("15%");
-        choiceBox.getItems().add("20%");
-        choiceBox.getItems().add("25%");
-        choiceBox.getItems().add("30%");
-        choiceBox.getItems().add("35%");
-        choiceBox.getItems().add("40%");
-        choiceBox.getItems().add("45%");
-        choiceBox.getItems().add("50%");
-        choiceBox.getItems().add("55%");
-        choiceBox.getItems().add("60%");
-        choiceBox.getItems().add("65%");
-        choiceBox.getItems().add("70%");
-        choiceBox.getItems().add("75%");
-        choiceBox.getItems().add("80%");
-        choiceBox.getItems().add("85%");
-        choiceBox.getItems().add("90%");
-        choiceBox.getItems().add("95%");
-        choiceBox.setValue("40%");
-
-
         // Back button
         Button btn = new Button("Back");
         btn.setFocusTraversable(false);
@@ -148,7 +114,7 @@ public class viewIRClusterRobot extends Application {
         refresh.getStyleClass().add("refresh_btn");
 
         // title and menu
-        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3, Lbl, choiceBox))));
+        root.setTop(new VBox(new HBox(spacer, title, spacer2), (new HBox(btn, spacer4, refresh, spacer3))));
 
         // Get the list of clusters
         List<Integer> tempList = simulation.inputSimulation.getDataFromList();
